@@ -1,12 +1,7 @@
 import { useEffect, FormEventHandler } from "react";
 import Checkbox from "@/Components/Checkbox";
-// import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from "@/Components/InputError";
-// import InputLabel from "@/Components/InputLabel";
-// import PrimaryButton from "@/Components/PrimaryButton";
-// import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-
 import MainLayout from "@/Layouts/MainLayout";
 import { Button } from "@/Components/ui/button";
 import {
@@ -49,8 +44,8 @@ export default function Login({
             <Head title="Login" />
 
             <Card className="mx-auto max-w-sm my-4">
-                <CardHeader>
-                    <CardTitle className="text-2xl">MTix</CardTitle>
+                <CardHeader className="text-center">
+                    <CardTitle className="text-xl">MTix</CardTitle>
                     <CardDescription>Mobile Ticketing</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -78,9 +73,12 @@ export default function Login({
                                 />
                                 <InputError message={errors.email} />
                             </div>
+
                             <div className="grid gap-2">
                                 <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label htmlFor="password">
+                                        PIN/Password
+                                    </Label>
                                     {canResetPassword && (
                                         <Link
                                             href={route("password.request")}
@@ -99,9 +97,12 @@ export default function Login({
                                     onChange={(e) =>
                                         setData("password", e.target.value)
                                     }
+                                    placeholder="PIN/Password"
+                                    maxLength={6}
                                 />
                                 <InputError message={errors.password} />
                             </div>
+
                             <div className="flex items-center space-x-2">
                                 <Checkbox
                                     id="terms"
@@ -118,6 +119,7 @@ export default function Login({
                                     Remember me
                                 </label>
                             </div>
+
                             <Button
                                 type="submit"
                                 className="w-full"
@@ -126,6 +128,7 @@ export default function Login({
                                 Login
                             </Button>
                         </div>
+
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}
                             <Link

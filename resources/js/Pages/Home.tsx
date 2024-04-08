@@ -7,7 +7,7 @@ export default function Home({ auth }: PageProps) {
         <>
             <Head title="Home" />
 
-            <MainLayout>
+            <MainLayout user={auth.user}>
                 <p>Home</p>
             </MainLayout>
         </>

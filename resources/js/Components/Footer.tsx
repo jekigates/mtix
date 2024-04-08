@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react";
 
 export default function Footer() {
     return (
-        <footer className="border-t bg-background p-4">
+        <footer className="border-t bg-background p-4 z-50">
             <div className="text-sm mb-2">
                 <Link
                     href="http://www.21cineplex.com/21profile"

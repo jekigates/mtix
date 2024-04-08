@@ -16,17 +16,20 @@ import {
     Clapperboard,
     Theater,
     Megaphone,
+    Gift,
+    Bell,
+    Gem,
+    History,
+    Layers,
 } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
-import { Input } from "@/Components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import { usePage } from "@inertiajs/react";
 
@@ -34,7 +37,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
     const { url, component } = usePage();
 
     return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
                     href={route("home")}
@@ -155,35 +158,121 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline">MTix</Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                            <Link
-                                href={route("login")}
-                                className="flex items-center"
-                            >
-                                <LogIn className="mr-2 h-4 w-4" />
-                                <span>Login</span>
-                            </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Link
-                                href={route("register")}
-                                className="flex items-center"
-                            >
-                                <UserRound className="mr-2 h-4 w-4" />
-                                <span>Registration</span>
-                            </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <CreditCard className="mr-2 h-4 w-4" />
-                            <span>Top Up M-Tix</span>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                {user ? (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline">My MTix</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem>
+                                <Link
+                                    href={route("profile.edit")}
+                                    className="flex items-center"
+                                >
+                                    <UserRound className="mr-2 h-4 w-4" />
+                                    <span>{user.name}</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="#">
+                                    <span>Balance : Rp 0</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuSeparator />
+
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <Gift className="mr-2 h-4 w-4" />
+                                    <span>My Voucher</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <Gem className="mr-2 h-4 w-4" />
+                                    <span>Partner Loyalty Rewards</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <Bell className="mr-2 h-4 w-4" />
+                                    <span>Inbox</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <CreditCard className="mr-2 h-4 w-4" />
+                                    <span>Top Up M-Tix</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <History className="mr-2 h-4 w-4" />
+                                    <span>Purchase History</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <Layers className="mr-2 h-4 w-4" />
+                                    <span>Top Up History</span>
+                                </Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuSeparator />
+
+                            <DropdownMenuItem>
+                                <Link
+                                    href={route("logout")}
+                                    className="flex items-center"
+                                    method="post"
+                                    as="button"
+                                    type="button"
+                                >
+                                    <LogIn className="mr-2 h-4 w-4" />
+                                    <span>Logout</span>
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                ) : (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline">MTix</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem>
+                                <Link
+                                    href={route("login")}
+                                    className="flex items-center"
+                                >
+                                    <LogIn className="mr-2 h-4 w-4" />
+                                    <span>Login</span>
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link
+                                    href={route("register")}
+                                    className="flex items-center"
+                                >
+                                    <UserRound className="mr-2 h-4 w-4" />
+                                    <span>Registration</span>
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link href="#" className="flex items-center">
+                                    <CreditCard className="mr-2 h-4 w-4" />
+                                    <span>Top Up M-Tix</span>
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                )}
             </div>
         </header>
     );
