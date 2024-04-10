@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -31,23 +32,31 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'phone_number' => 'required|string|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', 'min:6', 'max:6'],
-        ]);
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|lowercase|email|max:50|unique:' . User::class,
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone_number' => 'required|string|max:16|unique:' . User::class,
+            'address' => 'required|string|max:100',
+            'province' => 'required|string|max:50',
+            'gender' => ['required', Rule::in(['Male', 'Female'])],
+            'dob' => 'required|date|before:tomorrow',
+          ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->email,
             'password' => Hash::make($request->password),
+            'phone_number' => $request->email,
+            'address' => $request->address,
+            'province' => $request->province,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('home', absolute: false));
+        return redirect(route('dashboard', absolute: false));
     }
 }

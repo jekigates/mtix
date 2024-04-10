@@ -40,14 +40,14 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
-                    href={route("home")}
+                    href={route("dashboard")}
                     className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
                     <Package2 className="h-6 w-6" />
                     <span className="sr-only">AJMP Kalbar</span>
                 </Link>
                 <Link
-                    href={route("home")}
+                    href={route("dashboard")}
                     className={`flex items-center gap-2 transition-colors hover:text-foreground ${
                         url === "/"
                             ? "text-foreground"
@@ -99,7 +99,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                             <span className="sr-only">Acme Inc</span>
                         </Link>
                         <Link
-                            href={route("home")}
+                            href={route("dashboard")}
                             className="text-muted-foreground hover:text-foreground"
                         >
                             Now Playing
@@ -127,7 +127,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
             </Sheet>
             <div className="flex flex-1 items-center justify-end gap-4 md:gap-2 lg:gap-4">
                 <DropdownMenu>
-                    <DropdownMenuTrigger>
+                    <DropdownMenuTrigger asChild>
                         <Button variant="outline">About Us</Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -232,7 +232,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                                     className="flex items-center"
                                     method="post"
                                     as="button"
-                                    type="button"
+                                    // type="button"
                                 >
                                     <LogIn className="mr-2 h-4 w-4" />
                                     <span>Logout</span>

@@ -69,7 +69,7 @@ export default function Login({
                                     onChange={(e) =>
                                         setData("email", e.target.value)
                                     }
-                                    placeholder="m@example.com"
+                                    placeholder="Your valid email"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -98,7 +98,6 @@ export default function Login({
                                         setData("password", e.target.value)
                                     }
                                     placeholder="PIN/Password"
-                                    maxLength={6}
                                 />
                                 <InputError message={errors.password} />
                             </div>

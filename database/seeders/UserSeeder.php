@@ -19,8 +19,12 @@ class UserSeeder extends Seeder
             'name' => 'Jeki Gates',
             'email' => 'jekigates2004@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('12345678'),
             'phone_number' => '082351980595',
+            'address' => 'Jl. Kebon Jeruk No. 1',
+            'province' => 'DKI Jakarta',
+            'gender' => 'Male',
+            'dob' => '2004-17-07',
         ]);
     }
 }
