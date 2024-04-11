@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'phone_number' => '082351980595',
             'address' => 'Jl. Kebon Jeruk No. 1',
             'province' => 'DKI Jakarta',
+            'city' => 'Jakarta Barat',
             'gender' => 'Male',
             'dob' => '2004-17-07',
         ]);

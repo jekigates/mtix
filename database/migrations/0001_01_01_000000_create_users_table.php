@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone_number', length: 16)->unique();
             $table->text('address');
             $table->string('province', length: 50);
+            $table->string('city', length: 50);
             $table->enum('gender', ['Male', 'Female']);
             $table->date('dob');
             $table->rememberToken();

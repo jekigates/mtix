@@ -38,6 +38,7 @@ class RegisteredUserController extends Controller
             'phone_number' => 'required|string|max:16|unique:' . User::class,
             'address' => 'required|string|max:100',
             'province' => 'required|string|max:50',
+            'city' => 'required|string|max:50',
             'gender' => ['required', Rule::in(['Male', 'Female'])],
             'dob' => 'required|date|before:tomorrow',
           ]);
@@ -49,6 +50,7 @@ class RegisteredUserController extends Controller
             'phone_number' => $request->email,
             'address' => $request->address,
             'province' => $request->province,
+            'city' => $request->city,
             'gender' => $request->gender,
             'dob' => $request->dob,
         ]);

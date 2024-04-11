@@ -41,7 +41,6 @@ export default function Register() {
     const [day, setDay] = useState("");
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
-
     const [days, setDays] = useState(
         Array.from({ length: 31 }, (_, i) => i + 1)
     );
@@ -95,6 +94,33 @@ export default function Register() {
         }
     }, [day, month, year]);
 
+    // Default Forms
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        phone_number: "",
+        address: "",
+        province: "DKI Jakarta",
+        city: "Jakarta Barat",
+        gender: "Male",
+        dob: "",
+    });
+
+    useEffect(() => {
+        return () => {
+            reset("password", "password_confirmation");
+        };
+    }, []);
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+
+        post(route("register"));
+    };
+
+    // Provinces & Cities
     const provinces = [
         {
             name: "Jawa Barat",
@@ -237,32 +263,23 @@ export default function Register() {
         },
     ];
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const [cities, setCities] = useState(
+        provinces.find((province) => province.name === data.province)?.cities
+    );
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        phone_number: "",
-        address: "",
-        province: "DKI Jakarta",
-        gender: "Male",
-        dob: "",
-    });
+    const [openProvince, setOpenProvince] = useState(false);
+    const [openCity, setOpenCity] = useState(false);
 
     useEffect(() => {
-        return () => {
-            reset("password", "password_confirmation");
-        };
-    }, []);
+        let newCities = provinces.find(
+            (province) => province.name === data.province
+        )?.cities;
+        setCities(newCities);
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        post(route("register"));
-    };
+        if (newCities?.find((city) => city === data.city) === undefined) {
+            setData("city", "");
+        }
+    }, [data.province]);
 
     return (
         <MainLayout>
@@ -371,14 +388,18 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Province</Label>
-                                <Popover open={open} onOpenChange={setOpen}>
+                                <Label htmlFor="province">Province</Label>
+                                <Popover
+                                    open={openProvince}
+                                    onOpenChange={setOpenProvince}
+                                >
                                     <PopoverTrigger asChild>
                                         <Button
                                             variant="outline"
                                             role="combobox"
-                                            aria-expanded={open}
+                                            aria-expanded={openProvince}
                                             className="justify-between"
+                                            id="province"
                                         >
                                             {data.province
                                                 ? provinces.find(
@@ -414,11 +435,11 @@ export default function Register() {
                                                                     setData(
                                                                         "province",
                                                                         currentValue ===
-                                                                            value
+                                                                            data.province
                                                                             ? ""
                                                                             : currentValue
                                                                     );
-                                                                    setOpen(
+                                                                    setOpenProvince(
                                                                         false
                                                                     );
                                                                 }}
@@ -426,7 +447,7 @@ export default function Register() {
                                                                 <Check
                                                                     className={cn(
                                                                         "mr-2 h-4 w-4",
-                                                                        value ===
+                                                                        data.province ===
                                                                             province.name
                                                                             ? "opacity-100"
                                                                             : "opacity-0"
@@ -445,6 +466,82 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
+                                <Label htmlFor="city">City</Label>
+                                <Popover
+                                    open={openCity}
+                                    onOpenChange={setOpenCity}
+                                >
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            role="combobox"
+                                            aria-expanded={openCity}
+                                            className="justify-between"
+                                            id="city"
+                                        >
+                                            {provinces
+                                                .find(
+                                                    (province) =>
+                                                        province.name ===
+                                                        data.province
+                                                )
+                                                ?.cities.find(
+                                                    (city) => city === data.city
+                                                )
+                                                ? data.city
+                                                : "Select city..."}
+                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                        </Button>
+                                    </PopoverTrigger>
+
+                                    <PopoverContent className="p-0">
+                                        <Command>
+                                            <CommandInput placeholder="Search city..." />
+                                            <CommandList>
+                                                <CommandEmpty>
+                                                    No city found.
+                                                </CommandEmpty>
+                                                <CommandGroup>
+                                                    {cities?.map((city) => (
+                                                        <CommandItem
+                                                            key={city}
+                                                            value={city}
+                                                            onSelect={(
+                                                                currentValue
+                                                            ) => {
+                                                                setData(
+                                                                    "city",
+                                                                    currentValue ===
+                                                                        data.city
+                                                                        ? ""
+                                                                        : currentValue
+                                                                );
+                                                                setOpenCity(
+                                                                    false
+                                                                );
+                                                            }}
+                                                        >
+                                                            <Check
+                                                                className={cn(
+                                                                    "mr-2 h-4 w-4",
+                                                                    data.city ===
+                                                                        city
+                                                                        ? "opacity-100"
+                                                                        : "opacity-0"
+                                                                )}
+                                                            />
+                                                            {city}
+                                                        </CommandItem>
+                                                    ))}
+                                                </CommandGroup>
+                                            </CommandList>
+                                        </Command>
+                                    </PopoverContent>
+                                </Popover>
+                                <InputError message={errors.city} />
+                            </div>
+
+                            <div className="grid gap-2">
                                 <Label htmlFor="gender">Gender</Label>
                                 <Select
                                     onValueChange={(e) => {
@@ -452,7 +549,7 @@ export default function Register() {
                                     }}
                                     defaultValue={data.gender}
                                 >
-                                    <SelectTrigger>
+                                    <SelectTrigger id="gender">
                                         <SelectValue placeholder="Gender" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -468,7 +565,7 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="dob">Birth Date</Label>
+                                <Label>Birth Date</Label>
                                 <div className="grid grid-cols-3 gap-2">
                                     <Select onValueChange={setDay} value={day}>
                                         <SelectTrigger>
