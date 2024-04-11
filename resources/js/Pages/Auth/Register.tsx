@@ -12,14 +12,14 @@ import { Textarea } from "@/Components/ui/textarea";
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
     SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select";
-import { SelectGroup } from "@radix-ui/react-select";
 
-// combobox
+// Combobox
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -37,64 +37,6 @@ import {
 } from "@/Components/ui/popover";
 
 export default function Register() {
-    // Birth Date
-    const [day, setDay] = useState("");
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
-    const [days, setDays] = useState(
-        Array.from({ length: 31 }, (_, i) => i + 1)
-    );
-    const [months, setMonths] = useState(
-        Array.from({ length: 12 }, (_, i) =>
-            new Date(0, i).toLocaleString("default", { month: "long" })
-        )
-    );
-    const [years, setYears] = useState(
-        Array.from({ length: 2007 - 1924 + 1 }, (_, i) => 2007 - i)
-    );
-
-    useEffect(() => {
-        const today = new Date();
-        today.setFullYear(today.getFullYear() - 17);
-        let monthsInYear =
-            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12;
-
-        setMonths(
-            Array.from({ length: monthsInYear }, (_, i) =>
-                new Date(0, i).toLocaleString("default", { month: "long" })
-            )
-        );
-
-        if (parseInt(month) + 1 > monthsInYear) {
-            setMonth("");
-        }
-
-        if (month !== "") {
-            const daysInMonth = new Date(
-                year === "" ? 0 : parseInt(year),
-                parseInt(month) + 1,
-                0
-            ).getDate();
-
-            if (parseInt(day) > daysInMonth) {
-                setDay("");
-            }
-
-            setDays(Array.from({ length: daysInMonth }, (_, i) => i + 1));
-        }
-
-        setData("dob", "");
-        if (year !== "" && month !== "" && day !== "") {
-            setData(
-                "dob",
-                `${year}-${(parseInt(month) + 1)
-                    .toString()
-                    .padStart(2, "0")}-${day.padStart(2, "0")}`
-            );
-        }
-    }, [day, month, year]);
-
-    // Default Forms
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -281,6 +223,64 @@ export default function Register() {
         }
     }, [data.province]);
 
+    // Birth Date
+    const [day, setDay] = useState("");
+    const [month, setMonth] = useState("");
+    const [year, setYear] = useState("");
+    const [days, setDays] = useState(
+        Array.from({ length: 31 }, (_, i) => i + 1)
+    );
+    const [months, setMonths] = useState(
+        Array.from({ length: 12 }, (_, i) =>
+            new Date(0, i).toLocaleString("default", { month: "long" })
+        )
+    );
+    const [years, setYears] = useState(
+        Array.from({ length: 2007 - 1924 + 1 }, (_, i) => 2007 - i)
+    );
+
+    useEffect(() => {
+        const today = new Date();
+        today.setFullYear(today.getFullYear() - 17);
+        let monthsInYear =
+            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12;
+
+        setMonths(
+            Array.from({ length: monthsInYear }, (_, i) =>
+                new Date(0, i).toLocaleString("default", { month: "long" })
+            )
+        );
+
+        if (parseInt(month) + 1 > monthsInYear) {
+            setMonth("");
+        }
+
+        if (month !== "") {
+            const daysInMonth = new Date(
+                year === "" ? 0 : parseInt(year),
+                parseInt(month) + 1,
+                0
+            ).getDate();
+
+            if (parseInt(day) > daysInMonth) {
+                setDay("");
+            }
+
+            setDays(Array.from({ length: daysInMonth }, (_, i) => i + 1));
+        }
+
+        if (year !== "" && month !== "" && day !== "") {
+            setData(
+                "dob",
+                `${year}-${(parseInt(month) + 1)
+                    .toString()
+                    .padStart(2, "0")}-${day.padStart(2, "0")}`
+            );
+        } else {
+            setData("dob", "");
+        }
+    }, [day, month, year]);
+
     return (
         <MainLayout>
             <Head title="Register" />
@@ -320,10 +320,10 @@ export default function Register() {
                                 <Label htmlFor="phone_number">
                                     Phone Number
                                 </Label>
+
                                 <Input
                                     id="phone_number"
                                     type="number"
-                                    name="phone_number"
                                     value={data.phone_number}
                                     autoComplete="phone_number"
                                     autoFocus={true}
@@ -333,6 +333,7 @@ export default function Register() {
                                     placeholder="Phone Number"
                                     maxLength={16}
                                 />
+
                                 <InputError message={errors.phone_number} />
                             </div>
 
@@ -340,10 +341,10 @@ export default function Register() {
                                 <Label htmlFor="name">
                                     Full Name as per your ID
                                 </Label>
+
                                 <Input
                                     id="name"
                                     type="text"
-                                    name="name"
                                     value={data.name}
                                     autoComplete="name"
                                     onChange={(e) =>
@@ -351,15 +352,16 @@ export default function Register() {
                                     }
                                     placeholder="Your Name"
                                 />
+
                                 <InputError message={errors.name} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="email">Email</Label>
+
                                 <Input
                                     id="email"
                                     type="email"
-                                    name="email"
                                     value={data.email}
                                     autoComplete="username"
                                     onChange={(e) =>
@@ -367,6 +369,7 @@ export default function Register() {
                                     }
                                     placeholder="Your valid email"
                                 />
+
                                 <InputError message={errors.email} />
                             </div>
 
@@ -374,9 +377,9 @@ export default function Register() {
                                 <Label htmlFor="address">
                                     Address as per your ID
                                 </Label>
+
                                 <Textarea
                                     id="address"
-                                    name="address"
                                     value={data.address}
                                     autoComplete="address"
                                     onChange={(e) =>
@@ -384,11 +387,13 @@ export default function Register() {
                                     }
                                     placeholder="Correspondence address based on ID/KTP"
                                 />
+
                                 <InputError message={errors.address} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="province">Province</Label>
+
                                 <Popover
                                     open={openProvince}
                                     onOpenChange={setOpenProvince}
@@ -462,11 +467,13 @@ export default function Register() {
                                         </Command>
                                     </PopoverContent>
                                 </Popover>
+
                                 <InputError message={errors.province} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="city">City</Label>
+
                                 <Popover
                                     open={openCity}
                                     onOpenChange={setOpenCity}
@@ -538,11 +545,13 @@ export default function Register() {
                                         </Command>
                                     </PopoverContent>
                                 </Popover>
+
                                 <InputError message={errors.city} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="gender">Gender</Label>
+
                                 <Select
                                     onValueChange={(e) => {
                                         setData("gender", e);
@@ -561,11 +570,13 @@ export default function Register() {
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
+
                                 <InputError message={errors.gender} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label>Birth Date</Label>
+
                                 <div className="grid grid-cols-3 gap-2">
                                     <Select onValueChange={setDay} value={day}>
                                         <SelectTrigger>
@@ -630,15 +641,16 @@ export default function Register() {
                                         </SelectContent>
                                     </Select>
                                 </div>
+
                                 <InputError message={errors.dob} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="password">PIN/Password</Label>
+
                                 <Input
                                     id="password"
                                     type="password"
-                                    name="password"
                                     value={data.password}
                                     autoComplete="current-password"
                                     onChange={(e) =>
@@ -646,6 +658,7 @@ export default function Register() {
                                     }
                                     placeholder="6 digits Number"
                                 />
+
                                 <InputError message={errors.password} />
                             </div>
 
@@ -653,10 +666,10 @@ export default function Register() {
                                 <Label htmlFor="password_confirmation">
                                     Re-type PIN/Password
                                 </Label>
+
                                 <Input
                                     id="password_confirmation"
                                     type="password"
-                                    name="password_confirmation"
                                     value={data.password_confirmation}
                                     autoComplete="new-password"
                                     onChange={(e) =>
@@ -667,6 +680,7 @@ export default function Register() {
                                     }
                                     placeholder="6 digits Number"
                                 />
+
                                 <InputError
                                     message={errors.password_confirmation}
                                 />

@@ -40,13 +40,13 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if ((e.metaKey || e.ctrlKey) && user) {
-                e.preventDefault();
-
                 switch (e.key) {
                     case "p":
+                        e.preventDefault();
                         router.visit(route("profile.edit"));
                         break;
                     case "q":
+                        e.preventDefault();
                         router.post(route("logout"));
                         break;
                 }

@@ -59,10 +59,10 @@ export default function Login({
                         <div className="grid gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="email">Email</Label>
+
                                 <Input
                                     id="email"
                                     type="email"
-                                    name="email"
                                     value={data.email}
                                     autoComplete="username"
                                     autoFocus={true}
@@ -71,6 +71,7 @@ export default function Login({
                                     }
                                     placeholder="Your valid email"
                                 />
+
                                 <InputError message={errors.email} />
                             </div>
 
@@ -79,6 +80,7 @@ export default function Login({
                                     <Label htmlFor="password">
                                         PIN/Password
                                     </Label>
+
                                     {canResetPassword && (
                                         <Link
                                             href={route("password.request")}
@@ -88,10 +90,10 @@ export default function Login({
                                         </Link>
                                     )}
                                 </div>
+
                                 <Input
                                     id="password"
                                     type="password"
-                                    name="password"
                                     value={data.password}
                                     autoComplete="current-password"
                                     onChange={(e) =>
@@ -99,18 +101,19 @@ export default function Login({
                                     }
                                     placeholder="PIN/Password"
                                 />
+
                                 <InputError message={errors.password} />
                             </div>
 
                             <div className="flex items-center space-x-2">
                                 <Checkbox
                                     id="terms"
-                                    name="remember"
                                     checked={data.remember}
                                     onChange={(e) =>
                                         setData("remember", e.target.checked)
                                     }
                                 />
+
                                 <label
                                     htmlFor="terms"
                                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
