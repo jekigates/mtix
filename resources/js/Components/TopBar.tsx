@@ -1,5 +1,5 @@
-import { Link } from "@inertiajs/react";
-import { PropsWithChildren } from "react";
+import { Link, router } from "@inertiajs/react";
+import { PropsWithChildren, useEffect } from "react";
 import { User } from "@/types";
 import {
     LogIn,
@@ -28,6 +28,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
+    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
@@ -35,6 +36,25 @@ import { usePage } from "@inertiajs/react";
 
 export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
     const { url, component } = usePage();
+
+    useEffect(() => {
+        const down = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && user) {
+                e.preventDefault();
+
+                switch (e.key) {
+                    case "p":
+                        router.visit(route("profile.edit"));
+                        break;
+                    case "q":
+                        router.post(route("logout"));
+                        break;
+                }
+            }
+        };
+        document.addEventListener("keydown", down);
+        return () => document.removeEventListener("keydown", down);
+    }, []);
 
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
@@ -130,7 +150,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">About Us</Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent align="end">
                         <DropdownMenuItem>
                             <Info className="mr-2 h-4 w-4" />
                             <span>Info 21</span>
@@ -163,7 +183,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline">My MTix</Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" className="w-60">
                             <DropdownMenuItem>
                                 <Link
                                     href={route("profile.edit")}
@@ -172,6 +192,7 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                                     <UserRound className="mr-2 h-4 w-4" />
                                     <span>{user.name}</span>
                                 </Link>
+                                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                             </DropdownMenuItem>
 
                             <DropdownMenuItem>
@@ -232,11 +253,12 @@ export default function TopBar({ user }: PropsWithChildren<{ user?: User }>) {
                                     className="flex items-center"
                                     method="post"
                                     as="button"
-                                    // type="button"
+                                    type="button"
                                 >
                                     <LogIn className="mr-2 h-4 w-4" />
                                     <span>Logout</span>
                                 </Link>
+                                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
