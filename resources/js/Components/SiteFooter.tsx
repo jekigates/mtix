@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function Footer() {
+export default function SiteFooter() {
     return (
         <footer className="border-t bg-background p-4 z-50">
             <div className="text-sm mb-2">

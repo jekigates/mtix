@@ -5,8 +5,8 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
-import TopBar from "@/Components/TopBar";
-import Footer from "@/Components/Footer";
+import SideHeader from "@/Components/SideHeader";
+import SideFooter from "@/Components/SiteFooter";
 
 export default function Main({
     user,
@@ -14,11 +14,11 @@ export default function Main({
 }: PropsWithChildren<{ user?: User }>) {
     return (
         <>
-            <TopBar user={user} />
+            <SideHeader user={user} />
 
             <main>{children}</main>
 
-            <Footer />
+            <SideFooter />
         </>
     );
 }
