@@ -2,49 +2,61 @@ import { Link } from "@inertiajs/react";
 
 export default function SiteFooter() {
     return (
-        <footer className="border-t bg-background p-4 z-50">
+        <footer className="border-t border-border/40 text-muted-foreground p-4 z-50">
             <div className="text-sm mb-2">
-                <Link
+                <a
                     href="http://www.21cineplex.com/21profile"
-                    className="hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium transition-colors hover:text-foreground hover:underline underline-offset-4"
                 >
                     Profile
-                </Link>
+                </a>
                 {" | "}
-                <Link
+                <a
                     href="http://www.21cineplex.com/termofuse"
-                    className="hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium transition-colors hover:text-foreground hover:underline underline-offset-4"
                 >
                     Terms of Use
-                </Link>
+                </a>
                 {" | "}
-                <Link
+                <a
                     href="http://www.21cineplex.com/jobs"
-                    className="hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium transition-colors hover:text-foreground hover:underline underline-offset-4"
                 >
                     Jobs Opportunities
-                </Link>
+                </a>
                 {" | "}
-                <Link
+                <a
                     href="http://www.21cineplex.com/credits"
-                    className="hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium transition-colors hover:text-foreground hover:underline underline-offset-4"
                 >
                     Credit
-                </Link>
+                </a>
                 {" | "}
-                <Link
+                <a
                     href="http://www.21cineplex.com/page/page-info-iklan"
-                    className="hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium transition-colors hover:text-foreground hover:underline underline-offset-4"
                 >
                     Info Iklan
-                </Link>
+                </a>
                 {" | "}
-                <Link
+                <a
                     href="http://www.21cineplex.com/sitemap"
-                    className="hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium transition-colors hover:text-foreground hover:underline underline-offset-4"
                 >
                     Sitemap
-                </Link>
+                </a>
             </div>
 
             <p className="text-xs">
@@ -54,8 +66,8 @@ export default function SiteFooter() {
                 may be reproduced in any form without our written permission.
                 Misuse of the entire content or any part, multiply, translate,
                 use, or utilize it without written permission from 21Cineplex
-                will be subject to criminal and / or civil penalties.
-                <span className="text-background">admin@mtix-web-01</span>
+                will be subject to criminal and / or civil penalties.{" "}
+                <span className="text-white">admin@mtix-web-01</span>
             </p>
         </footer>
     );

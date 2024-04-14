@@ -5,12 +5,16 @@ import { Transition } from "@headlessui/react";
 import { Button } from "@/Components/ui/button";
 import { Label } from "@/Components/ui/label";
 import { Input } from "@/Components/ui/input";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/Components/ui/card";
 
-export default function UpdatePasswordForm({
-    className = "",
-}: {
-    className?: string;
-}) {
+export default function UpdatePasswordForm() {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
@@ -49,83 +53,121 @@ export default function UpdatePasswordForm({
     };
 
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">
-                    Update Password
-                </h2>
+        <>
+            <Card>
+                <form onSubmit={updatePassword} className="max-w-xl">
+                    <CardHeader>
+                        <CardTitle className="text-lg">
+                            Update Password
+                        </CardTitle>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay
-                    secure.
-                </p>
-            </header>
+                        <CardDescription>
+                            Ensure your account is using a long, random password
+                            to stay secure.
+                        </CardDescription>
+                    </CardHeader>
 
-            <form onSubmit={updatePassword} className="mt-6 grid gap-4">
-                <div className="grid gap-2">
-                    <Label htmlFor="current_password">Current Password</Label>
+                    <CardContent className="grid gap-4">
+                        <div className="grid gap-2">
+                            <Label
+                                htmlFor="current_password"
+                                className={
+                                    errors.current_password
+                                        ? "text-destructive"
+                                        : ""
+                                }
+                            >
+                                Current Password
+                            </Label>
 
-                    <Input
-                        id="current_password"
-                        type="password"
-                        value={data.current_password}
-                        autoComplete="current-password"
-                        onChange={(e) =>
-                            setData("current_password", e.target.value)
-                        }
-                        ref={currentPasswordInput}
-                    />
+                            <Input
+                                id="current_password"
+                                type="password"
+                                value={data.current_password}
+                                autoComplete="current-password"
+                                onChange={(e) =>
+                                    setData("current_password", e.target.value)
+                                }
+                                ref={currentPasswordInput}
+                            />
 
-                    <InputError message={errors.current_password} />
-                </div>
+                            <InputError message={errors.current_password} />
+                        </div>
 
-                <div className="grid gap-2">
-                    <Label htmlFor="password">New Password</Label>
+                        <div className="grid gap-2">
+                            <Label
+                                htmlFor="password"
+                                className={
+                                    errors.password ? "text-destructive" : ""
+                                }
+                            >
+                                New Password
+                            </Label>
 
-                    <Input
-                        id="password"
-                        type="password"
-                        value={data.password}
-                        autoComplete="new-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                        ref={passwordInput}
-                    />
+                            <Input
+                                id="password"
+                                type="password"
+                                value={data.password}
+                                autoComplete="new-password"
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                                ref={passwordInput}
+                            />
 
-                    <InputError message={errors.password} />
-                </div>
+                            <InputError message={errors.password} />
+                        </div>
 
-                <div className="grid gap-2">
-                    <Label htmlFor="password_confirmation">
-                        Confirm Password
-                    </Label>
+                        <div className="grid gap-2">
+                            <Label
+                                htmlFor="password_confirmation"
+                                className={
+                                    errors.password_confirmation
+                                        ? "text-destructive"
+                                        : ""
+                                }
+                            >
+                                Confirm Password
+                            </Label>
 
-                    <Input
-                        id="password_confirmation"
-                        type="password"
-                        value={data.password_confirmation}
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
-                    />
+                            <Input
+                                id="password_confirmation"
+                                type="password"
+                                value={data.password_confirmation}
+                                autoComplete="new-password"
+                                onChange={(e) =>
+                                    setData(
+                                        "password_confirmation",
+                                        e.target.value
+                                    )
+                                }
+                            />
 
-                    <InputError message={errors.password_confirmation} />
-                </div>
+                            <InputError
+                                message={errors.password_confirmation}
+                            />
+                        </div>
+                    </CardContent>
 
-                <div className="flex items-center gap-4">
-                    <Button disabled={processing}>Save</Button>
+                    <CardFooter>
+                        <div className="flex items-center gap-4">
+                            <Button disabled={processing}>Save</Button>
 
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+                            <Transition
+                                show={recentlySuccessful}
+                                enter="transition ease-in-out"
+                                enterFrom="opacity-0"
+                                leave="transition ease-in-out"
+                                leaveTo="opacity-0"
+                            >
+                                <p className="text-sm text-muted-foreground">
+                                    Saved.
+                                </p>
+                            </Transition>
+                        </div>
+                    </CardFooter>
+                </form>
+            </Card>
+        </>
     );
 }

@@ -1,22 +1,9 @@
-// import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import MainLayout from "@/Layouts/MainLayout";
 import DeleteUserForm from "./Partials/DeleteUserForm";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
-
-import { Button } from "@/Components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Checkbox } from "@/Components/ui/checkbox";
 
 export default function Edit({
     auth,
@@ -29,21 +16,34 @@ export default function Edit({
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdateProfileInformationForm
-                            mustVerifyEmail={mustVerifyEmail}
-                            status={status}
-                            className="max-w-xl"
-                        />
-                    </div>
+                    {/* <Card>
+                        <CardHeader>
+                            <CardTitle className="text-lg">
+                                Profile Information
+                            </CardTitle>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdatePasswordForm className="max-w-xl" />
-                    </div>
+                            <CardDescription>
+                                Update your account's profile information and
+                                email address.
+                            </CardDescription>
+                        </CardHeader>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <DeleteUserForm className="max-w-xl" />
-                    </div>
+                        <CardContent>
+                            <UpdateProfileInformationForm
+                                mustVerifyEmail={mustVerifyEmail}
+                                status={status}
+                                className="max-w-xl"
+                            />
+                        </CardContent>
+                    </Card> */}
+                    <UpdateProfileInformationForm
+                        mustVerifyEmail={mustVerifyEmail}
+                        status={status}
+                    />
+
+                    <UpdatePasswordForm />
+
+                    <DeleteUserForm />
                 </div>
             </div>
         </MainLayout>

@@ -33,15 +33,21 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/Components/ui/popover";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/Components/ui/card";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
-    className = "",
 }: {
     mustVerifyEmail: boolean;
     status?: string;
-    className?: string;
 }) {
     const user = usePage<PageProps>().props.auth.user;
 
@@ -59,6 +65,7 @@ export default function UpdateProfileInformation({
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+        console.log(data.dob);
 
         patch(route("profile.update"));
     };
@@ -225,7 +232,7 @@ export default function UpdateProfileInformation({
     }, [data.province]);
 
     // Birth Date
-    const [day, setDay] = useState(data.dob.getDay().toString());
+    const [day, setDay] = useState(data.dob.getDate().toString());
     const [month, setMonth] = useState(data.dob.getMonth().toString());
     const [year, setYear] = useState(data.dob.getFullYear().toString());
     const [days, setDays] = useState(
@@ -273,7 +280,7 @@ export default function UpdateProfileInformation({
         if (year !== "" && month !== "" && day !== "") {
             setData(
                 "dob",
-                new Date(parseInt(year), parseInt(month) + 1, parseInt(day))
+                new Date(parseInt(year), parseInt(month), parseInt(day))
             );
         } else {
             setData("dob", new Date(user.dob));
@@ -281,341 +288,402 @@ export default function UpdateProfileInformation({
     }, [day, month, year]);
 
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">
-                    Profile Information
-                </h2>
+        <Card>
+            <form onSubmit={submit} className="max-w-xl">
+                <CardHeader>
+                    <CardTitle className="text-lg">
+                        Profile Information
+                    </CardTitle>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
-                </p>
-            </header>
+                    <CardDescription>
+                        Update your account's profile information and email
+                        address.
+                    </CardDescription>
+                </CardHeader>
 
-            <form onSubmit={submit} className="mt-6 grid gap-4">
-                <div className="grid gap-2">
-                    <Label htmlFor="phone_number">Phone Number</Label>
+                <CardContent className="grid gap-4">
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="phone_number"
+                            className={
+                                errors.phone_number ? "text-destructive" : ""
+                            }
+                        >
+                            Phone Number
+                        </Label>
 
-                    <Input
-                        id="phone_number"
-                        type="number"
-                        name="phone_number"
-                        value={data.phone_number}
-                        autoComplete="phone_number"
-                        autoFocus={true}
-                        onChange={(e) =>
-                            setData("phone_number", e.target.value)
-                        }
-                        placeholder="Phone Number"
-                        maxLength={16}
-                    />
+                        <Input
+                            id="phone_number"
+                            type="number"
+                            name="phone_number"
+                            value={data.phone_number}
+                            autoComplete="phone_number"
+                            autoFocus={true}
+                            onChange={(e) =>
+                                setData("phone_number", e.target.value)
+                            }
+                            placeholder="Phone Number"
+                            maxLength={16}
+                        />
 
-                    <InputError message={errors.phone_number} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="name">Name</Label>
-
-                    <Input
-                        id="name"
-                        type="text"
-                        name="name"
-                        value={data.name}
-                        autoComplete="name"
-                        onChange={(e) => setData("name", e.target.value)}
-                        placeholder="Your Name"
-                        maxLength={50}
-                    />
-
-                    <InputError message={errors.name} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
-
-                    <Input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        autoComplete="username"
-                        onChange={(e) => setData("email", e.target.value)}
-                        placeholder="Your valid email"
-                        maxLength={50}
-                    />
-
-                    <InputError message={errors.email} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="address">Address as per your ID</Label>
-
-                    <Textarea
-                        id="address"
-                        name="address"
-                        value={data.address}
-                        autoComplete="address"
-                        onChange={(e) => setData("address", e.target.value)}
-                        placeholder="Correspondence address based on ID/KTP"
-                    />
-
-                    <InputError message={errors.address} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="province">Province</Label>
-
-                    <Popover open={openProvince} onOpenChange={setOpenProvince}>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={openProvince}
-                                className="justify-between"
-                                id="province"
-                            >
-                                {data.province
-                                    ? provinces.find(
-                                          (province) =>
-                                              province.name === data.province
-                                      )?.name
-                                    : "Select province..."}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-
-                        <PopoverContent className="p-0">
-                            <Command>
-                                <CommandInput placeholder="Search province..." />
-                                <CommandList>
-                                    <CommandEmpty>
-                                        No province found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                        {provinces.map((province) => (
-                                            <CommandItem
-                                                key={province.name}
-                                                value={province.name}
-                                                onSelect={(currentValue) => {
-                                                    setData(
-                                                        "province",
-                                                        currentValue ===
-                                                            data.province
-                                                            ? ""
-                                                            : currentValue
-                                                    );
-                                                    setOpenProvince(false);
-                                                }}
-                                            >
-                                                <Check
-                                                    className={cn(
-                                                        "mr-2 h-4 w-4",
-                                                        data.province ===
-                                                            province.name
-                                                            ? "opacity-100"
-                                                            : "opacity-0"
-                                                    )}
-                                                />
-                                                {province.name}
-                                            </CommandItem>
-                                        ))}
-                                    </CommandGroup>
-                                </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
-
-                    <InputError message={errors.province} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="city">City</Label>
-
-                    <Popover open={openCity} onOpenChange={setOpenCity}>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={openCity}
-                                className="justify-between"
-                                id="city"
-                            >
-                                {provinces
-                                    .find(
-                                        (province) =>
-                                            province.name === data.province
-                                    )
-                                    ?.cities.find((city) => city === data.city)
-                                    ? data.city
-                                    : "Select city..."}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-
-                        <PopoverContent className="p-0">
-                            <Command>
-                                <CommandInput placeholder="Search city..." />
-                                <CommandList>
-                                    <CommandEmpty>No city found.</CommandEmpty>
-                                    <CommandGroup>
-                                        {cities?.map((city) => (
-                                            <CommandItem
-                                                key={city}
-                                                value={city}
-                                                onSelect={(currentValue) => {
-                                                    setData(
-                                                        "city",
-                                                        currentValue ===
-                                                            data.city
-                                                            ? ""
-                                                            : currentValue
-                                                    );
-                                                    setOpenCity(false);
-                                                }}
-                                            >
-                                                <Check
-                                                    className={cn(
-                                                        "mr-2 h-4 w-4",
-                                                        data.city === city
-                                                            ? "opacity-100"
-                                                            : "opacity-0"
-                                                    )}
-                                                />
-                                                {city}
-                                            </CommandItem>
-                                        ))}
-                                    </CommandGroup>
-                                </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
-
-                    <InputError message={errors.city} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="gender">Gender</Label>
-
-                    <Select
-                        onValueChange={(e) => {
-                            setData("gender", e);
-                        }}
-                        defaultValue={data.gender}
-                    >
-                        <SelectTrigger id="gender">
-                            <SelectValue placeholder="Gender" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="Male">Male</SelectItem>
-                            <SelectItem value="Female">Female</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <InputError message={errors.gender} />
-                </div>
-
-                <div className="grid gap-2">
-                    <Label>Birth Date</Label>
-
-                    <div className="grid grid-cols-3 gap-2">
-                        <Select onValueChange={setDay} value={day}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Day" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Day</SelectLabel>
-                                    {days.map((day, index) => (
-                                        <SelectItem
-                                            key={index}
-                                            value={day.toString()}
-                                        >
-                                            {day}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-
-                        <Select onValueChange={setMonth} value={month}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Month" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Month</SelectLabel>
-                                    {months.map((month, index) => (
-                                        <SelectItem
-                                            key={index}
-                                            value={index.toString()}
-                                        >
-                                            {month}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-
-                        <Select onValueChange={setYear} value={year}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Year" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Year</SelectLabel>
-                                    {years.map((year) => (
-                                        <SelectItem
-                                            key={year}
-                                            value={year.toString()}
-                                        >
-                                            {year}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                        <InputError message={errors.phone_number} />
                     </div>
 
-                    <InputError message={errors.dob} />
-                </div>
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="name"
+                            className={errors.name ? "text-destructive" : ""}
+                        >
+                            Name
+                        </Label>
 
-                {mustVerifyEmail && user.email_verified_at === null && (
-                    <div>
-                        <p className="text-sm text-gray-800">
-                            Your email address is unverified.
-                            <Link
-                                href={route("verification.send")}
-                                method="post"
-                                as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Click here to re-send the verification email.
-                            </Link>
-                        </p>
+                        <Input
+                            id="name"
+                            type="text"
+                            name="name"
+                            value={data.name}
+                            autoComplete="name"
+                            onChange={(e) => setData("name", e.target.value)}
+                            placeholder="Your Name"
+                            maxLength={50}
+                        />
 
-                        {status === "verification-link-sent" && (
-                            <div className="font-medium text-sm text-green-600">
-                                A new verification link has been sent to your
-                                email address.
-                            </div>
-                        )}
+                        <InputError message={errors.name} />
                     </div>
-                )}
 
-                <div className="flex items-center gap-4">
-                    <Button disabled={processing}>Save</Button>
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="email"
+                            className={errors.email ? "text-destructive" : ""}
+                        >
+                            Email
+                        </Label>
 
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
-                </div>
+                        <Input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            autoComplete="username"
+                            onChange={(e) => setData("email", e.target.value)}
+                            placeholder="Your valid email"
+                            maxLength={50}
+                        />
+
+                        <InputError message={errors.email} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="address"
+                            className={errors.address ? "text-destructive" : ""}
+                        >
+                            Address as per your ID
+                        </Label>
+
+                        <Textarea
+                            id="address"
+                            name="address"
+                            value={data.address}
+                            autoComplete="address"
+                            onChange={(e) => setData("address", e.target.value)}
+                            placeholder="Correspondence address based on ID/KTP"
+                        />
+
+                        <InputError message={errors.address} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="province"
+                            className={
+                                errors.province ? "text-destructive" : ""
+                            }
+                        >
+                            Province
+                        </Label>
+
+                        <Popover
+                            open={openProvince}
+                            onOpenChange={setOpenProvince}
+                        >
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openProvince}
+                                    className="justify-between"
+                                    id="province"
+                                >
+                                    {data.province
+                                        ? provinces.find(
+                                              (province) =>
+                                                  province.name ===
+                                                  data.province
+                                          )?.name
+                                        : "Select province..."}
+                                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+
+                            <PopoverContent className="p-0">
+                                <Command>
+                                    <CommandInput placeholder="Search province..." />
+                                    <CommandList>
+                                        <CommandEmpty>
+                                            No province found.
+                                        </CommandEmpty>
+                                        <CommandGroup>
+                                            {provinces.map((province) => (
+                                                <CommandItem
+                                                    key={province.name}
+                                                    value={province.name}
+                                                    onSelect={(
+                                                        currentValue
+                                                    ) => {
+                                                        setData(
+                                                            "province",
+                                                            currentValue ===
+                                                                data.province
+                                                                ? ""
+                                                                : currentValue
+                                                        );
+                                                        setOpenProvince(false);
+                                                    }}
+                                                >
+                                                    <Check
+                                                        className={cn(
+                                                            "mr-2 h-4 w-4",
+                                                            data.province ===
+                                                                province.name
+                                                                ? "opacity-100"
+                                                                : "opacity-0"
+                                                        )}
+                                                    />
+                                                    {province.name}
+                                                </CommandItem>
+                                            ))}
+                                        </CommandGroup>
+                                    </CommandList>
+                                </Command>
+                            </PopoverContent>
+                        </Popover>
+
+                        <InputError message={errors.province} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="city"
+                            className={errors.city ? "text-destructive" : ""}
+                        >
+                            City
+                        </Label>
+
+                        <Popover open={openCity} onOpenChange={setOpenCity}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    role="combobox"
+                                    aria-expanded={openCity}
+                                    className="justify-between"
+                                    id="city"
+                                >
+                                    {provinces
+                                        .find(
+                                            (province) =>
+                                                province.name === data.province
+                                        )
+                                        ?.cities.find(
+                                            (city) => city === data.city
+                                        )
+                                        ? data.city
+                                        : "Select city..."}
+                                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+
+                            <PopoverContent className="p-0">
+                                <Command>
+                                    <CommandInput placeholder="Search city..." />
+                                    <CommandList>
+                                        <CommandEmpty>
+                                            No city found.
+                                        </CommandEmpty>
+                                        <CommandGroup>
+                                            {cities?.map((city) => (
+                                                <CommandItem
+                                                    key={city}
+                                                    value={city}
+                                                    onSelect={(
+                                                        currentValue
+                                                    ) => {
+                                                        setData(
+                                                            "city",
+                                                            currentValue ===
+                                                                data.city
+                                                                ? ""
+                                                                : currentValue
+                                                        );
+                                                        setOpenCity(false);
+                                                    }}
+                                                >
+                                                    <Check
+                                                        className={cn(
+                                                            "mr-2 h-4 w-4",
+                                                            data.city === city
+                                                                ? "opacity-100"
+                                                                : "opacity-0"
+                                                        )}
+                                                    />
+                                                    {city}
+                                                </CommandItem>
+                                            ))}
+                                        </CommandGroup>
+                                    </CommandList>
+                                </Command>
+                            </PopoverContent>
+                        </Popover>
+
+                        <InputError message={errors.city} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label
+                            htmlFor="gender"
+                            className={errors.gender ? "text-destructive" : ""}
+                        >
+                            Gender
+                        </Label>
+
+                        <Select
+                            onValueChange={(e) => {
+                                setData("gender", e);
+                            }}
+                            defaultValue={data.gender}
+                        >
+                            <SelectTrigger id="gender">
+                                <SelectValue placeholder="Gender" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Male">Male</SelectItem>
+                                <SelectItem value="Female">Female</SelectItem>
+                            </SelectContent>
+                        </Select>
+
+                        <InputError message={errors.gender} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label className={errors.dob ? "text-destructive" : ""}>
+                            Birth Date
+                        </Label>
+
+                        <div className="grid grid-cols-3 gap-2">
+                            <Select onValueChange={setDay} value={day}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Day" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Day</SelectLabel>
+                                        {days.map((day, index) => (
+                                            <SelectItem
+                                                key={index}
+                                                value={day.toString()}
+                                            >
+                                                {day}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+
+                            <Select onValueChange={setMonth} value={month}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Month" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Month</SelectLabel>
+                                        {months.map((month, index) => (
+                                            <SelectItem
+                                                key={index}
+                                                value={index.toString()}
+                                            >
+                                                {month}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+
+                            <Select onValueChange={setYear} value={year}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Year" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Year</SelectLabel>
+                                        {years.map((year) => (
+                                            <SelectItem
+                                                key={year}
+                                                value={year.toString()}
+                                            >
+                                                {year}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <InputError message={errors.dob} />
+                    </div>
+
+                    {mustVerifyEmail && user.email_verified_at === null && (
+                        <div>
+                            <p className="text-sm">
+                                Your email address is unverified.{" "}
+                                <Link
+                                    href={route("verification.send")}
+                                    method="post"
+                                    as="button"
+                                    className="underline text-sm text-muted-foreground hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Click here to re-send the verification
+                                    email.
+                                </Link>
+                            </p>
+
+                            {status === "verification-link-sent" && (
+                                <div className="font-medium text-sm text-green-600">
+                                    A new verification link has been sent to
+                                    your email address.
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </CardContent>
+
+                <CardFooter>
+                    <div className="flex items-center gap-4">
+                        <Button disabled={processing}>Save</Button>
+
+                        <Transition
+                            show={recentlySuccessful}
+                            enter="transition ease-in-out"
+                            enterFrom="opacity-0"
+                            leave="transition ease-in-out"
+                            leaveTo="opacity-0"
+                        >
+                            <p className="text-sm text-muted-foreground">
+                                Saved.
+                            </p>
+                        </Transition>
+                    </div>
+                </CardFooter>
             </form>
-        </section>
+        </Card>
     );
 }

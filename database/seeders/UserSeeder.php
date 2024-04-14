@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'province' => 'DKI Jakarta',
             'city' => 'Jakarta Barat',
             'gender' => 'Male',
-            'dob' => '2004-07-17',
+            'dob' => date('Y-m-d', strtotime('2004-07-17')),
         ]);
     }
 }
