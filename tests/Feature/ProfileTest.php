@@ -30,6 +30,12 @@ class ProfileTest extends TestCase
             ->patch('/profile', [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
+                'phone_number' => '081233217890',
+                'address' => 'Test Address',
+                'province' => 'Jawa Barat',
+                'city' => 'Bandung',
+                'gender' => 'Male',
+                'dob' => '2006-12-25',
             ]);
 
         $response
@@ -52,6 +58,12 @@ class ProfileTest extends TestCase
             ->patch('/profile', [
                 'name' => 'Test User',
                 'email' => $user->email,
+                'phone_number' => '081233217890',
+                'address' => 'Test Address',
+                'province' => 'Jawa Barat',
+                'city' => 'Bandung',
+                'gender' => 'Male',
+                'dob' => '2006-12-25',
             ]);
 
         $response
