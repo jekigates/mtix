@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('theaters', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->string('name', 50);
-            $table->char('location_id', 36);
-            $table->foreign('location_id')->references('id')->on('locations');
-            $table->string('contact', 16);
-            $table->char('cinema_id', 36);
+        Schema::create('cinema_movies', function (Blueprint $table) {
+            $table->char('id', length: 36)->primary();
+            $table->char('cinema_id', length: 36);
             $table->foreign('cinema_id')->references('id')->on('cinemas');
+            $table->char('movie_id', length: 36);
+            $table->foreign('movie_id')->references('id')->on('movies');
+            $table->integer('price');
+            $table->unique(['cinema_id', 'movie_id']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('theaters');
+        Schema::dropIfExists('cinema_movies');
     }
 };

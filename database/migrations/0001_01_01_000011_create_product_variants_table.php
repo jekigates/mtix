@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('movie_prices', function (Blueprint $table) {
-            $table->char('movie_id', 36);
-            $table->foreign('movie_id')->references('id')->on('movies');
-            $table->char('cinema_id', 36);
-            $table->foreign('cinema_id')->references('id')->on('cinemas');
-            $table->primary(['movie_id', 'cinema_id']);
+        Schema::create('product_variants', function (Blueprint $table) {
+            $table->char('id', length: 36)->primary();
+            $table->char('product_id', length: 36);
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->enum('name', ['Regular', 'Small', 'Medium', 'Large']);
             $table->integer('price');
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('movie_prices');
+        Schema::dropIfExists('product_variants');
     }
 };

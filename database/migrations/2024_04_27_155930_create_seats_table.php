@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cinemas', function (Blueprint $table) {
+        Schema::create('seats', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
-            $table->char('location_id', length: 36);
-            $table->foreign('location_id')->references('id')->on('locations');
-            $table->char('brand_id', length: 36);
-            $table->foreign('brand_id')->references('id')->on('brands');
-            $table->unique(['location_id', 'brand_id']);
+            $table->char('studio_id', length: 36);
+            $table->foreign('studio_id')->references('id')->on('studios');
+            $table->char('row_code', length: 1);
+            $table->integer('column_number');
+            $table->unique(['studio_id', 'row_code', 'column_number']);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cinemas');
+        Schema::dropIfExists('seats');
     }
 };

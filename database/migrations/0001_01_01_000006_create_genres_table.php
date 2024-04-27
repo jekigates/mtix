@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seats', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->char('studio_id', 36);
-            $table->foreign('studio_id')->references('id')->on('studios');
-            $table->integer('row_number');
-            $table->integer('column_number');
+        Schema::create('genres', function (Blueprint $table) {
+            $table->char('id', length: 36)->primary();
+            $table->string('name', length: 50)->unique();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seats');
+        Schema::dropIfExists('genres');
     }
 };

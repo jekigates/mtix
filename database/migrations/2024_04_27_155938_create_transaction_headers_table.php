@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_headers', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->char('user_id', 36);
+            $table->char('id', length: 36)->primary();
+            $table->char('user_id', length: 36);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->char('showtime_id', 36);
+            $table->char('showtime_id', length: 36);
             $table->foreign('showtime_id')->references('id')->on('showtimes');
-            $table->char('promo_id', 36);
+            $table->char('promo_id', length: 36);
             $table->foreign('promo_id')->references('id')->on('promos');
             $table->timestamps();
         });

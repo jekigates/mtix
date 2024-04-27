@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -30,8 +31,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'phone_number' => fake()->phoneNumber(),
             'address' => fake()->address(),
-            'province' => 'DKI Jakarta',
-            'city' => 'Jakarta Barat',
+            'city_id' => City::all()->random()->id,
             'gender' => fake()->randomElement(['Male', 'Female']),
             'dob' => fake()->date('Y-m-d'),
             'remember_token' => Str::random(10),

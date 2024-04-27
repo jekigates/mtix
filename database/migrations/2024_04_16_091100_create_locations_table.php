@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->char('city_id', 36);
+            $table->char('id', length: 36)->primary();
+            $table->string('name', length: 50);
+            $table->string('contact', length: 16)->unique();
+            $table->string('address', length: 100);
+            $table->char('city_id', length: 36);
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->string('address', 100);
-            $table->integer('postal_code');
-            $table->integer('latitude');
-            $table->integer('longitude');
+            $table->char('user_id', length: 36);
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

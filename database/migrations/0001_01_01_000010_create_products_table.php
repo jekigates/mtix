@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->string('name', 50);
-            $table->char('product_category_id', 36);
+            $table->char('id', length: 36)->primary();
+            $table->string('name', length: 50);
+            $table->char('product_category_id', length: 36);
             $table->foreign('product_category_id')->references('id')->on('product_categories');
             $table->string('image', 50);
             $table->timestamps();

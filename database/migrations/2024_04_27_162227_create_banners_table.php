@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->char('id', 36)->primary();
-            $table->string('name', 50);
-            $table->char('province_id', 36);
-            $table->foreign('province_id')->references('id')->on('provinces');
+        Schema::create('banners', function (Blueprint $table) {
+            $table->char('id', length: 36)->primary();
+            $table->string('name', length: 50);
+            $table->string('image', length: 50);
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('banners');
     }
 };
