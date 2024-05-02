@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\ProvinceData;
+use App\Data\UserData;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Province;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\LaravelData\DataCollection;
 
 class ProfileController extends Controller
 {
@@ -18,9 +22,12 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $provinces = ProvinceData::collect(Province::all(), DataCollection::class)->include('cities');
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'provinces' => $provinces,
         ]);
     }
 

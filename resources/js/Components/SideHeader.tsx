@@ -1,7 +1,6 @@
-import { Link, router } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import { PropsWithChildren, useEffect } from "react";
 import { User } from "@/types";
-import { usePage } from "@inertiajs/react";
 import { MainNav } from "@/Components/MainNav";
 import { MobileNav } from "@/Components/MobileNav";
 import { ModeToggle } from "@/Components/ModeToggle";

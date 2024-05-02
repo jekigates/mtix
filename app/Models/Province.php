@@ -10,4 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Province extends Model
 {
     use HasFactory, HasUuids;
+
+    public function cities(): HasMany
+    {
+        return $this->hasMany(City::class);
+    }
 }

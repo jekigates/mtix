@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('movie_genres', function (Blueprint $table) {
+            $table->char('id', length: 36)->primary();
             $table->char('genre_id', length: 36);
             $table->foreign('genre_id')->references('id')->on('genres');
             $table->char('movie_id', length: 36);
             $table->foreign('movie_id')->references('id')->on('movies');
-            $table->primary(['genre_id', 'movie_id']);
+            $table->unique(['genre_id', 'movie_id']);
             $table->timestamps();
         });
     }

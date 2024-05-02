@@ -5,8 +5,8 @@ export interface User {
     email_verified_at: string;
     phone_number: string;
     address: string;
-    province: string;
-    city: string;
+    province_id: string;
+    city_id: string;
     gender: string;
     dob: Date;
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Data\ProvinceData;
 use App\Http\Controllers\Controller;
+use App\Models\Province;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -13,6 +15,7 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Validation\Rule;
+use Spatie\LaravelData\DataCollection;
 
 class RegisteredUserController extends Controller
 {
@@ -21,7 +24,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $provinces = ProvinceData::collect(Province::all(), DataCollection::class)->include('cities');
+
+        return Inertia::render('Auth/Register', [
+            'provinces' => $provinces,
+        ]);
     }
 
     /**
@@ -37,8 +44,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone_number' => 'required|string|max:16|unique:' . User::class,
             'address' => 'required|string|max:100',
-            // 'province' => 'required|string|max:50',
-            'city' => 'required|string|max:50',
+            'province_id' => 'required|string|max:50',
+            'city_id' => 'required|string|max:50',
             'gender' => ['required', Rule::in(['Male', 'Female'])],
             'dob' => 'required|date|before:tomorrow',
           ]);
@@ -49,8 +56,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number,
             'address' => $request->address,
-            // 'province' => $request->province,
-            'city' => $request->city,
+            'city_id' => $request->city_id,
             'gender' => $request->gender,
             'dob' => $request->dob,
         ]);

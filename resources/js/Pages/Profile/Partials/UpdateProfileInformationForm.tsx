@@ -45,9 +45,11 @@ import {
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
+    provinces,
 }: {
     mustVerifyEmail: boolean;
     status?: string;
+    provinces: App.Data.ProvinceData[];
 }) {
     const user = usePage<PageProps>().props.auth.user;
 
@@ -57,179 +59,30 @@ export default function UpdateProfileInformation({
             email: user.email,
             phone_number: user.phone_number,
             address: user.address,
-            province: user.province,
-            city: user.city,
+            province_id: user.province_id,
+            city_id: user.city_id,
             gender: user.gender,
             dob: new Date(user.dob),
         });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        console.log(data.dob);
 
         patch(route("profile.update"));
     };
-
-    // Provinces & Cities
-    const provinces = [
-        {
-            name: "Jawa Barat",
-            cities: [
-                "Bandung",
-                "Bogor",
-                "Depok",
-                "Cimahi",
-                "Tasikmalaya",
-                "Cirebon",
-                "Sukabumi",
-                "Karawang",
-                "Purwakarta",
-                "Subang",
-            ],
-        },
-        {
-            name: "Sumatera Utara",
-            cities: [
-                "Medan",
-                "Siantar",
-                "Tebing Tinggi",
-                "Pematangsiantar",
-                "Gunungsitoli",
-                "Padangsidimpuan",
-                "Nias Selatan",
-                "Nias",
-                "Labuhanbatu",
-                "Labuhanbatu Utara",
-            ],
-        },
-        {
-            name: "Bali",
-            cities: [
-                "Denpasar",
-                "Singaraja",
-                "Semarang",
-                "Klungkung",
-                "Gianyar",
-                "Bangli",
-                "Buleleng",
-                "Karangasem",
-                "Jembrana",
-            ],
-        },
-        {
-            name: "Sulawesi Selatan",
-            cities: [
-                "Makassar",
-                "Parepare",
-                "Palopo",
-                "Watampone",
-                "Sengkang",
-                "Makale",
-                "Malangke",
-                "Wajo",
-                "Bone",
-                "Pinrang",
-            ],
-        },
-        {
-            name: "DKI Jakarta",
-            cities: [
-                "Jakarta Pusat",
-                "Jakarta Selatan",
-                "Jakarta Timur",
-                "Jakarta Barat",
-                "Jakarta Utara",
-            ],
-        },
-        {
-            name: "Jawa Timur",
-            cities: [
-                "Surabaya",
-                "Malang",
-                "Sidoarjo",
-                "Gresik",
-                "Jember",
-                "Mojokerto",
-                "Lamongan",
-                "Kediri",
-                "Blitar",
-                "Probolinggo",
-            ],
-        },
-        {
-            name: "Nusa Tenggara Barat",
-            cities: [
-                "Mataram",
-                "Lombok Barat",
-                "Lombok Tengah",
-                "Lombok Timur",
-                "Sumbawa",
-                "Sumbawa Barat",
-                "Dompu",
-                "Bima",
-                "Nusa Tenggara Barat",
-                "Lombok Utara",
-            ],
-        },
-        {
-            name: "Riau",
-            cities: [
-                "Pekanbaru",
-                "Dumai",
-                "Bengkalis",
-                "Rokan Hulu",
-                "Rokan Hilir",
-                "Siak",
-                "Pelalawan",
-                "Kuantan Singingi",
-                "Indragiri Hulu",
-                "Indragiri Hilir",
-            ],
-        },
-        {
-            name: "Daerah Istimewa Yogyakarta",
-            cities: [
-                "Yogyakarta",
-                "Bantul",
-                "Kulon Progo",
-                "Gunungkidul",
-                "Sleman",
-            ],
-        },
-        {
-            name: "Jawa Tengah",
-            cities: [
-                "Semarang",
-                "Solo",
-                "Yogyakarta",
-                "Pekalongan",
-                "Kudus",
-                "Klaten",
-                "Semarang",
-                "Surakarta",
-                "Demak",
-                "Boyolali",
-            ],
-        },
-    ];
-
-    const [cities, setCities] = useState(
-        provinces.find((province) => province.name === data.province)?.cities
-    );
 
     const [openProvince, setOpenProvince] = useState(false);
     const [openCity, setOpenCity] = useState(false);
 
     useEffect(() => {
-        let newCities = provinces.find(
-            (province) => province.name === data.province
-        )?.cities;
-        setCities(newCities);
-
-        if (newCities?.find((city) => city === data.city) === undefined) {
-            setData("city", "");
+        if (
+            provinces
+                .find((province) => province.id === data.province_id)
+                ?.cities?.find((city) => city.id === data.city_id) === undefined
+        ) {
+            setData("city_id", "");
         }
-    }, [data.province]);
+    }, [data.province_id]);
 
     // Birth Date
     const [day, setDay] = useState(data.dob.getDate().toString());
@@ -397,7 +250,7 @@ export default function UpdateProfileInformation({
                         <Label
                             htmlFor="province"
                             className={
-                                errors.province ? "text-destructive" : ""
+                                errors.province_id ? "text-destructive" : ""
                             }
                         >
                             Province
@@ -415,11 +268,11 @@ export default function UpdateProfileInformation({
                                     className="justify-between"
                                     id="province"
                                 >
-                                    {data.province
+                                    {data.province_id
                                         ? provinces.find(
                                               (province) =>
-                                                  province.name ===
-                                                  data.province
+                                                  province.id ===
+                                                  data.province_id
                                           )?.name
                                         : "Select province..."}
                                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -436,17 +289,11 @@ export default function UpdateProfileInformation({
                                         <CommandGroup>
                                             {provinces.map((province) => (
                                                 <CommandItem
-                                                    key={province.name}
-                                                    value={province.name}
-                                                    onSelect={(
-                                                        currentValue
-                                                    ) => {
+                                                    key={province.id}
+                                                    onSelect={() => {
                                                         setData(
-                                                            "province",
-                                                            currentValue ===
-                                                                data.province
-                                                                ? ""
-                                                                : currentValue
+                                                            "province_id",
+                                                            province.id
                                                         );
                                                         setOpenProvince(false);
                                                     }}
@@ -454,8 +301,8 @@ export default function UpdateProfileInformation({
                                                     <Check
                                                         className={cn(
                                                             "mr-2 h-4 w-4",
-                                                            data.province ===
-                                                                province.name
+                                                            data.province_id ===
+                                                                province.id
                                                                 ? "opacity-100"
                                                                 : "opacity-0"
                                                         )}
@@ -469,13 +316,13 @@ export default function UpdateProfileInformation({
                             </PopoverContent>
                         </Popover>
 
-                        <InputError message={errors.province} />
+                        <InputError message={errors.province_id} />
                     </div>
 
                     <div className="grid gap-2">
                         <Label
                             htmlFor="city"
-                            className={errors.city ? "text-destructive" : ""}
+                            className={errors.city_id ? "text-destructive" : ""}
                         >
                             City
                         </Label>
@@ -492,13 +339,11 @@ export default function UpdateProfileInformation({
                                     {provinces
                                         .find(
                                             (province) =>
-                                                province.name === data.province
+                                                province.id === data.province_id
                                         )
-                                        ?.cities.find(
-                                            (city) => city === data.city
-                                        )
-                                        ? data.city
-                                        : "Select city..."}
+                                        ?.cities?.find(
+                                            (city) => city.id === data.city_id
+                                        )?.name ?? "Select city..."}
                                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
@@ -511,41 +356,42 @@ export default function UpdateProfileInformation({
                                             No city found.
                                         </CommandEmpty>
                                         <CommandGroup>
-                                            {cities?.map((city) => (
-                                                <CommandItem
-                                                    key={city}
-                                                    value={city}
-                                                    onSelect={(
-                                                        currentValue
-                                                    ) => {
-                                                        setData(
-                                                            "city",
-                                                            currentValue ===
-                                                                data.city
-                                                                ? ""
-                                                                : currentValue
-                                                        );
-                                                        setOpenCity(false);
-                                                    }}
-                                                >
-                                                    <Check
-                                                        className={cn(
-                                                            "mr-2 h-4 w-4",
-                                                            data.city === city
-                                                                ? "opacity-100"
-                                                                : "opacity-0"
-                                                        )}
-                                                    />
-                                                    {city}
-                                                </CommandItem>
-                                            ))}
+                                            {provinces
+                                                .find(
+                                                    (province) =>
+                                                        province.id ===
+                                                        data.province_id
+                                                )
+                                                ?.cities?.map((city) => (
+                                                    <CommandItem
+                                                        key={city.id}
+                                                        onSelect={() => {
+                                                            setData(
+                                                                "city_id",
+                                                                city.id
+                                                            );
+                                                            setOpenCity(false);
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                data.city_id ===
+                                                                    city.id
+                                                                    ? "opacity-100"
+                                                                    : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {city.name}
+                                                    </CommandItem>
+                                                ))}
                                         </CommandGroup>
                                     </CommandList>
                                 </Command>
                             </PopoverContent>
                         </Popover>
 
-                        <InputError message={errors.city} />
+                        <InputError message={errors.city_id} />
                     </div>
 
                     <div className="grid gap-2">

@@ -9,36 +9,22 @@ export default function Edit({
     auth,
     mustVerifyEmail,
     status,
-}: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
+    provinces,
+}: PageProps<{
+    mustVerifyEmail: boolean;
+    status?: string;
+    provinces: App.Data.ProvinceData[];
+}>) {
     return (
         <MainLayout user={auth.user}>
             <Head title="Profile" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    {/* <Card>
-                        <CardHeader>
-                            <CardTitle className="text-lg">
-                                Profile Information
-                            </CardTitle>
-
-                            <CardDescription>
-                                Update your account's profile information and
-                                email address.
-                            </CardDescription>
-                        </CardHeader>
-
-                        <CardContent>
-                            <UpdateProfileInformationForm
-                                mustVerifyEmail={mustVerifyEmail}
-                                status={status}
-                                className="max-w-xl"
-                            />
-                        </CardContent>
-                    </Card> */}
                     <UpdateProfileInformationForm
                         mustVerifyEmail={mustVerifyEmail}
                         status={status}
+                        provinces={provinces}
                     />
 
                     <UpdatePasswordForm />
