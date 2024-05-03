@@ -1,9 +1,7 @@
-import { Link } from "@inertiajs/react";
-
 export default function SiteFooter() {
     return (
-        <footer className="border-t border-border/40 text-muted-foreground p-4 z-50">
-            <div className="text-sm mb-2">
+        <footer className="border-t text-muted-foreground p-4 bg-background">
+            <div className="text-xs mb-2">
                 <a
                     href="http://www.21cineplex.com/21profile"
                     target="_blank"
@@ -59,7 +57,7 @@ export default function SiteFooter() {
                 </a>
             </div>
 
-            <p className="text-xs">
+            <p className="text-[10px]">
                 All materials and contents (text, graphics, and every
                 attributes) of 21Cineplex or 21Cineplex.com website are
                 copyrights and trademarks of 21Cineplex. No part of this website

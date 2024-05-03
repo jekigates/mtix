@@ -43,7 +43,7 @@ export default function Login({
         <MainLayout>
             <Head title="Login" />
 
-            <Card className="mx-auto max-w-sm my-4">
+            <Card className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-sm">
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">MTix</CardTitle>
                     <CardDescription>Mobile Ticketing</CardDescription>

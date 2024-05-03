@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -24,6 +25,7 @@ class ProfileTest extends TestCase
     public function test_profile_information_can_be_updated(): void
     {
         $user = User::factory()->create();
+        $city = City::all()->random()->first();
 
         $response = $this
             ->actingAs($user)
@@ -32,8 +34,8 @@ class ProfileTest extends TestCase
                 'email' => 'test@example.com',
                 'phone_number' => '081233217890',
                 'address' => 'Test Address',
-                'province' => 'Jawa Barat',
-                'city' => 'Bandung',
+                'province_id' => $city->province_id,
+                'city_id' => $city->id,
                 'gender' => 'Male',
                 'dob' => '2006-12-25',
             ]);
@@ -52,6 +54,7 @@ class ProfileTest extends TestCase
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
     {
         $user = User::factory()->create();
+        $city = City::all()->random()->first();
 
         $response = $this
             ->actingAs($user)
@@ -60,9 +63,9 @@ class ProfileTest extends TestCase
                 'email' => $user->email,
                 'phone_number' => '081233217890',
                 'address' => 'Test Address',
-                'province' => 'Jawa Barat',
-                'city' => 'Bandung',
-                'gender' => 'Male',
+                'province_id' => $city->province_id,
+                'city_id' => $city->id,
+                'gender' => 'Female',
                 'dob' => '2006-12-25',
             ]);
 

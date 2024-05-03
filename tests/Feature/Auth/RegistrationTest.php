@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\City;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,6 +19,8 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        $city = City::all()->random()->first();
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -25,8 +28,8 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
             'phone_number' => '081234567890',
             'address' => 'Jl. Kebon Jeruk No. 1',
-            'province' => 'DKI Jakarta',
-            'city' => 'Jakarta Barat',
+            'province_id' => $city->province_id,
+            'city_id' => $city->id,
             'gender' => 'Male',
             'dob' => '2004-07-17',
         ]);

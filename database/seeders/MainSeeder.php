@@ -14,6 +14,7 @@ use App\Models\Province;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class MainSeeder extends Seeder
 {
@@ -22,18 +23,11 @@ class MainSeeder extends Seeder
      */
     public function run(): void
     {
-        // $user = User::create([
-        //     'name' => 'Jeki Gates',
-        //     'email' => 'jekigates2004@gmail.com',
-        //     'email_verified_at' => now(),
-        //     'password' => Hash::make('12345678'),
-        //     'phone_number' => '081234567890',
-        //     'address' => 'Jl. Kebon Jeruk No. 1',
-        //     'province' => 'DKI Jakarta',
-        //     'city' => 'Jakarta Barat',
-        //     'gender' => 'Male',
-        //     'dob' => date('Y-m-d', strtotime('2004-07-17')),
-        // ]);
+        $directories = Storage::disk('public')->directories();
+
+        foreach ($directories as $directory) {
+            Storage::disk('public')->deleteDirectory($directory);
+        }
 
         /*
             =====================

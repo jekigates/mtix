@@ -11,7 +11,7 @@ export default function Main({
         <>
             <SideHeader user={user} />
 
-            <main>{children}</main>
+            <main className="flex-1 relative">{children}</main>
 
             <SideFooter />
         </>
