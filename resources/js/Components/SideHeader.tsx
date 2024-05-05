@@ -245,7 +245,7 @@ export default function SideHeader({
                                 }
                             >
                                 <UserRound className="mr-2 h-4 w-4" />
-                                <span>{user.name}</span>
+                                <span>Profile</span>
                                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                             </DropdownMenuItem>
 

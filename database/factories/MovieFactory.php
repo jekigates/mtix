@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Genre;
+use App\Models\GenreMovie;
 use App\Models\Movie;
-use App\Models\MovieGenre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,7 +55,7 @@ class MovieFactory extends Factory
             $genreIds = Genre::inRandomOrder()->take(2)->pluck('id');
 
             foreach ($genreIds as $genreId) {
-                MovieGenre::factory()->create([
+                GenreMovie::factory()->create([
                     'movie_id' => $movie->id,
                     'genre_id' => $genreId,
                 ]);

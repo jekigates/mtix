@@ -1,13 +1,20 @@
 <?php
 
+use App\Data\MovieData;
 use App\Http\Controllers\ProfileController;
+use App\Models\City;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Spatie\LaravelData\DataCollection;
 
 Route::get('/', function () {
+    $city = City::all()->random()->first();
+    $movies = MovieData::collect($city->get_upcoming_movies(), DataCollection::class)->include('genres');
+
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'movies' => $movies,
     ]);
 })->name('dashboard');
 

@@ -144,7 +144,9 @@ export default function Register({
             <Card className="mx-auto max-w-xl my-4">
                 <CardHeader>
                     <CardTitle className="text-xl">MTix Registration</CardTitle>
+
                     <Separator />
+
                     <Alert variant="warning">
                         <AlertDescription>
                             <ul className="list-disc ps-2">
@@ -153,10 +155,12 @@ export default function Register({
                                     (Lengkapi data sesuai dengan
                                     KTP/SIM/PASPOR).
                                 </li>
+
                                 <li>
                                     Fill in your active mobile number and email
                                     ID (Masukkan nomor dan email yang benar).
                                 </li>
+
                                 <li>
                                     In case of transaction discrepancy, we can
                                     only validate your account with your ID
@@ -276,10 +280,12 @@ export default function Register({
                                     <PopoverContent className="p-0">
                                         <Command>
                                             <CommandInput placeholder="Search province..." />
+
                                             <CommandList>
                                                 <CommandEmpty>
                                                     No province found.
                                                 </CommandEmpty>
+
                                                 <CommandGroup>
                                                     {provinces.map(
                                                         (province) => (
@@ -351,10 +357,12 @@ export default function Register({
                                     <PopoverContent className="p-0">
                                         <Command>
                                             <CommandInput placeholder="Search city..." />
+
                                             <CommandList>
                                                 <CommandEmpty>
                                                     No city found.
                                                 </CommandEmpty>
+
                                                 <CommandGroup>
                                                     {provinces
                                                         .find(
@@ -412,10 +420,12 @@ export default function Register({
                                     <SelectTrigger id="gender">
                                         <SelectValue placeholder="Gender" />
                                     </SelectTrigger>
+
                                     <SelectContent>
                                         <SelectItem value="Male">
                                             Male
                                         </SelectItem>
+
                                         <SelectItem value="Female">
                                             Female
                                         </SelectItem>
@@ -433,6 +443,7 @@ export default function Register({
                                         <SelectTrigger>
                                             <SelectValue placeholder="Day" />
                                         </SelectTrigger>
+
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Day</SelectLabel>
@@ -455,6 +466,7 @@ export default function Register({
                                         <SelectTrigger>
                                             <SelectValue placeholder="Month" />
                                         </SelectTrigger>
+
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Month</SelectLabel>
@@ -477,6 +489,7 @@ export default function Register({
                                         <SelectTrigger>
                                             <SelectValue placeholder="Year" />
                                         </SelectTrigger>
+
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Year</SelectLabel>
@@ -545,6 +558,7 @@ export default function Register({
                                 Create an account
                             </Button>
                         </div>
+
                         <div className="mt-4 text-center text-sm">
                             Already have an account?{" "}
                             <Link href={route("login")} className="underline">

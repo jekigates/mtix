@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('showtimes', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
-            $table->char('movie_id', length: 36);
-            $table->foreign('movie_id')->references('id')->on('movies');
+            $table->char('cinema_movie_id', length: 36);
+            $table->foreign('cinema_movie_id')->references('id')->on('cinema_movies');
             $table->char('studio_id', length: 36);
             $table->foreign('studio_id')->references('id')->on('studios');
             $table->timestamp('start_at');
-            $table->unique(['movie_id', 'studio_id', 'start']);
+            $table->unique(['cinema_movie_id', 'studio_id', 'start_at']);
             $table->timestamps();
         });
     }

@@ -48,6 +48,7 @@ export default function Login({
                     <CardTitle className="text-xl">MTix</CardTitle>
                     <CardDescription>Mobile Ticketing</CardDescription>
                 </CardHeader>
+
                 <CardContent>
                     {status && (
                         <div className="mb-4 font-medium text-sm text-green-600">

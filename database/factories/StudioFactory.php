@@ -36,10 +36,20 @@ class StudioFactory extends Factory
                 ]);
             }
 
-            Showtime::factory()->create([
-                'movie_id' => Movie::all()->random()->id,
-                'studio_id' => $studio->id,
-            ]);
+            $cinema_movies = $studio->cinema->cinema_movies;
+
+            foreach ($cinema_movies as $cinema_movie) {
+                for ($i = 0; $i < 3; $i++) {
+                    $start_at = now()->addDays($i);
+                    for ($j = 0; $j < 3; $j++) {
+                        Showtime::factory()->create([
+                            'cinema_movie_id' => $cinema_movie->id,
+                            'studio_id' => $studio->id,
+                            'start_at' => $start_at->addHours(3),
+                        ]);
+                    }
+                }
+            }
         });
     }
 }

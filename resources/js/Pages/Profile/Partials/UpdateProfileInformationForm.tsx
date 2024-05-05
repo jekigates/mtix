@@ -282,10 +282,12 @@ export default function UpdateProfileInformation({
                             <PopoverContent className="p-0">
                                 <Command>
                                     <CommandInput placeholder="Search province..." />
+
                                     <CommandList>
                                         <CommandEmpty>
                                             No province found.
                                         </CommandEmpty>
+
                                         <CommandGroup>
                                             {provinces.map((province) => (
                                                 <CommandItem
@@ -351,10 +353,12 @@ export default function UpdateProfileInformation({
                             <PopoverContent className="p-0">
                                 <Command>
                                     <CommandInput placeholder="Search city..." />
+
                                     <CommandList>
                                         <CommandEmpty>
                                             No city found.
                                         </CommandEmpty>
+
                                         <CommandGroup>
                                             {provinces
                                                 .find(
@@ -411,8 +415,10 @@ export default function UpdateProfileInformation({
                             <SelectTrigger id="gender">
                                 <SelectValue placeholder="Gender" />
                             </SelectTrigger>
+
                             <SelectContent>
                                 <SelectItem value="Male">Male</SelectItem>
+
                                 <SelectItem value="Female">Female</SelectItem>
                             </SelectContent>
                         </Select>
@@ -430,6 +436,7 @@ export default function UpdateProfileInformation({
                                 <SelectTrigger>
                                     <SelectValue placeholder="Day" />
                                 </SelectTrigger>
+
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Day</SelectLabel>
@@ -449,6 +456,7 @@ export default function UpdateProfileInformation({
                                 <SelectTrigger>
                                     <SelectValue placeholder="Month" />
                                 </SelectTrigger>
+
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Month</SelectLabel>
@@ -468,6 +476,7 @@ export default function UpdateProfileInformation({
                                 <SelectTrigger>
                                     <SelectValue placeholder="Year" />
                                 </SelectTrigger>
+
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Year</SelectLabel>

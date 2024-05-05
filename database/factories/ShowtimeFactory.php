@@ -17,7 +17,7 @@ class ShowtimeFactory extends Factory
     public function definition(): array
     {
         return [
-            'start_at' => now()->addDays(3),
+            //
         ];
     }
 }
