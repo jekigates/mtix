@@ -77,8 +77,8 @@ export default function SideHeader({
                     className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
                     <Icons.logo className="h-6 w-6" />
-                    <span className="hidden font-bold sm:inline-block">
-                        CinemaXXI
+                    <span className="hidden font-bold sm:inline-block text-nowrap">
+                        21 Cineplex
                     </span>
                 </Link>
 
@@ -164,7 +164,7 @@ export default function SideHeader({
                             className="flex items-center gap-2 text-lg font-semibold"
                         >
                             <Icons.logo className="h-6 w-6" />
-                            <span>CinemaXXI</span>
+                            <span>21 Cineplex</span>
                         </Link>
 
                         <Link

@@ -13,7 +13,6 @@ export default function Edit({
 }: PageProps<{
     mustVerifyEmail: boolean;
     status?: string;
-    provinces: App.Data.ProvinceData[];
 }>) {
     return (
         <MainLayout user={auth.user}>

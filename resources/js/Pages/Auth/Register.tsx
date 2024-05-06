@@ -35,12 +35,9 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/Components/ui/popover";
+import { PageProps } from "@/types";
 
-export default function Register({
-    provinces,
-}: {
-    provinces: App.Data.ProvinceData[];
-}) {
+export default function Register({ auth, provinces }: PageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -138,7 +135,7 @@ export default function Register({
     }, [day, month, year]);
 
     return (
-        <MainLayout>
+        <MainLayout user={auth.user}>
             <Head title="Register" />
 
             <Card className="mx-auto max-w-xl my-4">

@@ -22,13 +22,13 @@ class MovieData extends Data
         public ?string $cast,
         public ?string $distributor,
         public ?string $website,
-        public int $duration,
+        public int $runtime,
         public string $image,
         public string $trailer,
         public Lazy|Collection $genres,
     ) {}
 
-        public static function fromModel(Movie $movie): self
+    public static function fromModel(Movie $movie): self
     {
         return new self(
             $movie->id,
@@ -40,7 +40,7 @@ class MovieData extends Data
             $movie->cast,
             $movie->distributor,
             $movie->website,
-            $movie->duration,
+            $movie->runtime,
             $movie->image,
             $movie->trailer,
             Lazy::create(fn() => GenreData::collect($movie->genres)),

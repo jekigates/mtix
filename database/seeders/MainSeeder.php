@@ -103,13 +103,30 @@ class MainSeeder extends Seeder
             7. Promos
             =========
         */
-        Promo::factory(9)->create();
+        $promos = [
+            [
+                'name' => 'Weekendasik Pakai M.food',
+                'image' => 'img/promos/weekend-asik.jpg',
+                'banner_image' => 'img/promos/banner-images/weekend-asik.jpg',
+            ],
+            [
+                'name' => 'Xxi Cafe - Pesan Xxi Snack Box Di Sini!',
+                'image' => 'img/promos/snackbox.jpg',
+                'banner_image' => 'img/promos/banner-images/snackbox.jpg',
+            ],
+            [
+                'name' => 'Mandiri - Cashback 100% Qr Livin By Mandiri',
+                'image' => 'img/promos/mandiri-cashback.jpg',
+                'banner_image' => 'img/promos/banner-images/mandiri-cashback.jpeg',
+            ]
+        ];
 
-        /*
-            ==========
-            8. Banners
-            ==========
-        */
-        Banner::factory(3)->create();
+        foreach ($promos as $promo) {
+            Promo::factory()->create([
+                'name' => $promo['name'],
+                'image' => $promo['image'],
+                'banner_image' => $promo['banner_image'],
+            ]);
+        }
     }
 }

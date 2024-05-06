@@ -17,4 +17,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    promos: App.Data.PromoData[];
+    movies: App.Data.MovieData[];
+    provinces: App.Data.ProvinceData[];
 };

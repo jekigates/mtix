@@ -15,7 +15,7 @@ export function MovieCard({ movie, className, ...props }: MovieCardProps) {
                 <img
                     src={movie.image}
                     alt={movie.title}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    className="h-full w-full object-cover object-center"
                 />
             </div>
 
@@ -27,6 +27,7 @@ export function MovieCard({ movie, className, ...props }: MovieCardProps) {
                 <div className="space-x-1">
                     {movie.genres?.map((genre) => (
                         <Button
+                            key={movie.id + genre.id}
                             size={"xs"}
                             variant={"outline"}
                             className="cursor-not-allowed text-primary"

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', length: 50);
             $table->string('description', length: 100);
             $table->string('image', length: 50);
+            $table->string('banner_image', length: 50);
             $table->timestamps();
         });
     }

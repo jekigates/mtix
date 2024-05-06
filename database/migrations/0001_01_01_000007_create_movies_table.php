@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('cast', length: 50)->nullable();
             $table->string('distributor', length: 50)->nullable();
             $table->string('website', length: 50)->nullable();
-            $table->integer('duration');
+            $table->integer('runtime');
             $table->string('image', length: 50);
             $table->string('trailer', length: 50);
             $table->date('screening_start_date')->nullable();

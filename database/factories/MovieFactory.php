@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Genre;
-use App\Models\GenreMovie;
 use App\Models\Movie;
-use Carbon\Carbon;
+use App\Models\MovieGenre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +40,7 @@ class MovieFactory extends Factory
             }, range(1, $this->faker->numberBetween(1, 3)))),
             'distributor' => fake()->company(),
             'website' => fake()->url(),
-            'duration' => fake()->numberBetween(60, 180),
+            'runtime' => fake()->numberBetween(60, 180),
             'image' => function () {
                 $filename = uniqid() . '.jpg';
 
@@ -61,7 +60,7 @@ class MovieFactory extends Factory
             $genreIds = Genre::inRandomOrder()->take(2)->pluck('id');
 
             foreach ($genreIds as $genreId) {
-                GenreMovie::factory()->create([
+                MovieGenre::factory()->create([
                     'movie_id' => $movie->id,
                     'genre_id' => $genreId,
                 ]);

@@ -18,15 +18,9 @@ class PromoFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->name(),
             'description' => fake()->text(),
-            'image' => function () {
-                $filename = uniqid() . '.jpg';
-
-                Storage::disk('public')->put('promo-images/' . $filename, file_get_contents('https://source.unsplash.com/random'));
-
-                return 'storage/promo-images/' . $filename;
-            },
+            'image' => 'img/promos/weekend-asik.jpg',
+            'banner_image' => 'img/promos/banner-images/weekend-asik.jpg',
         ];
     }
 }

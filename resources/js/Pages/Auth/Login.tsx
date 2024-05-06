@@ -13,14 +13,16 @@ import {
 } from "@/Components/ui/card";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { PageProps } from "@/types";
 
 export default function Login({
+    auth,
     status,
     canResetPassword,
-}: {
+}: PageProps<{
     status?: string;
     canResetPassword: boolean;
-}) {
+}>) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -40,7 +42,7 @@ export default function Login({
     };
 
     return (
-        <MainLayout>
+        <MainLayout user={auth.user}>
             <Head title="Login" />
 
             <Card className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-sm">

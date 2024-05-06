@@ -18,10 +18,17 @@ declare namespace App.Data {
         cast: string | null;
         distributor: string | null;
         website: string | null;
-        duration: number;
+        runtime: number;
         image: string;
         trailer: string;
         genres?: Array<App.Data.GenreData>;
+    };
+    export type PromoData = {
+        id: string;
+        name: string;
+        description: string;
+        image: string;
+        banner_image: string;
     };
     export type ProvinceData = {
         id: string;
