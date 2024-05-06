@@ -102,10 +102,15 @@ export default function SideHeader({
                 </Link>
 
                 <Link
-                    href="#"
-                    className="transition-colors hover:text-foreground text-muted-foreground"
+                    href={route("upcoming")}
+                    className={cn(
+                        "transition-colors hover:text-foreground",
+                        url === "/upcoming"
+                            ? "text-foreground"
+                            : "text-muted-foreground"
+                    )}
                 >
-                    UpComing
+                    Upcoming
                 </Link>
             </nav>
 
@@ -187,7 +192,7 @@ export default function SideHeader({
                             href="#"
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            UpComing
+                            Upcoming
                         </Link>
                     </nav>
                 </SheetContent>

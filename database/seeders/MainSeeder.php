@@ -61,7 +61,7 @@ class MainSeeder extends Seeder
             4. Movies & Movie Genres
             ========================
         */
-        Movie::factory(9)->create();
+        Movie::factory(18)->create();
 
         /*
             =========

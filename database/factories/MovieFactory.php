@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Genre;
 use App\Models\GenreMovie;
 use App\Models\Movie;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,8 +21,11 @@ class MovieFactory extends Factory
      */
     public function definition(): array
     {
+        $isUpcoming = fake()->boolean();
+        $screening_start_date = now()->addDays(fake()->numberBetween(0, 7));
+
         return [
-            'title' => fake()->name(),
+            'title' => fake()->unique()->words(fake()->numberBetween(2, 4), true),
             'description' => fake()->text(),
             'producer' => implode(', ', array_map(function() {
                 return $this->faker->name($this->faker->randomElement(['male', 'female']));
@@ -46,6 +50,8 @@ class MovieFactory extends Factory
                 return 'storage/movie-images/' . $filename;
             },
             'trailer' => fake()->url(),
+            'screening_start_date' => ($isUpcoming) ? null : $screening_start_date->toDateString(),
+            'screening_end_date' => ($isUpcoming) ? null : $screening_start_date->addDays(7)->toDateString(),
         ];
     }
 

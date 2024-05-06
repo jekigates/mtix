@@ -39,14 +39,16 @@ class StudioFactory extends Factory
             $cinema_movies = $studio->cinema->cinema_movies;
 
             foreach ($cinema_movies as $cinema_movie) {
-                for ($i = 0; $i < 3; $i++) {
-                    $start_at = now()->addDays($i);
-                    for ($j = 0; $j < 3; $j++) {
-                        Showtime::factory()->create([
-                            'cinema_movie_id' => $cinema_movie->id,
-                            'studio_id' => $studio->id,
-                            'start_at' => $start_at->addHours(3),
-                        ]);
+                if ($cinema_movie->movie->screening_start_date !== null) {
+                    for ($i = 0; $i < 3; $i++) {
+                        $start_at = now()->addDays($i);
+                        for ($j = 0; $j < 3; $j++) {
+                            Showtime::factory()->create([
+                                'cinema_movie_id' => $cinema_movie->id,
+                                'studio_id' => $studio->id,
+                                'start_at' => $start_at->addHours(3),
+                            ]);
+                        }
                     }
                 }
             }

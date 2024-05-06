@@ -30,7 +30,7 @@ class CinemaFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Cinema $cinema) {
-            $movieIds = Movie::inRandomOrder()->take(3)->pluck('id');
+            $movieIds = fake()->randomElements(Movie::all()->pluck('id'), 3);
 
             foreach ($movieIds as $movieId) {
                 CinemaMovie::factory()->create([

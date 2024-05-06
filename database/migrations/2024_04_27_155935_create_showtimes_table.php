@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('start_at');
             $table->unique(['cinema_movie_id', 'studio_id', 'start_at']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

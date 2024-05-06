@@ -24,7 +24,10 @@ return new class extends Migration
             $table->integer('duration');
             $table->string('image', length: 50);
             $table->string('trailer', length: 50);
+            $table->date('screening_start_date')->nullable();
+            $table->date('screening_end_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

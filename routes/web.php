@@ -9,7 +9,7 @@ use Spatie\LaravelData\DataCollection;
 
 Route::get('/', function () {
     $city = City::all()->random()->first();
-    $movies = MovieData::collect($city->get_upcoming_movies(), DataCollection::class)->include('genres');
+    $movies = MovieData::collect($city->get_active_movies(), DataCollection::class)->include('genres');
 
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
@@ -17,6 +17,15 @@ Route::get('/', function () {
         'movies' => $movies,
     ]);
 })->name('dashboard');
+
+Route::get('/upcoming', function () {
+    $city = City::all()->random()->first();
+    $movies = MovieData::collect($city->get_upcoming_movies(), DataCollection::class)->include('genres');
+
+    return Inertia::render('Upcoming', [
+        'movies' => $movies,
+    ]);
+})->name('upcoming');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
