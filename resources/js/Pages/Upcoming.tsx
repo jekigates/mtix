@@ -4,12 +4,7 @@ import MainLayout from "@/Layouts/MainLayout";
 import { Separator } from "@/Components/ui/separator";
 import { MovieCard } from "@/Components/MovieCard";
 
-export default function Upcoming({
-    auth,
-    movies,
-}: PageProps<{
-    movies: App.Data.MovieData[];
-}>) {
+export default function Upcoming({ auth, movies }: PageProps) {
     return (
         <>
             <MainLayout user={auth.user}>

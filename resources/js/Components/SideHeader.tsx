@@ -1,4 +1,4 @@
-import { router, usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { User } from "@/types";
 import { ModeToggle } from "@/Components/ModeToggle";
@@ -17,6 +17,7 @@ import {
     Gem,
     History,
     Layers,
+    Cog,
 } from "lucide-react";
 import {
     DropdownMenu,
@@ -27,7 +28,6 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
 import { Button } from "@/Components/ui/button";
-import { Link } from "@inertiajs/react";
 import { Icons } from "./Icons";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -55,7 +55,7 @@ export default function SideHeader({
                     switch (e.key) {
                         case "p":
                             e.preventDefault();
-                            router.visit(route("profile.edit"));
+                            router.visit(route("settings.profile.edit"));
                             break;
                         case "q":
                             e.preventDefault();
@@ -95,8 +95,13 @@ export default function SideHeader({
                 </Link>
 
                 <Link
-                    href="#"
-                    className="transition-colors hover:text-foreground text-muted-foreground"
+                    href={route("theaters.index")}
+                    className={cn(
+                        "transition-colors hover:text-foreground",
+                        url === "/theaters"
+                            ? "text-foreground"
+                            : "text-muted-foreground"
+                    )}
                 >
                     Theaters
                 </Link>
@@ -182,15 +187,33 @@ export default function SideHeader({
                         </Link>
 
                         <Link
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground"
+                            href={route("theaters.index")}
+                            onClick={() => {
+                                router.visit(route("theaters.index"));
+                                setOpen(false);
+                            }}
+                            className={cn(
+                                "hover:text-foreground",
+                                url === "/theaters"
+                                    ? ""
+                                    : "text-muted-foreground"
+                            )}
                         >
                             Theaters
                         </Link>
 
                         <Link
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground"
+                            href={route("upcoming")}
+                            onClick={() => {
+                                router.visit(route("upcoming"));
+                                setOpen(false);
+                            }}
+                            className={cn(
+                                "hover:text-foreground",
+                                url === "/upcoming"
+                                    ? ""
+                                    : "text-muted-foreground"
+                            )}
                         >
                             Upcoming
                         </Link>
@@ -246,11 +269,11 @@ export default function SideHeader({
                         <DropdownMenuContent align="end" className="w-60">
                             <DropdownMenuItem
                                 onClick={() =>
-                                    router.visit(route("profile.edit"))
+                                    router.visit(route("settings.profile.edit"))
                                 }
                             >
-                                <UserRound className="mr-2 h-4 w-4" />
-                                <span>Profile</span>
+                                <Cog className="mr-2 h-4 w-4" />
+                                <span>Settings</span>
                                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                             </DropdownMenuItem>
 

@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Brand;
-use App\Models\Cinema;
 use App\Models\Location;
+use App\Models\Theater;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -32,7 +32,7 @@ class LocationFactory extends Factory
             $brandIds = Brand::inRandomOrder()->take(fake()->numberBetween(1, 3))->pluck('id');
 
             foreach ($brandIds as $brandId) {
-                Cinema::factory()->create([
+                Theater::factory()->create([
                     'location_id' => $location->id,
                     'brand_id' => $brandId,
                 ]);

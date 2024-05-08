@@ -15,10 +15,10 @@ return new class extends Migration
             $table->char('id', length: 36)->primary();
             $table->char('transaction_id', length: 36);
             $table->foreign('transaction_id')->references('id')->on('transactions');
-            $table->char('cinema_product_id', length: 36);
-            $table->foreign('cinema_product_id')->references('id')->on('cinema_products');
+            $table->char('theater_product_id', length: 36);
+            $table->foreign('theater_product_id')->references('id')->on('theater_products');
             $table->integer('quantity');
-            $table->unique(['transaction_id', 'cinema_product_id']);
+            $table->unique(['transaction_id', 'theater_product_id']);
             $table->timestamps();
         });
     }

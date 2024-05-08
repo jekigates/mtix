@@ -1,6 +1,5 @@
 import { useEffect, FormEventHandler } from "react";
 import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/InputError";
 import { Head, Link, useForm } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
 import { Button } from "@/Components/ui/button";
@@ -14,6 +13,7 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { PageProps } from "@/types";
+import { InputMessage } from "@/Components/InputMessage";
 
 export default function Login({
     auth,
@@ -75,7 +75,7 @@ export default function Login({
                                     placeholder="Your valid email"
                                 />
 
-                                <InputError message={errors.email} />
+                                <InputMessage>{errors.email}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -105,7 +105,7 @@ export default function Login({
                                     placeholder="PIN/Password"
                                 />
 
-                                <InputError message={errors.password} />
+                                <InputMessage>{errors.password}</InputMessage>
                             </div>
 
                             <div className="flex items-center space-x-2">

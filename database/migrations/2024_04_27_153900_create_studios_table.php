@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('studios', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
-            $table->char('cinema_id', length: 36);
-            $table->foreign('cinema_id')->references('id')->on('cinemas');
+            $table->char('theater_id', length: 36);
+            $table->foreign('theater_id')->references('id')->on('theaters');
             $table->integer('number');
-            $table->unique(['cinema_id', 'number']);
+            $table->unique(['theater_id', 'number']);
             $table->timestamps();
         });
     }

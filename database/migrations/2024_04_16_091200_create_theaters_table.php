@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cinemas', function (Blueprint $table) {
+        Schema::create('theaters', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->char('location_id', length: 36);
             $table->foreign('location_id')->references('id')->on('locations');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cinemas');
+        Schema::dropIfExists('theaters');
     }
 };

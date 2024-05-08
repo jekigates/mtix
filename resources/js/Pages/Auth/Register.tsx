@@ -1,6 +1,5 @@
 import { useEffect, FormEventHandler, useState } from "react";
 import MainLayout from "@/Layouts/MainLayout";
-import InputError from "@/Components/InputError";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Button } from "@/Components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
@@ -36,6 +35,7 @@ import {
     PopoverTrigger,
 } from "@/Components/ui/popover";
 import { PageProps } from "@/types";
+import { InputMessage } from "@/Components/InputMessage";
 
 export default function Register({ auth, provinces }: PageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -191,7 +191,9 @@ export default function Register({ auth, provinces }: PageProps) {
                                     maxLength={16}
                                 />
 
-                                <InputError message={errors.phone_number} />
+                                <InputMessage>
+                                    {errors.phone_number}
+                                </InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -210,7 +212,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     placeholder="Your Name"
                                 />
 
-                                <InputError message={errors.name} />
+                                <InputMessage>{errors.name}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -227,7 +229,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     placeholder="Your valid email"
                                 />
 
-                                <InputError message={errors.email} />
+                                <InputMessage>{errors.email}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -245,7 +247,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     placeholder="Correspondence address based on ID/KTP"
                                 />
 
-                                <InputError message={errors.address} />
+                                <InputMessage>{errors.address}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -319,7 +321,9 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </PopoverContent>
                                 </Popover>
 
-                                <InputError message={errors.province_id} />
+                                <InputMessage>
+                                    {errors.province_id}
+                                </InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -402,7 +406,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </PopoverContent>
                                 </Popover>
 
-                                <InputError message={errors.city_id} />
+                                <InputMessage>{errors.city_id}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -429,7 +433,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </SelectContent>
                                 </Select>
 
-                                <InputError message={errors.gender} />
+                                <InputMessage>{errors.gender}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -446,7 +450,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                                 <SelectLabel>Day</SelectLabel>
                                                 {days.map((day, index) => (
                                                     <SelectItem
-                                                        key={index}
+                                                        key={`day-${index}`}
                                                         value={day.toString()}
                                                     >
                                                         {day}
@@ -469,7 +473,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                                 <SelectLabel>Month</SelectLabel>
                                                 {months.map((month, index) => (
                                                     <SelectItem
-                                                        key={index}
+                                                        key={`month-${index}`}
                                                         value={index.toString()}
                                                     >
                                                         {month}
@@ -490,9 +494,9 @@ export default function Register({ auth, provinces }: PageProps) {
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Year</SelectLabel>
-                                                {years.map((year) => (
+                                                {years.map((year, index) => (
                                                     <SelectItem
-                                                        key={year}
+                                                        key={`year-${index}`}
                                                         value={year.toString()}
                                                     >
                                                         {year}
@@ -503,7 +507,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </Select>
                                 </div>
 
-                                <InputError message={errors.dob} />
+                                <InputMessage>{errors.dob}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -520,7 +524,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     placeholder="6 digits Number"
                                 />
 
-                                <InputError message={errors.password} />
+                                <InputMessage>{errors.password}</InputMessage>
                             </div>
 
                             <div className="grid gap-2">
@@ -542,9 +546,9 @@ export default function Register({ auth, provinces }: PageProps) {
                                     placeholder="6 digits Number"
                                 />
 
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
+                                <InputMessage>
+                                    {errors.password_confirmation}
+                                </InputMessage>
                             </div>
 
                             <Button

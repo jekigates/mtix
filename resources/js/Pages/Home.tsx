@@ -11,7 +11,6 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/Components/ui/carousel";
-import { Card, CardContent } from "@/Components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
 
 export default function Home({ auth, promos, movies }: PageProps) {

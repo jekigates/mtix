@@ -3,15 +3,20 @@
 namespace App\Data;
 
 use App\Models\City;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
 
 class CityData extends Data
 {
+    /**
+    * @param Lazy|Collection<int, TheaterData> $theaters
+    */
     public function __construct(
       public string $id,
       public string $name,
       public Lazy|ProvinceData $province,
+      public Lazy|Collection $theaters,
     ) {}
 
     public static function fromModel(City $city): self
@@ -20,6 +25,7 @@ class CityData extends Data
             $city->id,
             $city->name,
             Lazy::create(fn() => ProvinceData::from($city->province)),
+            Lazy::create(fn() => TheaterData::collect($city->theaters)),
         );
     }
 }

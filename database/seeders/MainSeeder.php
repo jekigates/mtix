@@ -85,9 +85,9 @@ class MainSeeder extends Seeder
 
 
         /*
-            ==============================================================================
-            6. Locations & Cinemas & Cinema Movies & Cinema Products & Studios & Showtimes
-            ==============================================================================
+            =================================================================================
+            6. Locations & Theaters & Theater Movies & Theater Products & Studios & Showtimes
+            =================================================================================
         */
         $cities = City::all();
 
@@ -106,17 +106,17 @@ class MainSeeder extends Seeder
         $promos = [
             [
                 'name' => 'Weekendasik Pakai M.food',
-                'image' => 'img/promos/weekend-asik.jpg',
+                'image' => 'img/promos/images/weekend-asik.jpg',
                 'banner_image' => 'img/promos/banner-images/weekend-asik.jpg',
             ],
             [
                 'name' => 'Xxi Cafe - Pesan Xxi Snack Box Di Sini!',
-                'image' => 'img/promos/snackbox.jpg',
+                'image' => 'img/promos/images/snackbox.jpg',
                 'banner_image' => 'img/promos/banner-images/snackbox.jpg',
             ],
             [
                 'name' => 'Mandiri - Cashback 100% Qr Livin By Mandiri',
-                'image' => 'img/promos/mandiri-cashback.jpg',
+                'image' => 'img/promos/images/mandiri-cashback.jpg',
                 'banner_image' => 'img/promos/banner-images/mandiri-cashback.jpeg',
             ]
         ];

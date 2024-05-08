@@ -11,8 +11,8 @@ class Studio extends Model
 {
     use HasFactory, HasUuids;
 
-    public function Cinema(): BelongsTo
+    public function theater(): BelongsTo
     {
-        return $this->belongsTo(Cinema::class);
+        return $this->belongsTo(Theater::class);
     }
 }

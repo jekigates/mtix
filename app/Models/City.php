@@ -23,19 +23,19 @@ class City extends Model
         return $this->hasMany(Location::class);
     }
 
-    public function cinemas(): HasManyThrough
+    public function theaters(): HasManyThrough
     {
-        return $this->hasManyThrough(Cinema::class, Location::class);
+        return $this->hasManyThrough(Theater::class, Location::class);
     }
 
     public function get_active_movies()
     {
-        $cinemas = $this->cinemas;
-        $cinema_movies = CinemaMovie::whereIn('cinema_id', $cinemas->pluck('id'))->groupBy('movie_id')->get();
-        $active_movies = $cinema_movies->map(function ($cinema_movie) {
-            $showtimes = $cinema_movie->showtimes()->where(date('Y-m-d', $cinema_movie->start_at), '>=', date('Y-m-d'))->get();;
+        $theaters = $this->theaters;
+        $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->groupBy('movie_id')->get();
+        $active_movies = $theater_movies->filter(function ($theater_movie) {
+            $showtimes = $theater_movie->showtimes()->where(date('Y-m-d', $theater_movie->start_at), '>=', date('Y-m-d'))->get();;
 
-            if ($showtimes) return $cinema_movie;
+            return $showtimes->isNotEmpty();
         });
         $movies = Movie::whereIn('id', $active_movies->pluck('movie_id'))->get();
 
@@ -44,11 +44,10 @@ class City extends Model
 
     public function get_upcoming_movies()
     {
-        $cinemas = $this->cinemas;
-        $cinema_movies = CinemaMovie::whereIn('cinema_id', $cinemas->pluck('id'))->groupBy('movie_id')->get();
-        $movies = Movie::whereIn('id', $cinema_movies->pluck('movie_id'))->where('screening_start_date', '=', null)->get();
+        $theaters = $this->theaters;
+        $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->groupBy('movie_id')->get();
+        $movies = Movie::whereIn('id', $theater_movies->pluck('movie_id'))->where('screening_start_date', '=', null)->get();
 
         return $movies;
-
     }
 }

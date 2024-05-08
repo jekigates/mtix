@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -29,6 +30,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $city = ($request->hasCookie('city_id')) ? City::find($request->cookie('city_id')) : null;
+
+        if (!$city) {
+            $city = City::all()->first();
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -38,6 +45,7 @@ class HandleInertiaRequests extends Middleware
                     ['province_id' => $request->user()->city->province_id]
                 ) : $request->user(),
             ],
+            'selected_city' => $city,
         ];
     }
 }

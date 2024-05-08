@@ -20,4 +20,7 @@ export type PageProps<
     promos: App.Data.PromoData[];
     movies: App.Data.MovieData[];
     provinces: App.Data.ProvinceData[];
+    city: App.Data.CityData;
+    cities: App.Data.CityData[];
+    brands: App.Data.BrandData[];
 };

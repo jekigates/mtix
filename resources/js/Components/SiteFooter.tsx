@@ -1,7 +1,9 @@
+import { Separator } from "./ui/separator";
+
 export default function SiteFooter() {
     return (
         <footer className="border-t text-muted-foreground p-4 bg-background">
-            <div className="text-xs mb-2">
+            <div className="mb-2 flex h-4 items-center space-x-2 text-xs">
                 <a
                     href="http://www.21cineplex.com/21profile"
                     target="_blank"
@@ -10,7 +12,9 @@ export default function SiteFooter() {
                 >
                     Profile
                 </a>
-                {" | "}
+
+                <Separator orientation="vertical" />
+
                 <a
                     href="http://www.21cineplex.com/termofuse"
                     target="_blank"
@@ -19,7 +23,9 @@ export default function SiteFooter() {
                 >
                     Terms of Use
                 </a>
-                {" | "}
+
+                <Separator orientation="vertical" />
+
                 <a
                     href="http://www.21cineplex.com/jobs"
                     target="_blank"
@@ -28,7 +34,9 @@ export default function SiteFooter() {
                 >
                     Jobs Opportunities
                 </a>
-                {" | "}
+
+                <Separator orientation="vertical" />
+
                 <a
                     href="http://www.21cineplex.com/credits"
                     target="_blank"
@@ -37,7 +45,9 @@ export default function SiteFooter() {
                 >
                     Credit
                 </a>
-                {" | "}
+
+                <Separator orientation="vertical" />
+
                 <a
                     href="http://www.21cineplex.com/page/page-info-iklan"
                     target="_blank"
@@ -46,7 +56,9 @@ export default function SiteFooter() {
                 >
                     Info Iklan
                 </a>
-                {" | "}
+
+                <Separator orientation="vertical" />
+
                 <a
                     href="http://www.21cineplex.com/sitemap"
                     target="_blank"

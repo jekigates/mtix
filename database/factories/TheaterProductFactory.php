@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CinemaMovie>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TheaterProduct>
  */
-class CinemaMovieFactory extends Factory
+class TheaterProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class CinemaMovieFactory extends Factory
     public function definition(): array
     {
         return [
-            'price' => fake()->randomElement([40000, 60000, 80000, 10000]),
+            'stock' => fake()->numberBetween(0, 18),
         ];
     }
 }

@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Cinema;
-use App\Models\CinemaMovie;
-use App\Models\CinemaProduct;
+use App\Models\Theater;
+use App\Models\TheaterMovie;
+use App\Models\TheaterProduct;
 use App\Models\Movie;
 use App\Models\ProductVariant;
 use App\Models\Studio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cinema>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Theater>
  */
-class CinemaFactory extends Factory
+class TheaterFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -29,12 +29,12 @@ class CinemaFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Cinema $cinema) {
-            $movieIds = fake()->randomElements(Movie::all()->pluck('id'), 3);
+        return $this->afterCreating(function (Theater $theater) {
+            $movieIds = Movie::inRandomOrder()->limit(3)->pluck('id');
 
             foreach ($movieIds as $movieId) {
-                CinemaMovie::factory()->create([
-                    'cinema_id' => $cinema->id,
+                TheaterMovie::factory()->create([
+                    'theater_id' => $theater->id,
                     'movie_id' => $movieId,
                 ]);
             }
@@ -42,8 +42,8 @@ class CinemaFactory extends Factory
             $productVariants = ProductVariant::inRandomOrder()->take(3)->get();
 
             foreach ($productVariants as $productVariant) {
-                CinemaProduct::factory()->create([
-                    'cinema_id' => $cinema->id,
+                TheaterProduct::factory()->create([
+                    'theater_id' => $theater->id,
                     'product_id' => $productVariant->product->id,
                     'product_variant_id' => $productVariant->id,
                 ]);
@@ -53,7 +53,7 @@ class CinemaFactory extends Factory
 
             for ($i = 0; $i < $studioCount; $i++) {
                 Studio::factory()->create([
-                    'cinema_id' => $cinema->id,
+                    'theater_id' => $theater->id,
                     'number' => $i + 1,
                 ]);
             }
