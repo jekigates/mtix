@@ -5,14 +5,17 @@ use App\Data\CityData;
 use App\Data\MovieData;
 use App\Data\PromoData;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TheaterController;
 use App\Models\Brand;
 use App\Models\City;
 use App\Models\Promo;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Inertia\Response;
 use Spatie\LaravelData\DataCollection;
 
-Route::get('/', function () {
+Route::get('/', function (): Response {
     $promos = PromoData::collect(Promo::all());
     $city = City::all()->random()->first();
     $movies = MovieData::collect($city->get_active_movies(), DataCollection::class)->include('genres');
@@ -25,7 +28,7 @@ Route::get('/', function () {
     ]);
 })->name('dashboard');
 
-Route::get('/upcoming', function () {
+Route::get('/upcoming', function (): Response {
     $city = City::all()->random()->first();
     $movies = MovieData::collect($city->get_upcoming_movies(), DataCollection::class)->include('genres');
 
@@ -34,15 +37,19 @@ Route::get('/upcoming', function () {
     ]);
 })->name('upcoming');
 
-Route::get('/theaters', function () {
-    $brands = BrandData::collect(Brand::all());
-    $cities = CityData::collect(City::all(), DataCollection::class)->include('theaters');
+Route::get('/cities', function (Request $request): Response {
+    $cities = CityData::collect(City::all());
+    $city_id = $request->session()->get('city_id');
 
-    return Inertia::render('Theaters/Index', [
-        'brands' => $brands,
+    // dd(City::find($city_id));
+
+    return Inertia::render('City', [
         'cities' => $cities,
+        'selected_city' => CityData::fromModel(City::find($city_id)),
     ]);
-})->name('theaters.index');
+})->name('cities.index');
+
+Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

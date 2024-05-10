@@ -17,7 +17,7 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get('/profile');
+            ->get(route('settings.profile.edit'));
 
         $response->assertOk();
     }
@@ -29,20 +29,15 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->patch('/profile', [
+            ->patch(route('settings.profile.edit'), [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
                 'phone_number' => '081233217890',
-                'address' => 'Test Address',
-                'province_id' => $city->province_id,
-                'city_id' => $city->id,
-                'gender' => 'Male',
-                'dob' => '2006-12-25',
             ]);
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/profile');
+            ->assertRedirect(route('settings.profile.edit'));
 
         $user->refresh();
 
@@ -58,20 +53,15 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->patch('/profile', [
+            ->patch(route('settings.profile.edit'), [
                 'name' => 'Test User',
                 'email' => $user->email,
                 'phone_number' => '081233217890',
-                'address' => 'Test Address',
-                'province_id' => $city->province_id,
-                'city_id' => $city->id,
-                'gender' => 'Female',
-                'dob' => '2006-12-25',
             ]);
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/profile');
+            ->assertRedirect(route('settings.profile.edit'));
 
         $this->assertNotNull($user->refresh()->email_verified_at);
     }
@@ -82,7 +72,7 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->delete('/profile', [
+            ->delete(route('settings.account.edit'), [
                 'password' => 'password',
             ]);
 
@@ -91,7 +81,7 @@ class ProfileTest extends TestCase
             ->assertRedirect('/');
 
         $this->assertGuest();
-        $this->assertNull($user->fresh());
+        $this->assertSoftDeleted($user->fresh());
     }
 
     public function test_correct_password_must_be_provided_to_delete_account(): void
@@ -100,14 +90,14 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->from('/profile')
-            ->delete('/profile', [
+            ->from(route('settings.account.edit'))
+            ->delete(route('settings.account.edit'), [
                 'password' => 'wrong-password',
             ]);
 
         $response
             ->assertSessionHasErrors('password')
-            ->assertRedirect('/profile');
+            ->assertRedirect(route('settings.account.edit'));
 
         $this->assertNotNull($user->fresh());
     }

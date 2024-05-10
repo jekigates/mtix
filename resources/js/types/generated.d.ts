@@ -6,12 +6,21 @@ declare namespace App.Data {
     export type CityData = {
         id: string;
         name: string;
+        province_id: string;
         province?: App.Data.ProvinceData;
         theaters?: Array<App.Data.TheaterData>;
     };
     export type GenreData = {
         id: string;
         name: string;
+    };
+    export type LocationData = {
+        id: string;
+        name: string;
+        contact: string;
+        address: string;
+        city_id: string;
+        user_id: string;
     };
     export type MovieData = {
         id: string;
@@ -42,5 +51,8 @@ declare namespace App.Data {
     };
     export type TheaterData = {
         id: string;
+        location_id: string;
+        brand_id: string;
+        location?: App.Data.LocationData;
     };
 }

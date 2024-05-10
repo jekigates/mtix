@@ -15,6 +15,7 @@ class CityData extends Data
     public function __construct(
       public string $id,
       public string $name,
+      public string $province_id,
       public Lazy|ProvinceData $province,
       public Lazy|Collection $theaters,
     ) {}
@@ -24,6 +25,7 @@ class CityData extends Data
         return new self(
             $city->id,
             $city->name,
+            $city->province_id,
             Lazy::create(fn() => ProvinceData::from($city->province)),
             Lazy::create(fn() => TheaterData::collect($city->theaters)),
         );

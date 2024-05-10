@@ -5,9 +5,8 @@ import SideFooter from "@/Components/SiteFooter";
 
 export default function Main({
     user,
-    city,
     children,
-}: PropsWithChildren<{ user?: User; city?: App.Data.CityData }>) {
+}: PropsWithChildren<{ user?: User }>) {
     return (
         <>
             <SideHeader user={user} />

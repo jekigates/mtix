@@ -30,11 +30,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $city = ($request->hasCookie('city_id')) ? City::find($request->cookie('city_id')) : null;
-
-        if (!$city) {
-            $city = City::all()->first();
+        if (!$request->session()->get('city_id')) {
+            $city_id = City::all()->first()->id;
+            session(['city_id' => $city_id]);
         }
+
 
         return [
             ...parent::share($request),
@@ -45,7 +45,6 @@ class HandleInertiaRequests extends Middleware
                     ['province_id' => $request->user()->city->province_id]
                 ) : $request->user(),
             ],
-            'selected_city' => $city,
         ];
     }
 }

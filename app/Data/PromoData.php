@@ -2,7 +2,6 @@
 
 namespace App\Data;
 
-use App\Models\Promo;
 use Spatie\LaravelData\Data;
 
 class PromoData extends Data
