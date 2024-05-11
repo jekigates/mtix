@@ -26,6 +26,8 @@ class MovieFactory extends Factory
         return [
             'title' => fake()->unique()->words(fake()->numberBetween(2, 4), true),
             'description' => fake()->text(),
+            'minimum_age' => fake()->randomElement([0, 13, 17, 21]),
+            'type' => fake()->randomElement(['2D', '3D', '4D']),
             'producer' => implode(', ', array_map(function() {
                 return $this->faker->name($this->faker->randomElement(['male', 'female']));
             }, range(1, $this->faker->numberBetween(1, 3)))),
@@ -38,8 +40,8 @@ class MovieFactory extends Factory
             'cast' => implode(', ', array_map(function() {
                 return $this->faker->name($this->faker->randomElement(['male', 'female']));
             }, range(1, $this->faker->numberBetween(1, 3)))),
-            'distributor' => fake()->company(),
-            'website' => fake()->url(),
+            'distributor' => fake()->optional()->company(),
+            'website' => fake()->optional()->url(),
             'runtime' => fake()->numberBetween(60, 180),
             'image' => function () {
                 $filename = uniqid() . '.jpg';
@@ -48,7 +50,7 @@ class MovieFactory extends Factory
 
                 return 'storage/movie-images/' . $filename;
             },
-            'trailer' => fake()->url(),
+            'trailer' => 'videos/trailer.mp4',
             'screening_start_date' => ($isUpcoming) ? null : $screening_start_date->toDateString(),
             'screening_end_date' => ($isUpcoming) ? null : $screening_start_date->addDays(7)->toDateString(),
         ];
@@ -57,7 +59,7 @@ class MovieFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Movie $movie) {
-            $genreIds = Genre::inRandomOrder()->take(2)->pluck('id');
+            $genreIds = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');
 
             foreach ($genreIds as $genreId) {
                 MovieGenre::factory()->create([

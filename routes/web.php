@@ -4,6 +4,7 @@ use App\Data\BrandData;
 use App\Data\CityData;
 use App\Data\MovieData;
 use App\Data\PromoData;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TheaterController;
 use App\Models\Brand;
@@ -15,10 +16,11 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\LaravelData\DataCollection;
 
-Route::get('/', function (): Response {
+Route::get('/', function (Request $request): Response {
     $promos = PromoData::collect(Promo::all());
-    $city = City::all()->random()->first();
-    $movies = MovieData::collect($city->get_active_movies(), DataCollection::class)->include('genres');
+    $city_id = $request->session()->get('city_id');
+    $city = City::findOrFail($city_id);
+    $movies = MovieData::collect($city->get_active_movies());
 
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
@@ -28,9 +30,10 @@ Route::get('/', function (): Response {
     ]);
 })->name('dashboard');
 
-Route::get('/upcoming', function (): Response {
-    $city = City::all()->random()->first();
-    $movies = MovieData::collect($city->get_upcoming_movies(), DataCollection::class)->include('genres');
+Route::get('/upcoming', function (Request $request): Response {
+    $city_id = $request->session()->get('city_id');
+    $city = City::findOrFail($city_id);
+    $movies = MovieData::collect($city->get_upcoming_movies());
 
     return Inertia::render('Upcoming', [
         'movies' => $movies,
@@ -41,8 +44,6 @@ Route::get('/cities', function (Request $request): Response {
     $cities = CityData::collect(City::all());
     $city_id = $request->session()->get('city_id');
 
-    // dd(City::find($city_id));
-
     return Inertia::render('City', [
         'cities' => $cities,
         'selected_city' => CityData::fromModel(City::find($city_id)),
@@ -50,6 +51,8 @@ Route::get('/cities', function (Request $request): Response {
 })->name('cities.index');
 
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
+
+Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

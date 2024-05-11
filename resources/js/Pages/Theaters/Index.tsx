@@ -52,7 +52,7 @@ export default function Index({ auth, city, brands }: PageProps) {
                                             theater.brand_id === brand.id && (
                                                 <Link
                                                     key={theater.id}
-                                                    href="#"
+                                                    href=""
                                                     className={buttonVariants({
                                                         variant: "outline",
                                                     })}

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->char('id', length: 36)->primary();
             $table->string('title', length: 50);
             $table->string('description', length: 100);
+            $table->integer('minimum_age');
+            $table->string('type', length: 50);
             $table->string('producer', length: 50)->nullable();
             $table->string('director', length: 50)->nullable();
             $table->string('writer', length: 50)->nullable();

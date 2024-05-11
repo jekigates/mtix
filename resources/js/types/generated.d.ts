@@ -26,6 +26,8 @@ declare namespace App.Data {
         id: string;
         title: string;
         description: string;
+        minimum_age: number;
+        type: string;
         producer: string | null;
         director: string | null;
         writer: string | null;
@@ -35,6 +37,8 @@ declare namespace App.Data {
         runtime: number;
         image: string;
         trailer: string;
+        screening_start_date: string | null;
+        screening_end_date: string | null;
         genres?: Array<App.Data.GenreData>;
     };
     export type PromoData = {

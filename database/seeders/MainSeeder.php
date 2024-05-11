@@ -48,13 +48,7 @@ class MainSeeder extends Seeder
             3. Genres
             =========
         */
-        $genres = ["2D", "R13+", "D17+", "SU"];
-
-        foreach ($genres as $genre) {
-            Genre::create([
-                'name' => $genre,
-            ]);
-        }
+        Genre::factory(9)->create();
 
         /*
             ========================

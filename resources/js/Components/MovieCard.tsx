@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { InertiaLinkProps, Link } from "@inertiajs/react";
 
-interface MovieCardProps extends React.HTMLAttributes<HTMLDivElement> {
-    movie: App.Data.MovieData;
-}
-
-export function MovieCard({ movie, className, ...props }: MovieCardProps) {
+export function MovieCard({
+    movie,
+    className,
+    ...props
+}: InertiaLinkProps & { movie: App.Data.MovieData }) {
     return (
-        <div
+        <Link
             className={cn("group relative space-y-3 text-center", className)}
             {...props}
         >
@@ -25,18 +26,25 @@ export function MovieCard({ movie, className, ...props }: MovieCardProps) {
                 </h3>
 
                 <div className="space-x-1">
-                    {movie.genres?.map((genre) => (
-                        <Button
-                            key={movie.id + genre.id}
-                            size={"xs"}
-                            variant={"outline"}
-                            className="cursor-not-allowed text-primary"
-                        >
-                            {genre.name}
-                        </Button>
-                    ))}
+                    <Button
+                        size={"xs"}
+                        variant={"outline"}
+                        className="cursor-not-allowed text-primary"
+                    >
+                        {movie.type}
+                    </Button>
+
+                    <Button
+                        size={"xs"}
+                        variant={"outline"}
+                        className="cursor-not-allowed text-primary"
+                    >
+                        {movie.minimum_age === 0
+                            ? "SU"
+                            : movie.minimum_age + "+"}
+                    </Button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

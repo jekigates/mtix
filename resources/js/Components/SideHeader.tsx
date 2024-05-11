@@ -98,7 +98,7 @@ export default function SideHeader({
                     href={route("theaters.index")}
                     className={cn(
                         "transition-colors hover:text-foreground",
-                        url === "/theaters"
+                        url.startsWith("/theaters")
                             ? "text-foreground"
                             : "text-muted-foreground"
                     )}
@@ -194,7 +194,7 @@ export default function SideHeader({
                             }}
                             className={cn(
                                 "hover:text-foreground",
-                                url === "/theaters"
+                                url.startsWith("/theaters")
                                     ? ""
                                     : "text-muted-foreground"
                             )}

@@ -62,7 +62,11 @@ export default function Home({ auth, promos, movies }: PageProps) {
 
                     <div className="mt-6 grid grid-cols-2 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 space-x-4">
                         {movies.map((movie) => (
-                            <MovieCard key={movie.id} movie={movie} />
+                            <MovieCard
+                                href={route("movies.show", movie.id)}
+                                key={movie.id}
+                                movie={movie}
+                            />
                         ))}
                     </div>
                 </div>

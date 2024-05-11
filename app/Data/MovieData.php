@@ -16,6 +16,8 @@ class MovieData extends Data
         public string $id,
         public string $title,
         public string $description,
+        public int $minimum_age,
+        public string $type,
         public ?string $producer,
         public ?string $director,
         public ?string $writer,
@@ -25,6 +27,8 @@ class MovieData extends Data
         public int $runtime,
         public string $image,
         public string $trailer,
+        public ?string $screening_start_date,
+        public ?string $screening_end_date,
         public Lazy|Collection $genres,
     ) {}
 
@@ -34,6 +38,8 @@ class MovieData extends Data
             $movie->id,
             $movie->title,
             $movie->description,
+            $movie->minimum_age,
+            $movie->type,
             $movie->producer,
             $movie->director,
             $movie->writer,
@@ -41,8 +47,10 @@ class MovieData extends Data
             $movie->distributor,
             $movie->website,
             $movie->runtime,
-            $movie->image,
+            asset($movie->image),
             $movie->trailer,
+            $movie->screening_start_date,
+            $movie->screening_end_date,
             Lazy::create(fn() => GenreData::collect($movie->genres)),
         );
     }

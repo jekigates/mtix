@@ -18,6 +18,7 @@ export type PageProps<
         user: User;
     };
     promos: App.Data.PromoData[];
+    movie: App.Data.MovieData;
     movies: App.Data.MovieData[];
     provinces: App.Data.ProvinceData[];
     city: App.Data.CityData;
