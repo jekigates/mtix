@@ -33,7 +33,7 @@ export default function Index({ auth, city, brands }: PageProps) {
                         </div>
                     </div>
 
-                    <Separator />
+                    <Separator className="my-4" />
 
                     <Tabs defaultValue={brands[0].id}>
                         <TabsList className="grid w-full grid-cols-3">

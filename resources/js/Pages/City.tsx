@@ -29,7 +29,7 @@ export default function Index({
                         </div>
                     </div>
 
-                    <Separator />
+                    <Separator className="my-4" />
 
                     <div className="flex flex-col gap-2">
                         {cities.map((city) => (

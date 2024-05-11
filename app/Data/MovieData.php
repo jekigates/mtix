@@ -48,7 +48,7 @@ class MovieData extends Data
             $movie->website,
             $movie->runtime,
             asset($movie->image),
-            $movie->trailer,
+            asset($movie->trailer),
             $movie->screening_start_date,
             $movie->screening_end_date,
             Lazy::create(fn() => GenreData::collect($movie->genres)),

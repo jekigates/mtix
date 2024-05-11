@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('promos', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->string('name', length: 50);
-            $table->string('description', length: 100);
+            $table->text('description');
             $table->string('image', length: 50);
             $table->string('banner_image', length: 50);
+            $table->date('valid_start_date');
+            $table->date('valid_end_date');
             $table->timestamps();
         });
     }

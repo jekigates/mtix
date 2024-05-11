@@ -5,6 +5,7 @@ use App\Data\CityData;
 use App\Data\MovieData;
 use App\Data\PromoData;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TheaterController;
 use App\Models\Brand;
@@ -53,6 +54,9 @@ Route::get('/cities', function (Request $request): Response {
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
 
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
+
+Route::get('/promos', [PromoController::class, 'index'])->name('promos.index');
+Route::get('/promos/{id}', [PromoController::class, 'show'])->name('promos.show');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

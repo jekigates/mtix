@@ -17,6 +17,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    promo: App.Data.PromoData;
     promos: App.Data.PromoData[];
     movie: App.Data.MovieData;
     movies: App.Data.MovieData[];

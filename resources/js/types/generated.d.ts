@@ -47,6 +47,8 @@ declare namespace App.Data {
         description: string;
         image: string;
         banner_image: string;
+        valid_start_date: string;
+        valid_end_date: string;
     };
     export type ProvinceData = {
         id: string;

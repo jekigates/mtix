@@ -17,10 +17,14 @@ class PromoFactory extends Factory
      */
     public function definition(): array
     {
+        $valid_start_date = now()->addDays(fake()->numberBetween(0, 7));
+
         return [
-            'description' => fake()->text(),
+            'description' => fake()->paragraphs(9, true),
             'image' => 'img/promos/weekend-asik.jpg',
             'banner_image' => 'img/promos/banner-images/weekend-asik.jpg',
+            'valid_start_date' => $valid_start_date->toDateString(),
+            'valid_end_date' => $valid_start_date->addDays(7)->toDateString(),
         ];
     }
 }

@@ -2,16 +2,15 @@ import { PageProps } from "@/types";
 import MainLayout from "@/Layouts/MainLayout";
 import { Head } from "@inertiajs/react";
 import { Separator } from "@/Components/ui/separator";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage } from "@/Components/ui/avatar";
 import { Clock3 } from "lucide-react";
-import { Button } from "@/Components/ui/button";
+import { Button, buttonVariants } from "@/Components/ui/button";
 import { ScrollArea } from "@/Components/ui/scroll-area";
 
-export default function Index({ auth, movie }: PageProps) {
+export default function Show({ auth, movie }: PageProps) {
     return (
         <MainLayout user={auth.user}>
-            <Head title="Movie Show" />
+            <Head title="Movie Detail" />
 
             <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
                 <div className="space-y-6">
@@ -39,7 +38,7 @@ export default function Index({ auth, movie }: PageProps) {
                         </div>
                     </div>
 
-                    <Separator />
+                    <Separator className="my-4" />
 
                     <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
@@ -103,7 +102,15 @@ export default function Index({ auth, movie }: PageProps) {
                                 >
                                     Buy Ticket
                                 </Button>
-                                <Button>Trailer</Button>
+                                <a
+                                    href={movie.trailer}
+                                    target="_blank"
+                                    className={buttonVariants()}
+                                >
+                                    <div className="w-full font-semibold">
+                                        Trailer
+                                    </div>
+                                </a>
                             </div>
 
                             <ScrollArea className="h-72 rounded-md border">
