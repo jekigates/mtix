@@ -2,44 +2,21 @@ import { PageProps } from "@/types";
 import MainLayout from "@/Layouts/MainLayout";
 import { Head, Link } from "@inertiajs/react";
 import { Separator } from "@/Components/ui/separator";
-import { Avatar, AvatarImage } from "@/Components/ui/avatar";
-import { Clock3 } from "lucide-react";
-import { Button, buttonVariants } from "@/Components/ui/button";
+import { Clock3, Utensils } from "lucide-react";
+import { Button } from "@/Components/ui/button";
 import { ScrollArea } from "@/Components/ui/scroll-area";
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import { formatDate, formatRupiah, formatTime } from "@/Common/helpers";
 
 export default function Show({ auth, movie }: PageProps) {
+    console.log(movie.theater_movies);
+
     return (
         <MainLayout user={auth.user}>
-            <Head title="Movie Detail" />
+            <Head title="Movie Showtimes" />
 
             <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
                 <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                        <Avatar>
-                            <AvatarImage
-                                src={
-                                    "../img/ages/" + movie.minimum_age + ".png"
-                                }
-                            />
-                        </Avatar>
-
-                        <div className="flex-1 flex items-center justify-between">
-                            <div className="space-y-1">
-                                <h2 className="text-2xl font-semibold tracking-tight">
-                                    {movie.title}
-                                </h2>
-
-                                <p className="text-sm text-muted-foreground">
-                                    {movie.genres
-                                        ?.map((genre) => genre.name)
-                                        .join(", ")}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <Separator className="my-4" />
-
                     <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                             <img
@@ -50,7 +27,14 @@ export default function Show({ auth, movie }: PageProps) {
                         </div>
 
                         <div className="sm:col-span-8 lg:col-span-7">
-                            <section aria-labelledby="information-heading">
+                            <h2 className="text-2xl font-bold sm:pr-12">
+                                {movie.title}
+                            </h2>
+
+                            <section
+                                aria-labelledby="information-heading"
+                                className="mt-2"
+                            >
                                 <h3
                                     id="information-heading"
                                     className="sr-only"
@@ -72,59 +56,26 @@ export default function Show({ auth, movie }: PageProps) {
                                     </div>
                                 </div>
 
-                                <Button
-                                    size={"xs"}
-                                    variant={"outline"}
-                                    className="cursor-not-allowed text-primary mt-2"
-                                >
-                                    {movie.type}
-                                </Button>
+                                <div className="space-x-1 mt-6">
+                                    <Button
+                                        size={"xs"}
+                                        variant={"outline"}
+                                        className="cursor-not-allowed text-primary"
+                                    >
+                                        {movie.type}
+                                    </Button>
+
+                                    <Button
+                                        size={"xs"}
+                                        variant={"outline"}
+                                        className="cursor-not-allowed text-primary"
+                                    >
+                                        {movie.minimum_age === 0
+                                            ? "SU"
+                                            : movie.minimum_age + "+"}
+                                    </Button>
+                                </div>
                             </section>
-
-                            <div className="space-x-2 mt-6">
-                                <Button
-                                    disabled={
-                                        movie.screening_start_date === null
-                                            ? true
-                                            : false
-                                    }
-                                >
-                                    <Link
-                                        href={route("theaters.index", {
-                                            movie_id: movie.id,
-                                        })}
-                                    >
-                                        Playing At
-                                    </Link>
-                                </Button>
-
-                                <Button
-                                    disabled={
-                                        movie.screening_start_date === null
-                                            ? true
-                                            : false
-                                    }
-                                >
-                                    <Link
-                                        href={route(
-                                            "movies.showtimes",
-                                            movie.id
-                                        )}
-                                    >
-                                        Buy Ticket
-                                    </Link>
-                                </Button>
-
-                                <a
-                                    href={movie.trailer}
-                                    target="_blank"
-                                    className={buttonVariants()}
-                                >
-                                    <div className="w-full font-semibold">
-                                        Trailer
-                                    </div>
-                                </a>
-                            </div>
 
                             <ScrollArea className="h-72 rounded-md border mt-10">
                                 <div className="p-4 grid gap-6">
@@ -201,6 +152,63 @@ export default function Show({ auth, movie }: PageProps) {
                             </ScrollArea>
                         </div>
                     </div>
+
+                    <Separator className="my-4" />
+
+                    {movie.theater_movies?.map((theater_movie) => (
+                        <Card key={theater_movie.id}>
+                            <CardHeader>
+                                <div className="flex flex-row items-center justify-between">
+                                    <CardTitle className="text-sm font-bold">
+                                        {theater_movie.theater?.location?.name}{" "}
+                                        {theater_movie.theater?.brand?.name}
+                                    </CardTitle>
+
+                                    <Link
+                                        href=""
+                                        className="flex items-center text-primary"
+                                    >
+                                        <div className="flex items-center">
+                                            <Utensils className="h-5 w-5 flex-shrink-0" />
+                                        </div>
+
+                                        <p className="ml-2 text-sm font-medium">
+                                            F&B
+                                        </p>
+                                    </Link>
+                                </div>
+
+                                <div className="flex flex-row items-center justify-between text-sm">
+                                    <p>
+                                        {theater_movie.showtimes?.[0]?.start_at
+                                            ? formatDate(
+                                                  theater_movie.showtimes[0]
+                                                      .start_at
+                                              )
+                                            : "No start date"}
+                                    </p>
+                                    <p>{formatRupiah(theater_movie.price)}</p>
+                                </div>
+                            </CardHeader>
+
+                            <CardContent>
+                                <div className="flex gap-1 flex-wrap">
+                                    {theater_movie.showtimes?.map(
+                                        (showtime) => (
+                                            <Button
+                                                key={showtime.id}
+                                                size={"sm"}
+                                                variant={"outline"}
+                                                className="cursor-not-allowed text-primary"
+                                            >
+                                                {formatTime(showtime.start_at)}
+                                            </Button>
+                                        )
+                                    )}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
             </div>
         </MainLayout>

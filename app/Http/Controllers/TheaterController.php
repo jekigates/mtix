@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Data\BrandData;
 use App\Data\CityData;
+use App\Data\MovieData;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\City;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\LaravelData\DataCollection;
 
 class TheaterController extends Controller
 {
@@ -27,9 +28,19 @@ class TheaterController extends Controller
             session(['city_id' => $city_id]);
         }
 
-        return Inertia::render('Theaters/Index', [
-            'brands' => $brands,
-            'city' => CityData::fromModel(City::find($city_id))->include('theaters', 'theaters.location'),
-        ]);
+        $city = City::findOrFail($city_id);
+        $data['brands'] = $brands;
+
+        if ($request->query('movie_id')) {
+            $movie_id = $request->query('movie_id');
+            $movie = Movie::findOrFail($movie_id);
+
+            $city->theaters = $movie->getActiveTheaters($city_id);
+            $data['movie'] = MovieData::fromModel($movie);
+        }
+
+        $data['city'] = CityData::fromModel($city)->include('theaters', 'theaters.location');
+
+        return Inertia::render('Theaters/Index', $data);
     }
 }

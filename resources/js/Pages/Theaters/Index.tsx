@@ -6,7 +6,7 @@ import { PageProps } from "@/types";
 import { Head, Link } from "@inertiajs/react";
 import { ChevronDown } from "lucide-react";
 
-export default function Index({ auth, city, brands }: PageProps) {
+export default function Index({ auth, city, brands, movie }: PageProps) {
     return (
         <MainLayout user={auth.user}>
             <Head title="Theaters" />
@@ -16,7 +16,7 @@ export default function Index({ auth, city, brands }: PageProps) {
                     <div className="flex items-center justify-between">
                         <div className="space-y-1">
                             <h2 className="text-2xl font-semibold tracking-tight flex items-center gap-1">
-                                Theaters in
+                                Theaters in {movie?.title}
                                 <Link
                                     href={route("cities.index")}
                                     className="text-primary flex items-center gap-1"

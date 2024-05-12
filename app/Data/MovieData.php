@@ -11,6 +11,7 @@ class MovieData extends Data
 {
     /**
     * @param Lazy|Collection<int, GenreData> $genres
+    * @param Lazy|Collection<int, TheaterMovieData> $theater_movies
     */
     public function __construct(
         public string $id,
@@ -30,6 +31,7 @@ class MovieData extends Data
         public ?string $screening_start_date,
         public ?string $screening_end_date,
         public Lazy|Collection $genres,
+        public Lazy|Collection $theater_movies,
     ) {}
 
     public static function fromModel(Movie $movie): self
@@ -52,6 +54,7 @@ class MovieData extends Data
             $movie->screening_start_date,
             $movie->screening_end_date,
             Lazy::create(fn() => GenreData::collect($movie->genres)),
+            Lazy::create(fn() => TheaterMovieData::collect($movie->theaterMovies)),
         );
     }
 }

@@ -7,12 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Theater extends Model
 {
     use HasFactory, HasUuids;
 
-    public function theater_movies(): HasMany
+    public function studios(): HasMany
+    {
+        return $this->hasMany(Studio::class);
+    }
+
+    public function theaterMovies(): HasMany
     {
         return $this->hasMany(TheaterMovie::class);
     }
@@ -20,5 +26,15 @@ class Theater extends Model
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function showtimes(): HasManyThrough
+    {
+        return $this->hasManyThrough(Showtime::class, TheaterMovie::class);
     }
 }

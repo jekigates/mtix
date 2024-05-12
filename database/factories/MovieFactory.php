@@ -59,12 +59,12 @@ class MovieFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Movie $movie) {
-            $genreIds = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');
+            $genre_ids = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');
 
-            foreach ($genreIds as $genreId) {
+            foreach ($genre_ids as $genre_id) {
                 MovieGenre::factory()->create([
                     'movie_id' => $movie->id,
-                    'genre_id' => $genreId,
+                    'genre_id' => $genre_id,
                 ]);
             }
         });

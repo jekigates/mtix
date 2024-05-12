@@ -22,4 +22,15 @@ class MovieController extends Controller
             'movie' => MovieData::fromModel($movie)->include('genres'),
         ]);
     }
+
+    public function showtimes(Request $request, string $id): Response
+    {
+        $movie = Movie::findOrFail($id);
+        $city_id = $request->session()->get('city_id');
+        $movie->theaterMovies = $movie->getActiveTheaterMovies($city_id);
+
+        return Inertia::render('Movies/Showtime', [
+            'movie' => MovieData::fromModel($movie)->include('theater_movies', 'theater_movies.theater', 'theater_movies.theater.location', 'theater_movies.theater.brand', 'theater_movies.showtimes'),
+        ]);
+    }
 }

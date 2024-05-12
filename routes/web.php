@@ -1,6 +1,5 @@
 <?php
 
-use App\Data\BrandData;
 use App\Data\CityData;
 use App\Data\MovieData;
 use App\Data\PromoData;
@@ -8,20 +7,18 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TheaterController;
-use App\Models\Brand;
 use App\Models\City;
 use App\Models\Promo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\LaravelData\DataCollection;
 
 Route::get('/', function (Request $request): Response {
     $promos = PromoData::collect(Promo::all());
     $city_id = $request->session()->get('city_id');
     $city = City::findOrFail($city_id);
-    $movies = MovieData::collect($city->get_active_movies());
+    $movies = MovieData::collect($city->getActiveMovies());
 
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
@@ -34,7 +31,7 @@ Route::get('/', function (Request $request): Response {
 Route::get('/upcoming', function (Request $request): Response {
     $city_id = $request->session()->get('city_id');
     $city = City::findOrFail($city_id);
-    $movies = MovieData::collect($city->get_upcoming_movies());
+    $movies = MovieData::collect($city->getUpcomingMovies());
 
     return Inertia::render('Upcoming', [
         'movies' => $movies,
@@ -54,6 +51,7 @@ Route::get('/cities', function (Request $request): Response {
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
 
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
+Route::get('/movies/{id}/showtimes', [MovieController::class, 'showtimes'])->name('movies.showtimes');
 
 Route::get('/promos', [PromoController::class, 'index'])->name('promos.index');
 Route::get('/promos/{id}', [PromoController::class, 'show'])->name('promos.show');

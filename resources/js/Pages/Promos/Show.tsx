@@ -2,19 +2,9 @@ import { PageProps } from "@/types";
 import MainLayout from "@/Layouts/MainLayout";
 import { Head } from "@inertiajs/react";
 import { Separator } from "@/Components/ui/separator";
-import { Avatar, AvatarImage } from "@/Components/ui/avatar";
-import { Clock3 } from "lucide-react";
-import { Button, buttonVariants } from "@/Components/ui/button";
-import { ScrollArea } from "@/Components/ui/scroll-area";
+import { formatDate } from "@/Common/helpers";
 
 export default function Show({ auth, promo }: PageProps) {
-    function formatDate(dateString: string) {
-        const date = new Date(dateString);
-        return `${date.getDate()} ${date.toLocaleString("default", {
-            month: "long",
-        })} ${date.getFullYear()}`;
-    }
-
     return (
         <MainLayout user={auth.user}>
             <Head title="Promo Detail" />

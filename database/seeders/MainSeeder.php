@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\City;
 use App\Models\Genre;
@@ -11,6 +10,8 @@ use App\Models\Movie;
 use App\Models\ProductCategory;
 use App\Models\Promo;
 use App\Models\Province;
+use App\Models\Showtime;
+use App\Models\Theater;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -79,9 +80,9 @@ class MainSeeder extends Seeder
 
 
         /*
-            =================================================================================
-            6. Locations & Theaters & Theater Movies & Theater Products & Studios & Showtimes
-            =================================================================================
+            =====================================================================
+            6. Locations & Theaters & Theater Movies & Theater Products & Studios
+            =====================================================================
         */
         $cities = City::all();
 
@@ -93,8 +94,39 @@ class MainSeeder extends Seeder
         }
 
         /*
+            ============
+            7. Showtimes
+            ============
+        */
+        $theaters = Theater::all();
+
+        foreach ($theaters as $theater) {
+            $start_at = now();
+
+            $theater_movies = $theater->theaterMovies;
+            $x = 0;
+            foreach ($theater->studios as $studio) {
+                $theater_movie = $theater_movies[$x];
+
+                if ($theater_movie->movie->screening_start_date !== null) {
+                    for ($i = 0; $i < 3; $i++) {
+                        $start_at = now()->setMinutes(0)->addDays($i);
+                        for ($j = 0; $j < 3; $j++) {
+                            Showtime::factory()->create([
+                                'theater_movie_id' => $theater_movie->id,
+                                'studio_id' => $studio->id,
+                                'start_at' => $start_at->addHours(3)->addMinutes(fake()->randomElement([0, 15, 30, 45, 60])),
+                            ]);
+                        }
+                    }
+                }
+                $x++;
+            }
+        }
+
+        /*
             =========
-            7. Promos
+            8. Promos
             =========
         */
         $promos = [

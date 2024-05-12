@@ -21,4 +21,9 @@ class TheaterMovie extends Model
     {
         return $this->belongsTo(Movie::class);
     }
+
+    public function theater(): BelongsTo
+    {
+        return $this->belongsTo(Theater::class);
+    }
 }

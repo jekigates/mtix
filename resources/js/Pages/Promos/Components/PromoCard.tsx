@@ -1,4 +1,4 @@
-import { Button } from "@/Components/ui/button";
+import { formatDate } from "@/Common/helpers";
 import { cn } from "@/lib/utils";
 import { InertiaLinkProps, Link } from "@inertiajs/react";
 
@@ -7,13 +7,6 @@ export function PromoCard({
     className,
     ...props
 }: InertiaLinkProps & { promo: App.Data.PromoData }) {
-    function formatDate(dateString: string) {
-        const date = new Date(dateString);
-        return `${date.getDate()} ${date.toLocaleString("default", {
-            month: "long",
-        })} ${date.getFullYear()}`;
-    }
-
     return (
         <Link className={cn("group relative space-y-3", className)} {...props}>
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 h-72">

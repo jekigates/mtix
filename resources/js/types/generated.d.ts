@@ -40,6 +40,7 @@ declare namespace App.Data {
         screening_start_date: string | null;
         screening_end_date: string | null;
         genres?: Array<App.Data.GenreData>;
+        theater_movies?: Array<App.Data.TheaterMovieData>;
     };
     export type PromoData = {
         id: string;
@@ -55,10 +56,25 @@ declare namespace App.Data {
         name: string;
         cities?: Array<App.Data.CityData>;
     };
+    export type ShowtimeData = {
+        id: string;
+        theater_movie_id: string;
+        studio_id: string;
+        start_at: string;
+    };
     export type TheaterData = {
         id: string;
         location_id: string;
         brand_id: string;
         location?: App.Data.LocationData;
+        brand?: App.Data.BrandData;
+    };
+    export type TheaterMovieData = {
+        id: string;
+        theater_id: string;
+        movie_id: string;
+        price: number;
+        theater?: App.Data.TheaterData;
+        showtimes?: Array<App.Data.ShowtimeData>;
     };
 }

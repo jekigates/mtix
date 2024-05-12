@@ -28,7 +28,7 @@ class City extends Model
         return $this->hasManyThrough(Theater::class, Location::class);
     }
 
-    public function get_active_movies()
+    public function getActiveMovies()
     {
         $theaters = $this->theaters;
         $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->groupBy('movie_id')->get();
@@ -42,7 +42,7 @@ class City extends Model
         return $movies;
     }
 
-    public function get_upcoming_movies()
+    public function getUpcomingMovies()
     {
         $theaters = $this->theaters;
         $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->groupBy('movie_id')->get();
