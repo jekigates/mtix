@@ -1,21 +1,16 @@
-// "use client";
+import { Moon, Sun } from "lucide-react"
 
-// import * as React from "react";
-// import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-// import { useTheme } from "next-themes";
-
-import { Button } from "@/Components/ui/button";
+import { useTheme } from "./ThemeProvider"
+import { Button } from "@/Components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "./ThemeProvider";
+} from "@/Components/ui/dropdown-menu"
 
 export function ModeToggle() {
-    const { setTheme } = useTheme();
+    const { setTheme } = useTheme()
 
     return (
         <DropdownMenu>
@@ -38,5 +33,5 @@ export function ModeToggle() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-    );
+    )
 }

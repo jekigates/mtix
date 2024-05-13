@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
-import React from "react";
+import React from "react"
+
+import { cn } from "@/lib/utils"
 
 const InputDescription = React.forwardRef<
     HTMLParagraphElement,
@@ -11,8 +12,8 @@ const InputDescription = React.forwardRef<
             ref={ref}
             {...props}
         />
-    );
-});
-InputDescription.displayName = "InputDescription";
+    )
+})
+InputDescription.displayName = "InputDescription"
 
-export { InputDescription };
+export { InputDescription }

@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react"
+import { Head, router } from "@inertiajs/react"
 import Autoplay from "embla-carousel-autoplay"
 
 import { MovieCard } from "@/Components/MovieCard"
@@ -32,7 +32,14 @@ export default function Home({ auth, promos, movies }: PageProps) {
                     >
                         <CarouselContent>
                             {promos.map((promo) => (
-                                <CarouselItem key={promo.id}>
+                                <CarouselItem
+                                    key={promo.id}
+                                    onClick={() => {
+                                        router.visit(
+                                            route("promos.show", promo.id)
+                                        )
+                                    }}
+                                >
                                     <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 h-40 md:h-56">
                                         <img
                                             src={promo.banner_image}

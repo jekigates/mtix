@@ -1,24 +1,29 @@
-import { Link, router, usePage } from "@inertiajs/react";
-import { PropsWithChildren, useEffect, useState } from "react";
-import { User } from "@/types";
-import { ModeToggle } from "@/Components/ModeToggle";
+import { Link, router, usePage } from "@inertiajs/react"
 import {
-    LogIn,
-    UserRound,
-    CreditCard,
-    Info,
-    Tag,
-    CircleHelp,
-    Lock,
-    UsersRound,
-    Phone,
-    Gift,
     Bell,
-    Gem,
-    History,
-    Layers,
+    CircleHelp,
     Cog,
-} from "lucide-react";
+    CreditCard,
+    Gem,
+    Gift,
+    History,
+    Info,
+    Layers,
+    Lock,
+    LogIn,
+    Phone,
+    Tag,
+    UserRound,
+    UsersRound,
+} from "lucide-react"
+import { PropsWithChildren, useEffect, useState } from "react"
+
+import { cn } from "@/lib/utils"
+
+import { Icons } from "./Icons"
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import { ModeToggle } from "@/Components/ModeToggle"
+import { Button } from "@/Components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -26,17 +31,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuShortcut,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { Button } from "@/Components/ui/button";
-import { Icons } from "./Icons";
-import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+} from "@/Components/ui/dropdown-menu"
+import { User } from "@/types"
 
 export default function SideHeader({
     user,
 }: PropsWithChildren<{ user?: User }>) {
-    const [open, setOpen] = useState(false);
-    const { url } = usePage();
+    const [open, setOpen] = useState(false)
+    const { url } = usePage()
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -48,26 +50,26 @@ export default function SideHeader({
                     e.target instanceof HTMLTextAreaElement ||
                     e.target instanceof HTMLSelectElement
                 ) {
-                    return;
+                    return
                 }
 
                 if (user) {
                     switch (e.key) {
                         case "p":
-                            e.preventDefault();
-                            router.visit(route("settings.profile.edit"));
-                            break;
+                            e.preventDefault()
+                            router.visit(route("settings.profile.edit"))
+                            break
                         case "q":
-                            e.preventDefault();
-                            router.post(route("logout"));
-                            break;
+                            e.preventDefault()
+                            router.post(route("logout"))
+                            break
                     }
                 }
             }
-        };
-        document.addEventListener("keydown", down);
-        return () => document.removeEventListener("keydown", down);
-    }, []);
+        }
+        document.addEventListener("keydown", down)
+        return () => document.removeEventListener("keydown", down)
+    }, [])
 
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
@@ -163,8 +165,8 @@ export default function SideHeader({
                         <Link
                             href={route("dashboard")}
                             onClick={() => {
-                                router.visit(route("dashboard"));
-                                setOpen(false);
+                                router.visit(route("dashboard"))
+                                setOpen(false)
                             }}
                             className="flex items-center gap-2 text-lg font-semibold"
                         >
@@ -175,8 +177,8 @@ export default function SideHeader({
                         <Link
                             href={route("dashboard")}
                             onClick={() => {
-                                router.visit(route("dashboard"));
-                                setOpen(false);
+                                router.visit(route("dashboard"))
+                                setOpen(false)
                             }}
                             className={cn(
                                 "hover:text-foreground",
@@ -189,8 +191,8 @@ export default function SideHeader({
                         <Link
                             href={route("theaters.index")}
                             onClick={() => {
-                                router.visit(route("theaters.index"));
-                                setOpen(false);
+                                router.visit(route("theaters.index"))
+                                setOpen(false)
                             }}
                             className={cn(
                                 "hover:text-foreground",
@@ -205,8 +207,8 @@ export default function SideHeader({
                         <Link
                             href={route("upcoming")}
                             onClick={() => {
-                                router.visit(route("upcoming"));
-                                setOpen(false);
+                                router.visit(route("upcoming"))
+                                setOpen(false)
                             }}
                             className={cn(
                                 "hover:text-foreground",
@@ -358,5 +360,5 @@ export default function SideHeader({
                 <ModeToggle />
             </div>
         </header>
-    );
+    )
 }

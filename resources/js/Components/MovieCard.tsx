@@ -1,6 +1,8 @@
-import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-import { InertiaLinkProps, Link } from "@inertiajs/react";
+import { InertiaLinkProps, Link } from "@inertiajs/react"
+
+import { cn } from "@/lib/utils"
+
+import { Button } from "./ui/button"
 
 export function MovieCard({
     movie,
@@ -46,5 +48,5 @@ export function MovieCard({
                 </div>
             </div>
         </Link>
-    );
+    )
 }

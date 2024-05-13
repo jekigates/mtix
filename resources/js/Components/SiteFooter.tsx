@@ -1,4 +1,4 @@
-import { Separator } from "./ui/separator";
+import { Separator } from "./ui/separator"
 
 export default function SiteFooter() {
     return (
@@ -80,5 +80,5 @@ export default function SiteFooter() {
                 <span className="text-white">admin@mtix-web-01</span>
             </p>
         </footer>
-    );
+    )
 }
