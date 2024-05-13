@@ -30,18 +30,18 @@ class TheaterFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Theater $theater) {
-            $studio_count = fake()->numberBetween(0, 3);
+            $movie_ids = Movie::inRandomOrder()->where('screening_start_date', '!=', null)->limit(2)->pluck('id');
 
-            if ($studio_count > 0) {
-                $movie_ids = Movie::inRandomOrder()->limit(3)->pluck('id');
-
-                foreach ($movie_ids as $movie_id) {
-                    TheaterMovie::factory()->create([
-                        'theater_id' => $theater->id,
-                        'movie_id' => $movie_id,
-                    ]);
-                }
+            foreach ($movie_ids as $movie_id) {
+                TheaterMovie::factory()->create([
+                    'theater_id' => $theater->id,
+                    'movie_id' => $movie_id,
+                ]);
             }
+            TheaterMovie::factory()->create([
+                'theater_id' => $theater->id,
+                'movie_id' => Movie::inRandomOrder()->where('screening_start_date', null)->first()->id,
+            ]);
 
             $product_variants = ProductVariant::inRandomOrder()->take(3)->get();
 
@@ -53,7 +53,7 @@ class TheaterFactory extends Factory
                 ]);
             }
 
-            for ($i = 0; $i < $studio_count; $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 Studio::factory()->create([
                     'theater_id' => $theater->id,
                     'number' => $i + 1,

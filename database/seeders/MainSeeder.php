@@ -101,8 +101,6 @@ class MainSeeder extends Seeder
         $theaters = Theater::all();
 
         foreach ($theaters as $theater) {
-            $start_at = now();
-
             $theater_movies = $theater->theaterMovies;
             $x = 0;
             foreach ($theater->studios as $studio) {
@@ -110,7 +108,7 @@ class MainSeeder extends Seeder
 
                 if ($theater_movie->movie->screening_start_date !== null) {
                     for ($i = 0; $i < 3; $i++) {
-                        $start_at = now()->setMinutes(0)->addDays($i);
+                        $start_at = now()->setHours(9)->setMinutes(0)->addDays($i);
                         for ($j = 0; $j < 3; $j++) {
                             Showtime::factory()->create([
                                 'theater_movie_id' => $theater_movie->id,

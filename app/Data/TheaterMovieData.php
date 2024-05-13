@@ -19,6 +19,7 @@ class TheaterMovieData extends Data
         public int $price,
         public Lazy|TheaterData $theater,
         public Lazy|Collection $showtimes,
+        public Lazy|MovieData $movie,
     ) {}
 
     public static function fromModel(TheaterMovie $theater_movie): self
@@ -30,6 +31,7 @@ class TheaterMovieData extends Data
             $theater_movie->price,
             Lazy::create(fn() => TheaterData::fromModel($theater_movie->theater)),
             Lazy::create(fn() => ShowtimeData::collect($theater_movie->showtimes)),
+            Lazy::create(fn() => MovieData::fromModel($theater_movie->movie)),
         );
     }
 }

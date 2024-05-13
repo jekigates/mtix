@@ -37,4 +37,27 @@ class Theater extends Model
     {
         return $this->hasManyThrough(Showtime::class, TheaterMovie::class);
     }
+
+    public function getActiveTheaterMovies()
+    {
+        // $theaters = Theater::whereIn('id', ($theater_id) ? [$theater_id] : $this->theaters->pluck('id'))
+        // ->whereRelation('location', 'city_id', $city_id)
+        // ->whereHas('showtimes', function (Builder $query) {
+        //     $query->where('start_at', '>=', date('Y-m-d'));
+        // })
+        // ->get();
+
+        $theater_movies = TheaterMovie::where('theater_id', $this->id)
+        ->whereRelation('showtimes', 'start_at', '>=', date('Y-m-d'))
+        ->get()
+        ->filter(function ($theater_movie) {
+            $start_at = $theater_movie->showtimes->where('start_at', '>=', date('Y-m-d'))->min('start_at');
+            $showtimes = Showtime::whereIn('id', $theater_movie->showtimes->pluck('id'))->where('start_at', '>=', date('Y-m-d'))->where('start_at', '<', date('Y-m-d', strtotime($start_at . '+1 day')))->orderBy('start_at')->get();
+            $theater_movie->showtimes = $showtimes;
+
+            return $theater_movie;
+        });
+
+        return $theater_movies;
+    }
 }

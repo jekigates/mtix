@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Data\BrandData;
 use App\Data\CityData;
 use App\Data\MovieData;
+use App\Data\TheaterData;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\City;
 use App\Models\Movie;
+use App\Models\Theater;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -49,6 +51,11 @@ class TheaterController extends Controller
      */
     public function show(string $id): Response
     {
-        return Inertia::render('Theaters/Show');
+        $theater = Theater::findOrFail($id);
+        $theater->theaterMovies = $theater->getActiveTheaterMovies();
+
+        return Inertia::render('Theaters/Show', [
+            'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_movies', 'theater_movies.movie', 'theater_movies.showtimes'),
+        ]);
     }
 }

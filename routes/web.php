@@ -49,7 +49,7 @@ Route::get('/cities', function (Request $request): Response {
 })->name('cities.index');
 
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
-Route::get('/theaters/{id}/show', [TheaterController::class, 'show'])->name('theaters.show');
+Route::get('/theaters/{id}', [TheaterController::class, 'show'])->name('theaters.show');
 
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
 Route::get('/movies/{id}/showtimes', [MovieController::class, 'showtimes'])->name('movies.showtimes');

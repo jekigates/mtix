@@ -1,8 +1,10 @@
 import { Head, Link } from "@inertiajs/react"
 import { Clock3, MapPin, Utensils } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
-import { Button } from "@/Components/ui/button"
+import { Button, buttonVariants } from "@/Components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import { ScrollArea } from "@/Components/ui/scroll-area"
 import { Separator } from "@/Components/ui/separator"
@@ -34,28 +36,28 @@ export default function Show({ auth, movie, theater }: PageProps) {
                         <div className="mt-4 flex gap-8">
                             <Link
                                 href=""
-                                className="flex items-center text-primary"
+                                className={cn(
+                                    buttonVariants({
+                                        variant: "transparent",
+                                        size: "fit",
+                                    })
+                                )}
                             >
-                                <div className="flex items-center">
-                                    <MapPin className="h-5 w-5 flex-shrink-0" />
-                                </div>
-
-                                <p className="ml-2 text-sm font-medium">
-                                    Location
-                                </p>
+                                <MapPin className="mr-2 h-4 w-4" />
+                                Location
                             </Link>
 
                             <Link
                                 href=""
-                                className="flex items-center text-primary"
+                                className={cn(
+                                    buttonVariants({
+                                        variant: "transparent",
+                                        size: "fit",
+                                    })
+                                )}
                             >
-                                <div className="flex items-center">
-                                    <Utensils className="h-5 w-5 flex-shrink-0" />
-                                </div>
-
-                                <p className="ml-2 text-sm font-medium">
-                                    Food & Beverage
-                                </p>
+                                <Utensils className="mr-2 h-4 w-4" />
+                                Food & Beverage
                             </Link>
                         </div>
 
@@ -73,9 +75,7 @@ export default function Show({ auth, movie, theater }: PageProps) {
                     </div>
 
                     <div className="sm:col-span-8 lg:col-span-7">
-                        <h2 className="text-2xl font-bold sm:pr-12">
-                            {movie.title}
-                        </h2>
+                        <h2 className="text-2xl font-bold">{movie.title}</h2>
 
                         <section
                             aria-labelledby="information-heading"
@@ -90,7 +90,7 @@ export default function Show({ auth, movie, theater }: PageProps) {
 
                                 <div className="flex items-center">
                                     <div className="flex items-center">
-                                        <Clock3 className="h-5 w-5 flex-shrink-0" />
+                                        <Clock3 className="h-4 w-4 flex-shrink-0" />
                                     </div>
 
                                     <p className="ml-2 text-sm font-medium">
@@ -204,7 +204,7 @@ export default function Show({ auth, movie, theater }: PageProps) {
                             <CardHeader>
                                 {!theater && (
                                     <div className="flex flex-row items-center justify-between">
-                                        <CardTitle className="text-sm font-bold">
+                                        <CardTitle className="text-sm font-medium">
                                             {
                                                 theater_movie.theater?.location
                                                     ?.name
@@ -214,20 +214,27 @@ export default function Show({ auth, movie, theater }: PageProps) {
 
                                         <Link
                                             href=""
-                                            className="flex items-center text-primary"
+                                            className={cn(
+                                                buttonVariants({
+                                                    variant: "transparent",
+                                                    size: "fit",
+                                                })
+                                            )}
                                         >
-                                            <div className="flex items-center">
-                                                <Utensils className="h-5 w-5 flex-shrink-0" />
-                                            </div>
-
-                                            <p className="ml-2 text-sm font-medium">
-                                                F&B
-                                            </p>
+                                            <Utensils className="mr-2 h-4 w-4" />
+                                            F&B
                                         </Link>
                                     </div>
                                 )}
 
-                                <div className="flex flex-row items-center justify-between text-sm">
+                                <div
+                                    className={cn(
+                                        "flex flex-row items-center justify-between ",
+                                        theater
+                                            ? "text-sm font-medium"
+                                            : "text-xs text-muted-foreground"
+                                    )}
+                                >
                                     <p>
                                         {theater_movie.showtimes?.[0]?.start_at
                                             ? formatDate(

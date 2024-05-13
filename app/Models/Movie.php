@@ -33,9 +33,7 @@ class Movie extends Model
     {
         $theaters = Theater::whereIn('id', $this->theaters->pluck('id'))
         ->whereRelation('location', 'city_id', $city_id)
-        ->whereHas('showtimes', function (Builder $query) {
-            $query->where('start_at', '>=', date('Y-m-d'));
-        })
+        ->whereRelation('showtimes', 'start_at', '>=', date('Y-m-d'))
         ->get();
 
         return $theaters;
@@ -45,9 +43,7 @@ class Movie extends Model
     {
         $theaters = Theater::whereIn('id', ($theater_id) ? [$theater_id] : $this->theaters->pluck('id'))
         ->whereRelation('location', 'city_id', $city_id)
-        ->whereHas('showtimes', function (Builder $query) {
-            $query->where('start_at', '>=', date('Y-m-d'));
-        })
+        ->whereRelation('showtimes', 'start_at', '>=', date('Y-m-d'))
         ->get();
 
         $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))
