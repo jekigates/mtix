@@ -41,9 +41,9 @@ class Movie extends Model
         return $theaters;
     }
 
-    public function getActiveTheaterMovies($city_id)
+    public function getActiveTheaterMovies($city_id, $theater_id = null)
     {
-        $theaters = Theater::whereIn('id', $this->theaters->pluck('id'))
+        $theaters = Theater::whereIn('id', ($theater_id) ? [$theater_id] : $this->theaters->pluck('id'))
         ->whereRelation('location', 'city_id', $city_id)
         ->whereHas('showtimes', function (Builder $query) {
             $query->where('start_at', '>=', date('Y-m-d'));

@@ -43,4 +43,12 @@ class TheaterController extends Controller
 
         return Inertia::render('Theaters/Index', $data);
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id): Response
+    {
+        return Inertia::render('Theaters/Show');
+    }
 }
