@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promos', function (Blueprint $table) {
+        Schema::create('infos', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
-            $table->string('name', length: 50);
+            $table->string('title', length: 50);
             $table->text('description');
-            $table->string('banner_image', length: 50);
-            $table->date('valid_start_date');
-            $table->date('valid_end_date');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promos');
+        Schema::dropIfExists('infos');
     }
 };

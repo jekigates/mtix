@@ -1,13 +1,17 @@
 <?php
 
 use App\Data\CityData;
+use App\Data\InfoData;
 use App\Data\MovieData;
+use App\Data\NewsData;
 use App\Data\PromoData;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TheaterController;
 use App\Models\City;
+use App\Models\Info;
 use App\Models\Promo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +20,7 @@ use Inertia\Response;
 
 Route::get('/', function (Request $request): Response {
     $promos = PromoData::collect(Promo::all());
+    $infos = InfoData::collect(Info::all());
     $city_id = $request->session()->get('city_id');
     $city = City::findOrFail($city_id);
     $movies = MovieData::collect($city->getActiveMovies());
@@ -23,6 +28,7 @@ Route::get('/', function (Request $request): Response {
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'infos' => $infos,
         'promos' => $promos,
         'movies' => $movies,
     ]);
@@ -39,7 +45,7 @@ Route::get('/upcoming', function (Request $request): Response {
 })->name('upcoming');
 
 Route::get('/cities', function (Request $request): Response {
-    $cities = CityData::collect(City::all());
+    $cities = CityData::collect(City::orderBy('name')->get());
     $city_id = $request->session()->get('city_id');
 
     return Inertia::render('City', [
@@ -50,9 +56,13 @@ Route::get('/cities', function (Request $request): Response {
 
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
 Route::get('/theaters/{id}', [TheaterController::class, 'show'])->name('theaters.show');
+Route::get('/theaters/{id}/products', [TheaterController::class, 'products'])->name('theaters.products');
 
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
 Route::get('/movies/{id}/showtimes', [MovieController::class, 'showtimes'])->name('movies.showtimes');
+
+Route::get('/infos', [InfoController::class, 'index'])->name('infos.index');
+Route::get('/infos/{id}', [InfoController::class, 'show'])->name('infos.show');
 
 Route::get('/promos', [PromoController::class, 'index'])->name('promos.index');
 Route::get('/promos/{id}', [PromoController::class, 'show'])->name('promos.show');

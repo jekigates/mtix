@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Product extends Model
+class Image extends Model
 {
     use HasFactory, HasUuids;
 
     /**
-     * Get the product's image.
+     * Get the parent imageable model (product or promo).
      */
-    public function image(): MorphOne
+    public function imageable(): MorphTo
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphTo();
     }
 }

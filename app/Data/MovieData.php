@@ -49,7 +49,7 @@ class MovieData extends Data
             $movie->distributor,
             $movie->website,
             $movie->runtime,
-            asset($movie->image),
+            asset($movie->image->url),
             asset($movie->trailer),
             $movie->screening_start_date,
             $movie->screening_end_date,

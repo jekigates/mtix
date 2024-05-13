@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name', length: 50);
             $table->char('product_category_id', length: 36);
             $table->foreign('product_category_id')->references('id')->on('product_categories');
-            $table->string('image', 50);
             $table->timestamps();
         });
     }

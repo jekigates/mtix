@@ -17,6 +17,8 @@ export type PageProps<
     auth: {
         user: User
     }
+    info: App.Data.InfoData
+    infos: App.Data.InfoData[]
     promo: App.Data.PromoData
     promos: App.Data.PromoData[]
     movie: App.Data.MovieData
@@ -26,4 +28,5 @@ export type PageProps<
     cities: App.Data.CityData[]
     brands: App.Data.BrandData[]
     theater: App.Data.TheaterData
+    product_categories: App.Data.ProductCategoryData[]
 }

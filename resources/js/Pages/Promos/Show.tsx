@@ -11,17 +11,15 @@ export default function Show({ auth, promo }: PageProps) {
             <Head title="Promo Detail" />
 
             <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
-                <div className="flex-1 flex items-center justify-between">
-                    <div className="space-y-1">
-                        <h2 className="text-2xl font-semibold tracking-tight">
-                            {promo.name}
-                        </h2>
+                <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                        {promo.name}
+                    </h2>
 
-                        <p className="text-sm text-green-500">
-                            Berlaku Mulai : {formatDate(promo.valid_start_date)}{" "}
-                            - {formatDate(promo.valid_end_date)}
-                        </p>
-                    </div>
+                    <p className="text-sm text-green-500">
+                        Berlaku Mulai : {formatDate(promo.valid_start_date)} -{" "}
+                        {formatDate(promo.valid_end_date)}
+                    </p>
                 </div>
 
                 <Separator className="my-4" />

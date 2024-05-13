@@ -7,6 +7,8 @@ use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
+use function App\Helpers\generate_unsplash_image;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
@@ -21,19 +23,16 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name(),
-            'image' => function () {
-                $filename = uniqid() . '.jpg';
-
-                Storage::disk('public')->put('product-images/' . $filename, file_get_contents('https://source.unsplash.com/random'));
-
-                return 'storage/product-images/' . $filename;
-            },
         ];
     }
 
     public function configure(): static
     {
         return $this->afterCreating(function (Product $product) {
+            $product->image()->create([
+                'url' => generate_unsplash_image('product-images'),
+            ]);
+
             $isRegular = fake()->boolean();
 
             if ($isRegular) {

@@ -43,7 +43,7 @@ class TheaterFactory extends Factory
                 'movie_id' => Movie::inRandomOrder()->where('screening_start_date', null)->first()->id,
             ]);
 
-            $product_variants = ProductVariant::inRandomOrder()->take(3)->get();
+            $product_variants = ProductVariant::inRandomOrder()->take(27)->get();
 
             foreach ($product_variants as $product_variant) {
                 TheaterProduct::factory()->create([

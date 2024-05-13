@@ -13,24 +13,21 @@ export default function Index({ auth, city, brands, movie }: PageProps) {
             <Head title="Theaters" />
 
             <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
-                <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                        <h2 className="text-2xl font-semibold tracking-tight flex items-center gap-1">
-                            Theaters in {movie?.title}
-                            <Link
-                                href={route("cities.index")}
-                                className="text-primary flex items-center gap-1"
-                            >
-                                {city.name}
-                                <ChevronDown className="h-4 w-4 opacity-50" />
-                            </Link>
-                        </h2>
+                <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold tracking-tight flex items-center gap-1">
+                        Theaters in {movie?.title}
+                        <Link
+                            href={route("cities.index")}
+                            className="text-primary flex items-center gap-1"
+                        >
+                            {city.name}
+                            <ChevronDown className="h-4 w-4 opacity-50" />
+                        </Link>
+                    </h2>
 
-                        <p className="text-sm text-muted-foreground">
-                            Discover theaters playing your favorite movies near
-                            you.
-                        </p>
-                    </div>
+                    <p className="text-sm text-muted-foreground">
+                        Discover theaters playing your favorite movies near you.
+                    </p>
                 </div>
 
                 <Separator className="my-4" />

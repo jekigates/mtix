@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Promo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Info>
  */
-class PromoFactory extends Factory
+class InfoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,12 +16,9 @@ class PromoFactory extends Factory
      */
     public function definition(): array
     {
-        $valid_start_date = now()->addDays(fake()->numberBetween(0, 7));
-
         return [
+            'title' => fake()->unique()->sentence(),
             'description' => fake()->paragraphs(9, true),
-            'valid_start_date' => $valid_start_date->toDateString(),
-            'valid_end_date' => $valid_start_date->addDays(7)->toDateString(),
         ];
     }
 }

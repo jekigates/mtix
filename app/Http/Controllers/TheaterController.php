@@ -58,4 +58,15 @@ class TheaterController extends Controller
             'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_movies', 'theater_movies.movie', 'theater_movies.showtimes'),
         ]);
     }
+
+    public function products(string $id): Response
+    {
+        $theater = Theater::findOrFail($id);
+        // $product_categories = $theater->getProductCategories();
+
+        return Inertia::render('Theaters/Product', [
+            'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_products', 'theater_products.product'),
+            // 'product_categories' => $product_categories,
+        ]);
+    }
 }

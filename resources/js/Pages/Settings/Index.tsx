@@ -1,6 +1,6 @@
 import { Head } from "@inertiajs/react"
 
-import SettingsLayout from "./Layouts/SettingLayout"
+import SettingLayout from "./Layouts/SettingLayout"
 import ProfileForm from "./ProfileForm"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
@@ -18,7 +18,7 @@ export default function Profile({
         <MainLayout user={auth.user}>
             <Head title="Profile" />
 
-            <SettingsLayout>
+            <SettingLayout>
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-lg font-medium">Profile</h3>
@@ -34,7 +34,7 @@ export default function Profile({
                         status={status}
                     />
                 </div>
-            </SettingsLayout>
+            </SettingLayout>
         </MainLayout>
     )
 }

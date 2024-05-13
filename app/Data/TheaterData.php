@@ -11,6 +11,7 @@ class TheaterData extends Data
 {
     /**
     * @param Lazy|Collection<int, TheaterMovieData> $theater_movies
+    * @param Lazy|Collection<int, TheaterProductData> $theater_products
     */
     public function __construct(
         public string $id,
@@ -19,6 +20,7 @@ class TheaterData extends Data
         public Lazy|LocationData $location,
         public Lazy|BrandData $brand,
         public Lazy|Collection $theater_movies,
+        public Lazy|Collection $theater_products,
     ) {}
 
     public static function fromModel(Theater $theater): self
@@ -29,7 +31,8 @@ class TheaterData extends Data
             $theater->brand_id,
             Lazy::create(fn() => LocationData::from($theater->location)),
             Lazy::create(fn() => BrandData::from($theater->brand)),
-            Lazy::create(fn() => TheaterMovieData::collect($theater->theaterMovies))
+            Lazy::create(fn() => TheaterMovieData::collect($theater->theaterMovies)),
+            Lazy::create(fn() => TheaterProductData::collect($theater->theaterProducts))
         );
     }
 }

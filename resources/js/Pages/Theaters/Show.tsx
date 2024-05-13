@@ -19,7 +19,7 @@ import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
 
-export default function Index({ auth, theater }: PageProps) {
+export default function Show({ auth, theater }: PageProps) {
     return (
         <MainLayout user={auth.user}>
             <Head title="Theater Detail" />
@@ -71,7 +71,7 @@ export default function Index({ auth, theater }: PageProps) {
                     </Dialog>
 
                     <Link
-                        href=""
+                        href={route("theaters.products", theater.id)}
                         className={cn(
                             buttonVariants({
                                 variant: "transparent",

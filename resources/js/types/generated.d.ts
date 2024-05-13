@@ -14,6 +14,14 @@ declare namespace App.Data {
         id: string
         name: string
     }
+    export type InfoData = {
+        id: string
+        title: string
+        description: string
+        image: string
+        created_at: string
+        updated_at: string
+    }
     export type LocationData = {
         id: string
         name: string
@@ -42,6 +50,16 @@ declare namespace App.Data {
         genres?: Array<App.Data.GenreData>
         theater_movies?: Array<App.Data.TheaterMovieData>
     }
+    export type ProductCategoryData = {
+        id: string
+        name: string
+    }
+    export type ProductData = {
+        id: string
+        name: string
+        product_category_id: string
+        image: string
+    }
     export type PromoData = {
         id: string
         name: string
@@ -69,6 +87,7 @@ declare namespace App.Data {
         location?: App.Data.LocationData
         brand?: App.Data.BrandData
         theater_movies?: Array<App.Data.TheaterMovieData>
+        theater_products?: Array<App.Data.TheaterProductData>
     }
     export type TheaterMovieData = {
         id: string
@@ -78,5 +97,13 @@ declare namespace App.Data {
         theater?: App.Data.TheaterData
         showtimes?: Array<App.Data.ShowtimeData>
         movie?: App.Data.MovieData
+    }
+    export type TheaterProductData = {
+        id: string
+        theater_id: string
+        product_id: string
+        product_variant_id: string | null
+        stock: number
+        product?: App.Data.ProductData
     }
 }

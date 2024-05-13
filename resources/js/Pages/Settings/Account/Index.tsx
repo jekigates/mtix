@@ -1,4 +1,4 @@
-import SettingsLayout from "../Layouts/SettingLayout"
+import SettingLayout from "../Layouts/SettingLayout"
 import { Head } from "@inertiajs/react"
 
 import AccountForm from "./AccountForm"
@@ -12,7 +12,7 @@ export default function Account({ auth, provinces }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Account" />
 
-            <SettingsLayout>
+            <SettingLayout>
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-lg font-medium">Account</h3>
@@ -42,7 +42,7 @@ export default function Account({ auth, provinces }: PageProps) {
 
                     <DeleteUserForm />
                 </div>
-            </SettingsLayout>
+            </SettingLayout>
         </MainLayout>
     )
 }

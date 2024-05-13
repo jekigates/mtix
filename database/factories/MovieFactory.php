@@ -8,6 +8,8 @@ use App\Models\MovieGenre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
+use function App\Helpers\generate_unsplash_image;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
  */
@@ -43,13 +45,6 @@ class MovieFactory extends Factory
             'distributor' => fake()->optional()->company(),
             'website' => fake()->optional()->url(),
             'runtime' => fake()->numberBetween(60, 180),
-            'image' => function () {
-                $filename = uniqid() . '.jpg';
-
-                Storage::disk('public')->put('movie-images/' . $filename, file_get_contents('https://source.unsplash.com/random'));
-
-                return 'storage/movie-images/' . $filename;
-            },
             'trailer' => 'videos/trailer.mp4',
             'screening_start_date' => ($isUpcoming) ? null : $screening_start_date->toDateString(),
             'screening_end_date' => ($isUpcoming) ? null : $screening_start_date->addDays(7)->toDateString(),
@@ -59,6 +54,10 @@ class MovieFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Movie $movie) {
+            $movie->image()->create([
+                'url' => generate_unsplash_image('movie-images'),
+            ]);
+
             $genre_ids = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');
 
             foreach ($genre_ids as $genre_id) {

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -38,15 +39,18 @@ class Theater extends Model
         return $this->hasManyThrough(Showtime::class, TheaterMovie::class);
     }
 
+    public function theaterProducts(): HasMany
+    {
+        return $this->hasMany(TheaterProduct::class);
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'theater_products');
+    }
+
     public function getActiveTheaterMovies()
     {
-        // $theaters = Theater::whereIn('id', ($theater_id) ? [$theater_id] : $this->theaters->pluck('id'))
-        // ->whereRelation('location', 'city_id', $city_id)
-        // ->whereHas('showtimes', function (Builder $query) {
-        //     $query->where('start_at', '>=', date('Y-m-d'));
-        // })
-        // ->get();
-
         $theater_movies = TheaterMovie::where('theater_id', $this->id)
         ->whereRelation('showtimes', 'start_at', '>=', date('Y-m-d'))
         ->get()
@@ -59,5 +63,12 @@ class Theater extends Model
         });
 
         return $theater_movies;
+    }
+
+    public function getProductCategories()
+    {
+        $product_categories = ProductCategory::whereIn('id', $this->products->pluck('product_category_id'))->get();
+
+        return $product_categories;
     }
 }

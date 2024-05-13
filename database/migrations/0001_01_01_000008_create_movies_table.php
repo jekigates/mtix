@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->string('title', length: 50);
-            $table->string('description', length: 100);
+            $table->string('description');
             $table->integer('minimum_age');
             $table->string('type', length: 50);
             $table->string('producer', length: 50)->nullable();
@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('distributor', length: 50)->nullable();
             $table->string('website', length: 50)->nullable();
             $table->integer('runtime');
-            $table->string('image', length: 50);
             $table->string('trailer', length: 50);
             $table->date('screening_start_date')->nullable();
             $table->date('screening_end_date')->nullable();

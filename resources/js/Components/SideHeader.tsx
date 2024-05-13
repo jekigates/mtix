@@ -230,7 +230,9 @@ export default function SideHeader({
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => router.visit(route("infos.index"))}
+                        >
                             <Info className="mr-2 h-4 w-4" />
                             <span>Info 21</span>
                         </DropdownMenuItem>

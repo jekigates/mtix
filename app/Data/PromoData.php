@@ -23,7 +23,7 @@ class PromoData extends Data
             $promo->id,
             $promo->name,
             $promo->description,
-            asset($promo->image),
+            asset($promo->image->url),
             asset($promo->banner_image),
             $promo->valid_start_date,
             $promo->valid_end_date,

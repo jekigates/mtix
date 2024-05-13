@@ -1,4 +1,4 @@
-import SettingsLayout from "../Layouts/SettingLayout"
+import SettingLayout from "../Layouts/SettingLayout"
 import { Head } from "@inertiajs/react"
 
 import SecurityForm from "./SecurityForm"
@@ -11,7 +11,7 @@ export default function Security({ auth }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Security" />
 
-            <SettingsLayout>
+            <SettingLayout>
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-lg font-medium">Security</h3>
@@ -25,7 +25,7 @@ export default function Security({ auth }: PageProps) {
 
                     <SecurityForm />
                 </div>
-            </SettingsLayout>
+            </SettingLayout>
         </MainLayout>
     )
 }
