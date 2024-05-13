@@ -1,6 +1,7 @@
-import { Separator } from "@/Components/ui/separator";
-import { PropsWithChildren } from "react";
-import { SidebarNav } from "../Components/SidebarNav";
+import { SidebarNav } from "../Components/SidebarNav"
+import { PropsWithChildren } from "react"
+
+import { Separator } from "@/Components/ui/separator"
 
 const sidebarNavItems = [
     {
@@ -15,7 +16,7 @@ const sidebarNavItems = [
         title: "Security",
         href: route("settings.security.edit"),
     },
-];
+]
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
@@ -42,5 +43,5 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                 </div>
             </div>
         </>
-    );
+    )
 }

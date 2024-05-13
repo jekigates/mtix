@@ -1,8 +1,9 @@
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import MainLayout from "@/Layouts/MainLayout";
-import { Separator } from "@/Components/ui/separator";
-import { MovieCard } from "@/Components/MovieCard";
+import { Head } from "@inertiajs/react"
+
+import { MovieCard } from "@/Components/MovieCard"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Upcoming({ auth, movies }: PageProps) {
     return (
@@ -37,5 +38,5 @@ export default function Upcoming({ auth, movies }: PageProps) {
                 </div>
             </MainLayout>
         </>
-    );
+    )
 }

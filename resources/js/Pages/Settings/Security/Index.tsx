@@ -1,9 +1,10 @@
-import MainLayout from "@/Layouts/MainLayout";
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import SettingsLayout from "../Layouts/SettingLayout";
-import { Separator } from "@/Components/ui/separator";
-import SecurityForm from "./SecurityForm";
+import SettingsLayout from "../Layouts/SettingLayout"
+import { Head } from "@inertiajs/react"
+
+import SecurityForm from "./SecurityForm"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Security({ auth }: PageProps) {
     return (
@@ -26,5 +27,5 @@ export default function Security({ auth }: PageProps) {
                 </div>
             </SettingsLayout>
         </MainLayout>
-    );
+    )
 }

@@ -1,34 +1,35 @@
-import { InputDescription } from "@/Components/InputDescription";
-import { InputMessage } from "@/Components/InputMessage";
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { PageProps } from "@/types";
-import { Transition } from "@headlessui/react";
-import { Link, useForm, usePage } from "@inertiajs/react";
-import { FormEventHandler } from "react";
+import { Transition } from "@headlessui/react"
+import { Link, useForm, usePage } from "@inertiajs/react"
+import { FormEventHandler } from "react"
+
+import { InputDescription } from "@/Components/InputDescription"
+import { InputMessage } from "@/Components/InputMessage"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import { PageProps } from "@/types"
 
 export default function ProfileForm({
     mustVerifyEmail,
     status,
 }: {
-    mustVerifyEmail: boolean;
-    status?: string;
+    mustVerifyEmail: boolean
+    status?: string
 }) {
-    const user = usePage<PageProps>().props.auth.user;
+    const user = usePage<PageProps>().props.auth.user
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
             name: user.name,
             email: user.email,
             phone_number: user.phone_number,
-        });
+        })
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        patch(route("settings.profile.update"));
-    };
+        patch(route("settings.profile.update"))
+    }
 
     return (
         <form onSubmit={submit} className="space-y-8">
@@ -147,5 +148,5 @@ export default function ProfileForm({
                 </Transition>
             </div>
         </form>
-    );
+    )
 }

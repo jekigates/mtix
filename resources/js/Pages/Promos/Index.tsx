@@ -1,8 +1,9 @@
-import { PageProps } from "@/types";
-import MainLayout from "@/Layouts/MainLayout";
-import { Head } from "@inertiajs/react";
-import { Separator } from "@/Components/ui/separator";
-import { PromoCard } from "./Components/PromoCard";
+import { Head } from "@inertiajs/react"
+
+import { PromoCard } from "./Components/PromoCard"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Index({ auth, promos }: PageProps) {
     return (
@@ -34,5 +35,5 @@ export default function Index({ auth, promos }: PageProps) {
                 </div>
             </div>
         </MainLayout>
-    );
+    )
 }

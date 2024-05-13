@@ -1,17 +1,18 @@
-import MainLayout from "@/Layouts/MainLayout";
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import SettingsLayout from "./Layouts/SettingLayout";
-import { Separator } from "@/Components/ui/separator";
-import ProfileForm from "./ProfileForm";
+import { Head } from "@inertiajs/react"
+
+import SettingsLayout from "./Layouts/SettingLayout"
+import ProfileForm from "./ProfileForm"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Profile({
     auth,
     mustVerifyEmail,
     status,
 }: PageProps<{
-    mustVerifyEmail: boolean;
-    status?: string;
+    mustVerifyEmail: boolean
+    status?: string
 }>) {
     return (
         <MainLayout user={auth.user}>
@@ -35,5 +36,5 @@ export default function Profile({
                 </div>
             </SettingsLayout>
         </MainLayout>
-    );
+    )
 }

@@ -1,11 +1,12 @@
-import { PageProps } from "@/types";
-import MainLayout from "@/Layouts/MainLayout";
-import { Head, Link } from "@inertiajs/react";
-import { Separator } from "@/Components/ui/separator";
-import { Avatar, AvatarImage } from "@/Components/ui/avatar";
-import { Clock3 } from "lucide-react";
-import { Button, buttonVariants } from "@/Components/ui/button";
-import { ScrollArea } from "@/Components/ui/scroll-area";
+import { Head, Link } from "@inertiajs/react"
+import { Clock3 } from "lucide-react"
+
+import { Avatar, AvatarImage } from "@/Components/ui/avatar"
+import { Button, buttonVariants } from "@/Components/ui/button"
+import { ScrollArea } from "@/Components/ui/scroll-area"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Show({ auth, movie }: PageProps) {
     return (
@@ -204,5 +205,5 @@ export default function Show({ auth, movie }: PageProps) {
                 </div>
             </div>
         </MainLayout>
-    );
+    )
 }

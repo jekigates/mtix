@@ -1,8 +1,9 @@
-import { PageProps } from "@/types";
-import MainLayout from "@/Layouts/MainLayout";
-import { Head } from "@inertiajs/react";
-import { Separator } from "@/Components/ui/separator";
-import { formatDate } from "@/Common/helpers";
+import { Head } from "@inertiajs/react"
+
+import { formatDate } from "@/Common/helpers"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Show({ auth, promo }: PageProps) {
     return (
@@ -49,5 +50,5 @@ export default function Show({ auth, promo }: PageProps) {
                 </div>
             </div>
         </MainLayout>
-    );
+    )
 }

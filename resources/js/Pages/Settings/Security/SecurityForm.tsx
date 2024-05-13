@@ -1,14 +1,15 @@
-import { useRef, FormEventHandler } from "react";
-import { useForm } from "@inertiajs/react";
-import { Label } from "@/Components/ui/label";
-import { Input } from "@/Components/ui/input";
-import { InputMessage } from "@/Components/InputMessage";
-import { Button } from "@/Components/ui/button";
-import { Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react"
+import { useForm } from "@inertiajs/react"
+import { FormEventHandler, useRef } from "react"
+
+import { InputMessage } from "@/Components/InputMessage"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
 
 export default function SecurityForm() {
-    const passwordInput = useRef<HTMLInputElement>(null);
-    const currentPasswordInput = useRef<HTMLInputElement>(null);
+    const passwordInput = useRef<HTMLInputElement>(null)
+    const currentPasswordInput = useRef<HTMLInputElement>(null)
 
     const {
         data,
@@ -22,27 +23,27 @@ export default function SecurityForm() {
         current_password: "",
         password: "",
         password_confirmation: "",
-    });
+    })
 
     const updatePassword: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         put(route("password.update"), {
             preserveScroll: true,
             onSuccess: () => reset(),
             onError: (errors) => {
                 if (errors.password) {
-                    reset("password", "password_confirmation");
-                    passwordInput.current?.focus();
+                    reset("password", "password_confirmation")
+                    passwordInput.current?.focus()
                 }
 
                 if (errors.current_password) {
-                    reset("current_password");
-                    currentPasswordInput.current?.focus();
+                    reset("current_password")
+                    currentPasswordInput.current?.focus()
                 }
             },
-        });
-    };
+        })
+    }
 
     return (
         <form onSubmit={updatePassword} className="space-y-8">
@@ -127,5 +128,5 @@ export default function SecurityForm() {
                 </Transition>
             </div>
         </form>
-    );
+    )
 }

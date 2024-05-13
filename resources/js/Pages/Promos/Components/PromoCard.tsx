@@ -1,6 +1,8 @@
-import { formatDate } from "@/Common/helpers";
-import { cn } from "@/lib/utils";
-import { InertiaLinkProps, Link } from "@inertiajs/react";
+import { InertiaLinkProps, Link } from "@inertiajs/react"
+
+import { cn } from "@/lib/utils"
+
+import { formatDate } from "@/Common/helpers"
 
 export function PromoCard({
     promo,
@@ -26,5 +28,5 @@ export function PromoCard({
                 </h3>
             </div>
         </Link>
-    );
+    )
 }

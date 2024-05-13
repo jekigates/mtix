@@ -1,16 +1,15 @@
-import { PageProps } from "@/types";
-import MainLayout from "@/Layouts/MainLayout";
-import { Head, Link } from "@inertiajs/react";
-import { Separator } from "@/Components/ui/separator";
-import { Clock3, Utensils } from "lucide-react";
-import { Button } from "@/Components/ui/button";
-import { ScrollArea } from "@/Components/ui/scroll-area";
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
-import { formatDate, formatRupiah, formatTime } from "@/Common/helpers";
+import { Head, Link } from "@inertiajs/react"
+import { Clock3, Utensils } from "lucide-react"
+
+import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
+import { Button } from "@/Components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
+import { ScrollArea } from "@/Components/ui/scroll-area"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Show({ auth, movie }: PageProps) {
-    console.log(movie.theater_movies);
-
     return (
         <MainLayout user={auth.user}>
             <Head title="Movie Showtimes" />
@@ -212,5 +211,5 @@ export default function Show({ auth, movie }: PageProps) {
                 </div>
             </div>
         </MainLayout>
-    );
+    )
 }

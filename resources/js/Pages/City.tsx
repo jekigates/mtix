@@ -1,15 +1,16 @@
-import { buttonVariants } from "@/Components/ui/button";
-import { Separator } from "@/Components/ui/separator";
-import MainLayout from "@/Layouts/MainLayout";
-import { PageProps } from "@/types";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react"
+
+import { buttonVariants } from "@/Components/ui/button"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Index({
     auth,
     selected_city,
     cities,
 }: PageProps<{
-    selected_city: App.Data.CityData;
+    selected_city: App.Data.CityData
 }>) {
     return (
         <MainLayout user={auth.user}>
@@ -51,5 +52,5 @@ export default function Index({
                 </div>
             </div>
         </MainLayout>
-    );
+    )
 }

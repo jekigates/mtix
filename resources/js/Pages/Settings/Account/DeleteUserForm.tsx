@@ -1,7 +1,8 @@
-import { useRef, FormEventHandler } from "react";
-import { useForm } from "@inertiajs/react";
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
+import { useForm } from "@inertiajs/react"
+import { FormEventHandler, useRef } from "react"
+
+import { InputMessage } from "@/Components/InputMessage"
+import { Button } from "@/Components/ui/button"
 import {
     Dialog,
     DialogClose,
@@ -11,11 +12,11 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
-import { InputMessage } from "@/Components/InputMessage";
+} from "@/Components/ui/dialog"
+import { Input } from "@/Components/ui/input"
 
 export default function DeleteUserForm() {
-    const passwordInput = useRef<HTMLInputElement>(null);
+    const passwordInput = useRef<HTMLInputElement>(null)
 
     const {
         data,
@@ -26,22 +27,22 @@ export default function DeleteUserForm() {
         errors,
     } = useForm({
         password: "",
-    });
+    })
 
     const deleteUser: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         destroy(route("settings.account.destroy"), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => passwordInput.current?.focus(),
             onFinish: () => reset(),
-        });
-    };
+        })
+    }
 
     const closeModal = () => {
-        reset();
-    };
+        reset()
+    }
 
     return (
         <Dialog>
@@ -89,5 +90,5 @@ export default function DeleteUserForm() {
                 </form>
             </DialogContent>
         </Dialog>
-    );
+    )
 }

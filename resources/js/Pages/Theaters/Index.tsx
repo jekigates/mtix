@@ -1,10 +1,11 @@
-import { buttonVariants } from "@/Components/ui/button";
-import { Separator } from "@/Components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
-import MainLayout from "@/Layouts/MainLayout";
-import { PageProps } from "@/types";
-import { Head, Link } from "@inertiajs/react";
-import { ChevronDown } from "lucide-react";
+import { Head, Link } from "@inertiajs/react"
+import { ChevronDown } from "lucide-react"
+
+import { buttonVariants } from "@/Components/ui/button"
+import { Separator } from "@/Components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Index({ auth, city, brands, movie }: PageProps) {
     return (
@@ -71,5 +72,5 @@ export default function Index({ auth, city, brands, movie }: PageProps) {
                 </div>
             </div>
         </MainLayout>
-    );
+    )
 }

@@ -1,45 +1,46 @@
-import { useEffect, FormEventHandler } from "react";
-import Checkbox from "@/Components/Checkbox";
-import { Head, Link, useForm } from "@inertiajs/react";
-import MainLayout from "@/Layouts/MainLayout";
-import { Button } from "@/Components/ui/button";
+import { Head, Link, useForm } from "@inertiajs/react"
+import { FormEventHandler, useEffect } from "react"
+
+import Checkbox from "@/Components/Checkbox"
+import { InputMessage } from "@/Components/InputMessage"
+import { Button } from "@/Components/ui/button"
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { PageProps } from "@/types";
-import { InputMessage } from "@/Components/InputMessage";
+} from "@/Components/ui/card"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Login({
     auth,
     status,
     canResetPassword,
 }: PageProps<{
-    status?: string;
-    canResetPassword: boolean;
+    status?: string
+    canResetPassword: boolean
 }>) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
         remember: false,
-    });
+    })
 
     useEffect(() => {
         return () => {
-            reset("password");
-        };
-    }, []);
+            reset("password")
+        }
+    }, [])
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route("login"));
-    };
+        post(route("login"))
+    }
 
     return (
         <MainLayout user={auth.user}>
@@ -147,5 +148,5 @@ export default function Login({
                 </CardContent>
             </Card>
         </MainLayout>
-    );
+    )
 }

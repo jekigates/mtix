@@ -1,6 +1,13 @@
-import { InputDescription } from "@/Components/InputDescription";
-import { InputMessage } from "@/Components/InputMessage";
-import { Button } from "@/Components/ui/button";
+import { Transition } from "@headlessui/react"
+import { useForm, usePage } from "@inertiajs/react"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { FormEventHandler, useEffect, useState } from "react"
+
+import { cn } from "@/lib/utils"
+
+import { InputDescription } from "@/Components/InputDescription"
+import { InputMessage } from "@/Components/InputMessage"
+import { Button } from "@/Components/ui/button"
 import {
     Command,
     CommandEmpty,
@@ -8,13 +15,13 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-} from "@/Components/ui/command";
-import { Label } from "@/Components/ui/label";
+} from "@/Components/ui/command"
+import { Label } from "@/Components/ui/label"
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/Components/ui/popover";
+} from "@/Components/ui/popover"
 import {
     Select,
     SelectContent,
@@ -23,21 +30,16 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/Components/ui/select";
-import { Textarea } from "@/Components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { PageProps } from "@/types";
-import { Transition } from "@headlessui/react";
-import { useForm, usePage } from "@inertiajs/react";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { FormEventHandler, useEffect, useState } from "react";
+} from "@/Components/ui/select"
+import { Textarea } from "@/Components/ui/textarea"
+import { PageProps } from "@/types"
 
 export default function AccountForm({
     provinces,
 }: {
-    provinces: App.Data.ProvinceData[];
+    provinces: App.Data.ProvinceData[]
 }) {
-    const user = usePage<PageProps>().props.auth.user;
+    const user = usePage<PageProps>().props.auth.user
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -46,16 +48,16 @@ export default function AccountForm({
             city_id: user.city_id,
             gender: user.gender,
             dob: new Date(user.dob),
-        });
+        })
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        patch(route("settings.account.update"));
-    };
+        patch(route("settings.account.update"))
+    }
 
-    const [openProvince, setOpenProvince] = useState(false);
-    const [openCity, setOpenCity] = useState(false);
+    const [openProvince, setOpenProvince] = useState(false)
+    const [openCity, setOpenCity] = useState(false)
 
     useEffect(() => {
         if (
@@ -63,40 +65,40 @@ export default function AccountForm({
                 .find((province) => province.id === data.province_id)
                 ?.cities?.find((city) => city.id === data.city_id) === undefined
         ) {
-            setData("city_id", "");
+            setData("city_id", "")
         }
-    }, [data.province_id]);
+    }, [data.province_id])
 
     // Birth Date
-    const [day, setDay] = useState(data.dob.getDate().toString());
-    const [month, setMonth] = useState(data.dob.getMonth().toString());
-    const [year, setYear] = useState(data.dob.getFullYear().toString());
+    const [day, setDay] = useState(data.dob.getDate().toString())
+    const [month, setMonth] = useState(data.dob.getMonth().toString())
+    const [year, setYear] = useState(data.dob.getFullYear().toString())
     const [days, setDays] = useState(
         Array.from({ length: 31 }, (_, i) => i + 1)
-    );
+    )
     const [months, setMonths] = useState(
         Array.from({ length: 12 }, (_, i) =>
             new Date(0, i).toLocaleString("default", { month: "long" })
         )
-    );
+    )
     const [years, setYears] = useState(
         Array.from({ length: 2007 - 1924 + 1 }, (_, i) => 2007 - i)
-    );
+    )
 
     useEffect(() => {
-        const today = new Date();
-        today.setFullYear(today.getFullYear() - 17);
+        const today = new Date()
+        today.setFullYear(today.getFullYear() - 17)
         let monthsInYear =
-            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12;
+            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12
 
         setMonths(
             Array.from({ length: monthsInYear }, (_, i) =>
                 new Date(0, i).toLocaleString("default", { month: "long" })
             )
-        );
+        )
 
         if (parseInt(month) + 1 > monthsInYear) {
-            setMonth("");
+            setMonth("")
         }
 
         if (month !== "") {
@@ -104,24 +106,24 @@ export default function AccountForm({
                 year === "" ? 0 : parseInt(year),
                 parseInt(month) + 1,
                 0
-            ).getDate();
+            ).getDate()
 
             if (parseInt(day) > daysInMonth) {
-                setDay("");
+                setDay("")
             }
 
-            setDays(Array.from({ length: daysInMonth }, (_, i) => i + 1));
+            setDays(Array.from({ length: daysInMonth }, (_, i) => i + 1))
         }
 
         if (year !== "" && month !== "" && day !== "") {
             setData(
                 "dob",
                 new Date(parseInt(year), parseInt(month), parseInt(day))
-            );
+            )
         } else {
-            setData("dob", new Date(user.dob));
+            setData("dob", new Date(user.dob))
         }
-    }, [day, month, year]);
+    }, [day, month, year])
 
     return (
         <form onSubmit={submit} className="space-y-8">
@@ -190,8 +192,8 @@ export default function AccountForm({
                                                 setData(
                                                     "province_id",
                                                     province.id
-                                                );
-                                                setOpenProvince(false);
+                                                )
+                                                setOpenProvince(false)
                                             }}
                                         >
                                             <Check
@@ -264,8 +266,8 @@ export default function AccountForm({
                                             <CommandItem
                                                 key={city.id}
                                                 onSelect={() => {
-                                                    setData("city_id", city.id);
-                                                    setOpenCity(false);
+                                                    setData("city_id", city.id)
+                                                    setOpenCity(false)
                                                 }}
                                             >
                                                 <Check
@@ -301,7 +303,7 @@ export default function AccountForm({
 
                 <Select
                     onValueChange={(e) => {
-                        setData("gender", e);
+                        setData("gender", e)
                     }}
                     defaultValue={data.gender}
                 >
@@ -409,5 +411,5 @@ export default function AccountForm({
                 </Transition>
             </div>
         </form>
-    );
+    )
 }

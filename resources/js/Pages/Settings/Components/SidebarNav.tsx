@@ -1,19 +1,18 @@
-"use client";
+import { Link, usePage } from "@inertiajs/react"
 
-import { buttonVariants } from "@/Components/ui/button";
+import { cn } from "@/lib/utils"
 
-import { cn } from "@/lib/utils";
-import { Link, usePage } from "@inertiajs/react";
+import { buttonVariants } from "@/Components/ui/button"
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
     items: {
-        href: string;
-        title: string;
-    }[];
+        href: string
+        title: string
+    }[]
 }
 
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
-    const { url } = usePage();
+    const { url } = usePage()
 
     return (
         <nav
@@ -39,5 +38,5 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
                 </Link>
             ))}
         </nav>
-    );
+    )
 }

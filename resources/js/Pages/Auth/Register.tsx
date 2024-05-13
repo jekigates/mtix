@@ -1,13 +1,28 @@
-import { useEffect, FormEventHandler, useState } from "react";
-import MainLayout from "@/Layouts/MainLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import { Button } from "@/Components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { Separator } from "@/Components/ui/separator";
-import { Alert, AlertDescription } from "@/Components/ui/alert";
-import { Textarea } from "@/Components/ui/textarea";
+import { Head, Link, useForm } from "@inertiajs/react"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { FormEventHandler, useEffect, useState } from "react"
+
+import { cn } from "@/lib/utils"
+
+import { InputMessage } from "@/Components/InputMessage"
+import { Alert, AlertDescription } from "@/Components/ui/alert"
+import { Button } from "@/Components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/Components/ui/command"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/Components/ui/popover"
 import {
     Select,
     SelectContent,
@@ -16,26 +31,11 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/Components/ui/select";
-
-// Combobox
-import { Check, ChevronsUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/Components/ui/command";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/Components/ui/popover";
-import { PageProps } from "@/types";
-import { InputMessage } from "@/Components/InputMessage";
+} from "@/Components/ui/select"
+import { Separator } from "@/Components/ui/separator"
+import { Textarea } from "@/Components/ui/textarea"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Register({ auth, provinces }: PageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -49,22 +49,22 @@ export default function Register({ auth, provinces }: PageProps) {
         city_id: "",
         gender: "Male",
         dob: "",
-    });
+    })
 
     useEffect(() => {
         return () => {
-            reset("password", "password_confirmation");
-        };
-    }, []);
+            reset("password", "password_confirmation")
+        }
+    }, [])
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route("register"));
-    };
+        post(route("register"))
+    }
 
-    const [openProvince, setOpenProvince] = useState(false);
-    const [openCity, setOpenCity] = useState(false);
+    const [openProvince, setOpenProvince] = useState(false)
+    const [openCity, setOpenCity] = useState(false)
 
     useEffect(() => {
         if (
@@ -72,40 +72,40 @@ export default function Register({ auth, provinces }: PageProps) {
                 .find((province) => province.id === data.province_id)
                 ?.cities?.find((city) => city.id === data.city_id) === undefined
         ) {
-            setData("city_id", "");
+            setData("city_id", "")
         }
-    }, [data.province_id]);
+    }, [data.province_id])
 
     // Birth Date
-    const [day, setDay] = useState("");
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
+    const [day, setDay] = useState("")
+    const [month, setMonth] = useState("")
+    const [year, setYear] = useState("")
     const [days, setDays] = useState(
         Array.from({ length: 31 }, (_, i) => i + 1)
-    );
+    )
     const [months, setMonths] = useState(
         Array.from({ length: 12 }, (_, i) =>
             new Date(0, i).toLocaleString("default", { month: "long" })
         )
-    );
+    )
     const [years, setYears] = useState(
         Array.from({ length: 2007 - 1924 + 1 }, (_, i) => 2007 - i)
-    );
+    )
 
     useEffect(() => {
-        const today = new Date();
-        today.setFullYear(today.getFullYear() - 17);
+        const today = new Date()
+        today.setFullYear(today.getFullYear() - 17)
         let monthsInYear =
-            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12;
+            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12
 
         setMonths(
             Array.from({ length: monthsInYear }, (_, i) =>
                 new Date(0, i).toLocaleString("default", { month: "long" })
             )
-        );
+        )
 
         if (parseInt(month) + 1 > monthsInYear) {
-            setMonth("");
+            setMonth("")
         }
 
         if (month !== "") {
@@ -113,13 +113,13 @@ export default function Register({ auth, provinces }: PageProps) {
                 year === "" ? 0 : parseInt(year),
                 parseInt(month) + 1,
                 0
-            ).getDate();
+            ).getDate()
 
             if (parseInt(day) > daysInMonth) {
-                setDay("");
+                setDay("")
             }
 
-            setDays(Array.from({ length: daysInMonth }, (_, i) => i + 1));
+            setDays(Array.from({ length: daysInMonth }, (_, i) => i + 1))
         }
 
         if (year !== "" && month !== "" && day !== "") {
@@ -128,11 +128,11 @@ export default function Register({ auth, provinces }: PageProps) {
                 `${year}-${(parseInt(month) + 1)
                     .toString()
                     .padStart(2, "0")}-${day.padStart(2, "0")}`
-            );
+            )
         } else {
-            setData("dob", "");
+            setData("dob", "")
         }
-    }, [day, month, year]);
+    }, [day, month, year])
 
     return (
         <MainLayout user={auth.user}>
@@ -296,10 +296,10 @@ export default function Register({ auth, provinces }: PageProps) {
                                                                     setData(
                                                                         "province_id",
                                                                         province.id
-                                                                    );
+                                                                    )
                                                                     setOpenProvince(
                                                                         false
-                                                                    );
+                                                                    )
                                                                 }}
                                                             >
                                                                 <Check
@@ -381,10 +381,10 @@ export default function Register({ auth, provinces }: PageProps) {
                                                                         setData(
                                                                             "city_id",
                                                                             city.id
-                                                                        );
+                                                                        )
                                                                         setOpenCity(
                                                                             false
-                                                                        );
+                                                                        )
                                                                     }}
                                                                 >
                                                                     <Check
@@ -414,7 +414,7 @@ export default function Register({ auth, provinces }: PageProps) {
 
                                 <Select
                                     onValueChange={(e) => {
-                                        setData("gender", e);
+                                        setData("gender", e)
                                     }}
                                     defaultValue={data.gender}
                                 >
@@ -570,5 +570,5 @@ export default function Register({ auth, provinces }: PageProps) {
                 </CardContent>
             </Card>
         </MainLayout>
-    );
+    )
 }

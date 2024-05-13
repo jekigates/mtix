@@ -1,8 +1,7 @@
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import MainLayout from "@/Layouts/MainLayout";
-import { Separator } from "@/Components/ui/separator";
-import { MovieCard } from "@/Components/MovieCard";
+import { Head } from "@inertiajs/react"
+import Autoplay from "embla-carousel-autoplay"
+
+import { MovieCard } from "@/Components/MovieCard"
 import {
     Carousel,
     CarouselContent,
@@ -10,8 +9,10 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/Components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+} from "@/Components/ui/carousel"
+import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
+import { PageProps } from "@/types"
 
 export default function Home({ auth, promos, movies }: PageProps) {
     return (
@@ -72,5 +73,5 @@ export default function Home({ auth, promos, movies }: PageProps) {
                 </div>
             </MainLayout>
         </>
-    );
+    )
 }
