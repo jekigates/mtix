@@ -6,6 +6,14 @@ import { cn } from "@/lib/utils"
 import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
 import { Button, buttonVariants } from "@/Components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/Components/ui/dialog"
 import { ScrollArea } from "@/Components/ui/scroll-area"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
@@ -34,21 +42,38 @@ export default function Show({ auth, movie, theater }: PageProps) {
                         </div>
 
                         <div className="mt-4 flex gap-8">
-                            <Link
-                                href=""
-                                className={cn(
-                                    buttonVariants({
-                                        variant: "transparent",
-                                        size: "fit",
-                                    })
-                                )}
-                            >
-                                <MapPin className="mr-2 h-4 w-4" />
-                                Location
-                            </Link>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="transparent" size="fit">
+                                        <MapPin className="mr-2 h-4 w-4" />
+                                        Location
+                                    </Button>
+                                </DialogTrigger>
+
+                                <DialogContent className="sm:max-w-4xl">
+                                    <DialogHeader>
+                                        <DialogTitle>Location Map</DialogTitle>
+
+                                        <DialogDescription>
+                                            This is the map of the location. You
+                                            can use it to get directions.
+                                        </DialogDescription>
+                                    </DialogHeader>
+
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3184468390505!2d106.65155647453119!3d-6.221673660934562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbbff86ad0c5%3A0x7637aedafd55dea8!2sMall%20%40%20Alam%20Sutera!5e0!3m2!1sid!2sid!4v1715597703692!5m2!1sid!2sid"
+                                        style={{ border: 0 }}
+                                        allowFullScreen={true}
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                        className="w-full"
+                                        height={400}
+                                    ></iframe>
+                                </DialogContent>
+                            </Dialog>
 
                             <Link
-                                href=""
+                                href={route("theaters.products", theater.id)}
                                 className={cn(
                                     buttonVariants({
                                         variant: "transparent",
@@ -213,7 +238,10 @@ export default function Show({ auth, movie, theater }: PageProps) {
                                         </CardTitle>
 
                                         <Link
-                                            href=""
+                                            href={route(
+                                                "theaters.products",
+                                                theater_movie.theater_id
+                                            )}
                                             className={cn(
                                                 buttonVariants({
                                                     variant: "transparent",

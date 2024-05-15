@@ -43,8 +43,8 @@ class DatabaseSeeder extends Seeder
             // 5. Brands
             BrandSeeder::class,
 
-            // 6. Product Categories & Products & Product Variants
-            ProductCategorySeeder::class,
+            // 6. Categories & Products & Product Variants
+            CategorySeeder::class,
 
             // 7. Locations & Theaters & Theater Movies & Theater Products & Studios
             LocationSeeder::class,

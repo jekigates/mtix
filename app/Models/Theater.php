@@ -64,11 +64,4 @@ class Theater extends Model
 
         return $theater_movies;
     }
-
-    public function getProductCategories()
-    {
-        $product_categories = ProductCategory::whereIn('id', $this->products->pluck('product_category_id'))->get();
-
-        return $product_categories;
-    }
 }

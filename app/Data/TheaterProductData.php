@@ -15,6 +15,7 @@ class TheaterProductData extends Data
         public ?string $product_variant_id,
         public int $stock,
         public Lazy|ProductData $product,
+        public null|Lazy|ProductVariantData $product_variant,
     ) {}
 
     public static function fromModel(TheaterProduct $theater_product): self
@@ -25,7 +26,8 @@ class TheaterProductData extends Data
             $theater_product->product_id,
             $theater_product->product_variant_id,
             $theater_product->stock,
-            Lazy::create(fn() => ProductData::from($theater_product->product)),
+            Lazy::create(fn() => ProductData::fromModel($theater_product->product)),
+            $theater_product->productVariant ? Lazy::create(fn() => ProductVariantData::from($theater_product->productVariant)) : null,
         );
     }
 }

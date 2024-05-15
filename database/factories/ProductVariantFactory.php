@@ -18,7 +18,6 @@ class ProductVariantFactory extends Factory
     {
         return [
             'name' => fake()->randomElement(['Small', 'Medium', 'Large']),
-            'price' => fake()->numberBetween(0, 10) * 1000,
         ];
     }
 }

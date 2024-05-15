@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->string('name', length: 50);
-            $table->char('product_category_id', length: 36);
-            $table->foreign('product_category_id')->references('id')->on('product_categories');
+            $table->integer('price');
+            $table->char('category_id', length: 36);
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

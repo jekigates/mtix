@@ -23,6 +23,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name(),
+            'price' => fake()->numberBetween(0, 10) * 1000,
         ];
     }
 
@@ -33,20 +34,12 @@ class ProductFactory extends Factory
                 'url' => generate_unsplash_image('product-images'),
             ]);
 
-            $isRegular = fake()->boolean();
-
-            if ($isRegular) {
+            $variantCount = fake()->numberBetween(0, 2);
+            for ($i = 0; $i < $variantCount; $i++) {
                 ProductVariant::factory()->create([
                     'product_id' => $product->id,
-                    'name' => 'Regular',
+                    'price' => fake()->boolean() ? fake()->numberBetween(0, 10) * 1000 : null,
                 ]);
-            } else {
-                $variantCount = fake()->numberBetween(0, 2);
-                for ($i = 0; $i < $variantCount; $i++) {
-                    ProductVariant::factory()->create([
-                        'product_id' => $product->id,
-                    ]);
-                }
             }
         });
     }

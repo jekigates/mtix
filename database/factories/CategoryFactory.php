@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductCategory>
  */
-class ProductCategoryFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -25,9 +25,9 @@ class ProductCategoryFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (ProductCategory $productCategory) {
+        return $this->afterCreating(function (Category $category) {
             Product::factory(3)->create([
-                'product_category_id' => $productCategory->id,
+                'category_id' => $category->id,
             ]);
         });
     }

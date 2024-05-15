@@ -62,11 +62,9 @@ class TheaterController extends Controller
     public function products(string $id): Response
     {
         $theater = Theater::findOrFail($id);
-        // $product_categories = $theater->getProductCategories();
 
         return Inertia::render('Theaters/Product', [
-            'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_products', 'theater_products.product'),
-            // 'product_categories' => $product_categories,
+            'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_products', 'theater_products.product', 'theater_products.product.category', 'theater_products.product_variant'),
         ]);
     }
 }

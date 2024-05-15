@@ -12,7 +12,7 @@ class Image extends Model
     use HasFactory, HasUuids;
 
     /**
-     * Get the parent imageable model (product or promo).
+     * Get the parent imageable model (product or promo or movie or news).
      */
     public function imageable(): MorphTo
     {

@@ -1,6 +1,8 @@
 import { Head, Link } from "@inertiajs/react"
 import { Clock3 } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 import { Avatar, AvatarImage } from "@/Components/ui/avatar"
 import { Button, buttonVariants } from "@/Components/ui/button"
 import { ScrollArea } from "@/Components/ui/scroll-area"
@@ -109,12 +111,12 @@ export default function Show({ auth, movie }: PageProps) {
 
                             <a
                                 href={movie.trailer}
-                                target="_blank"
-                                className={buttonVariants()}
+                                className={cn(
+                                    buttonVariants(),
+                                    "font-semibold"
+                                )}
                             >
-                                <div className="w-full font-semibold">
-                                    Trailer
-                                </div>
+                                Trailer
                             </a>
                         </div>
 

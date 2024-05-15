@@ -3,6 +3,10 @@ declare namespace App.Data {
         id: string
         name: string
     }
+    export type CategoryData = {
+        id: string
+        name: string
+    }
     export type CityData = {
         id: string
         name: string
@@ -50,15 +54,19 @@ declare namespace App.Data {
         genres?: Array<App.Data.GenreData>
         theater_movies?: Array<App.Data.TheaterMovieData>
     }
-    export type ProductCategoryData = {
-        id: string
-        name: string
-    }
     export type ProductData = {
         id: string
         name: string
-        product_category_id: string
+        price: number
+        category_id: string
         image: string
+        category?: App.Data.CategoryData
+    }
+    export type ProductVariantData = {
+        id: string
+        product_id: string
+        name: string
+        price: number | null
     }
     export type PromoData = {
         id: string
@@ -105,5 +113,6 @@ declare namespace App.Data {
         product_variant_id: string | null
         stock: number
         product?: App.Data.ProductData
+        product_variant?: App.Data.ProductVariantData | null
     }
 }
