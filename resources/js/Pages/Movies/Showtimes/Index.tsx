@@ -1,25 +1,39 @@
-import { Head, Link } from "@inertiajs/react"
+import { Head, Link, router } from "@inertiajs/react"
 import { Clock3, MapPin, Utensils } from "lucide-react"
+import { useState } from "react"
 
 import { cn } from "@/lib/utils"
 
 import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
 import { Button, buttonVariants } from "@/Components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
+import { Card, CardContent, CardHeader } from "@/Components/ui/card"
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/Components/ui/dialog"
+import { Label } from "@/Components/ui/label"
 import { ScrollArea } from "@/Components/ui/scroll-area"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
 
-export default function Show({ auth, movie, theater }: PageProps) {
+export default function Index({ auth, movie, theater }: PageProps) {
+    const [qty, setQty] = useState(1)
+
     return (
         <MainLayout user={auth.user}>
             <Head title="Movie Showtimes" />
@@ -44,7 +58,7 @@ export default function Show({ auth, movie, theater }: PageProps) {
                         <div className="mt-4 flex gap-8">
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button variant="transparent" size="fit">
+                                    <Button variant="link" size="fit">
                                         <MapPin className="mr-2 h-4 w-4" />
                                         Location
                                     </Button>
@@ -73,10 +87,13 @@ export default function Show({ auth, movie, theater }: PageProps) {
                             </Dialog>
 
                             <Link
-                                href={route("theaters.products", theater.id)}
+                                href={route(
+                                    "theaters.products.index",
+                                    theater.id
+                                )}
                                 className={cn(
                                     buttonVariants({
-                                        variant: "transparent",
+                                        variant: "link",
                                         size: "fit",
                                     })
                                 )}
@@ -229,22 +246,34 @@ export default function Show({ auth, movie, theater }: PageProps) {
                             <CardHeader>
                                 {!theater && (
                                     <div className="flex flex-row items-center justify-between">
-                                        <CardTitle className="text-sm font-medium">
+                                        <Link
+                                            href={route(
+                                                "theaters.show",
+                                                theater_movie.theater?.id
+                                            )}
+                                            className={cn(
+                                                buttonVariants({
+                                                    variant: "link",
+                                                    size: "fit",
+                                                }),
+                                                "text-foreground"
+                                            )}
+                                        >
                                             {
                                                 theater_movie.theater?.location
                                                     ?.name
                                             }{" "}
                                             {theater_movie.theater?.brand?.name}
-                                        </CardTitle>
+                                        </Link>
 
                                         <Link
                                             href={route(
-                                                "theaters.products",
+                                                "theaters.products.index",
                                                 theater_movie.theater_id
                                             )}
                                             className={cn(
                                                 buttonVariants({
-                                                    variant: "transparent",
+                                                    variant: "link",
                                                     size: "fit",
                                                 })
                                             )}
@@ -279,14 +308,119 @@ export default function Show({ auth, movie, theater }: PageProps) {
                                 <div className="flex gap-1 flex-wrap">
                                     {theater_movie.showtimes?.map(
                                         (showtime) => (
-                                            <Button
-                                                key={showtime.id}
-                                                size={"sm"}
-                                                variant={"outline"}
-                                                className="cursor-not-allowed text-primary"
-                                            >
-                                                {formatTime(showtime.start_at)}
-                                            </Button>
+                                            <Dialog key={showtime.id}>
+                                                <DialogTrigger asChild>
+                                                    <Button
+                                                        size={"sm"}
+                                                        variant={"outline"}
+                                                        className="text-primary"
+                                                    >
+                                                        {formatTime(
+                                                            showtime.start_at
+                                                        )}
+                                                    </Button>
+                                                </DialogTrigger>
+
+                                                <DialogContent className="sm:max-w-md">
+                                                    <DialogHeader>
+                                                        <DialogTitle>
+                                                            Select Tickets
+                                                        </DialogTitle>
+
+                                                        <DialogDescription>
+                                                            Please select the
+                                                            number of tickets
+                                                            you want to
+                                                            purchase. Click save
+                                                            when you're done.
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+
+                                                    <div className="grid gap-4">
+                                                        <div className="grid gap-2">
+                                                            <Label htmlFor="qty">
+                                                                Ticket Quantity
+                                                            </Label>
+
+                                                            <Select
+                                                                onValueChange={(
+                                                                    e
+                                                                ) => {
+                                                                    setQty(
+                                                                        parseInt(
+                                                                            e
+                                                                        )
+                                                                    )
+                                                                }}
+                                                                value={qty.toString()}
+                                                            >
+                                                                <SelectTrigger id="qty">
+                                                                    <SelectValue placeholder="Select number of tickets" />
+                                                                </SelectTrigger>
+                                                                <SelectContent>
+                                                                    <SelectGroup>
+                                                                        {[
+                                                                            ...Array(
+                                                                                8
+                                                                            ),
+                                                                        ].map(
+                                                                            (
+                                                                                _,
+                                                                                i
+                                                                            ) => (
+                                                                                <SelectItem
+                                                                                    value={(
+                                                                                        i +
+                                                                                        1
+                                                                                    ).toString()}
+                                                                                    key={
+                                                                                        i
+                                                                                    }
+                                                                                >
+                                                                                    {i +
+                                                                                        1}
+                                                                                </SelectItem>
+                                                                            )
+                                                                        )}
+                                                                    </SelectGroup>
+                                                                </SelectContent>
+                                                            </Select>
+                                                        </div>
+                                                    </div>
+
+                                                    <DialogFooter className="sm:justify-start">
+                                                        <Button
+                                                            onClick={() => {
+                                                                router.visit(
+                                                                    route(
+                                                                        "transactions.create",
+                                                                        {
+                                                                            movie: movie.id,
+                                                                            showtime:
+                                                                                movie
+                                                                                    .theater_movies?.[0]
+                                                                                    ?.showtimes?.[0]
+                                                                                    .id,
+                                                                            qty: qty,
+                                                                        }
+                                                                    )
+                                                                )
+                                                            }}
+                                                        >
+                                                            Continue
+                                                        </Button>
+
+                                                        <DialogClose asChild>
+                                                            <Button
+                                                                type="button"
+                                                                variant="secondary"
+                                                            >
+                                                                Close
+                                                            </Button>
+                                                        </DialogClose>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
                                         )
                                     )}
                                 </div>

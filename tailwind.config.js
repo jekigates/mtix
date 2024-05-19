@@ -1,5 +1,5 @@
-import forms from "@tailwindcss/forms";
-import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms"
+import defaultTheme from "tailwindcss/defaultTheme"
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -54,8 +54,14 @@ export default {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
-                warning: "hsl(var(--warning))",
-                "warning-foreground": "hsl(var(--warning-foreground))",
+                warning: {
+                    DEFAULT: "hsl(var(--warning))",
+                    foreground: "hsl(var(--warning-foreground))",
+                },
+                info: {
+                    DEFAULT: "hsl(var(--info))",
+                    foreground: "hsl(var(--info-foreground))",
+                },
             },
             borderRadius: {
                 lg: `var(--radius)`,
@@ -83,4 +89,4 @@ export default {
     },
 
     plugins: [forms, require("tailwindcss-animate")],
-};
+}

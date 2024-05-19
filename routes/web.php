@@ -7,9 +7,12 @@ use App\Data\NewsData;
 use App\Data\PromoData;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MovieShowtimeController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TheaterController;
+use App\Http\Controllers\TheaterProductController;
+use App\Http\Controllers\TransactionController;
 use App\Models\City;
 use App\Models\Info;
 use App\Models\Promo;
@@ -55,14 +58,14 @@ Route::get('/cities', function (Request $request): Response {
 })->name('cities.index');
 
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
-Route::get('/theaters/{id}', [TheaterController::class, 'show'])->name('theaters.show');
-Route::get('/theaters/{id}/products', [TheaterController::class, 'products'])->name('theaters.products');
+Route::get('/theaters/{theater}', [TheaterController::class, 'show'])->name('theaters.show');
+Route::get('/theaters/{theater}/products', [TheaterProductController::class, 'index'])->name('theaters.products.index');
 
-Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
-Route::get('/movies/{id}/showtimes', [MovieController::class, 'showtimes'])->name('movies.showtimes');
+Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+Route::get('/movies/{movie}/showtimes', [MovieShowtimeController::class, 'index'])->name('movies.showtimes.index');
 
 Route::get('/infos', [InfoController::class, 'index'])->name('infos.index');
-Route::get('/infos/{id}', [InfoController::class, 'show'])->name('infos.show');
+Route::get('/infos/{info}', [InfoController::class, 'show'])->name('infos.show');
 
 Route::get('/promos', [PromoController::class, 'index'])->name('promos.index');
 Route::get('/promos/{id}', [PromoController::class, 'show'])->name('promos.show');
@@ -83,6 +86,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/settings/security', [SettingController::class, 'security_edit'])->name('settings.security.edit');
     Route::patch('/settings/security', [SettingController::class, 'security_update'])->name('settings.security.update');
+
+    Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');
+
 });
 
 require __DIR__.'/auth.php';

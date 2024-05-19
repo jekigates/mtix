@@ -49,22 +49,12 @@ class TheaterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(Theater $theater): Response
     {
-        $theater = Theater::findOrFail($id);
         $theater->theaterMovies = $theater->getActiveTheaterMovies();
 
         return Inertia::render('Theaters/Show', [
             'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_movies', 'theater_movies.movie', 'theater_movies.showtimes'),
-        ]);
-    }
-
-    public function products(string $id): Response
-    {
-        $theater = Theater::findOrFail($id);
-
-        return Inertia::render('Theaters/Product', [
-            'theater' => TheaterData::fromModel($theater)->include('location', 'brand', 'theater_products', 'theater_products.product', 'theater_products.product.category', 'theater_products.product_variant'),
         ]);
     }
 }

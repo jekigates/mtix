@@ -416,7 +416,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     onValueChange={(e) => {
                                         setData("gender", e)
                                     }}
-                                    defaultValue={data.gender}
+                                    value={data.gender}
                                 >
                                     <SelectTrigger id="gender">
                                         <SelectValue placeholder="Gender" />

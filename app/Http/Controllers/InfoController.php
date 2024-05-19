@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Data\InfoData;
 use App\Http\Controllers\Controller;
 use App\Models\Info;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class InfoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         $infos = InfoData::collect(Info::all());
 
@@ -25,10 +25,8 @@ class InfoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Info $info): Response
     {
-        $info = Info::findOrFail($id);
-
         return Inertia::render('Infos/Show', [
             'info' => InfoData::fromModel($info),
         ]);

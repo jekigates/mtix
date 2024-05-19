@@ -42,7 +42,7 @@ export default function Show({ auth, theater }: PageProps) {
                 <div className="mt-4 flex gap-8">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="transparent" size="fit">
+                            <Button variant="link" size="fit">
                                 <MapPin className="mr-2 h-4 w-4" />
                                 Location
                             </Button>
@@ -71,10 +71,10 @@ export default function Show({ auth, theater }: PageProps) {
                     </Dialog>
 
                     <Link
-                        href={route("theaters.products", theater.id)}
+                        href={route("theaters.products.index", theater.id)}
                         className={cn(
                             buttonVariants({
-                                variant: "transparent",
+                                variant: "link",
                                 size: "fit",
                             })
                         )}

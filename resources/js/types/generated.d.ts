@@ -82,11 +82,26 @@ declare namespace App.Data {
         name: string
         cities?: Array<App.Data.CityData>
     }
+    export type SeatData = {
+        id: string
+        studio_id: string
+        row_code: string
+        column_number: number
+    }
     export type ShowtimeData = {
         id: string
         theater_movie_id: string
         studio_id: string
         start_at: string
+        theater_movie?: App.Data.TheaterMovieData
+        studio?: App.Data.StudioData
+    }
+    export type StudioData = {
+        id: string
+        theater_id: string
+        number: number
+        theater?: App.Data.TheaterData
+        seats?: Array<App.Data.SeatData>
     }
     export type TheaterData = {
         id: string

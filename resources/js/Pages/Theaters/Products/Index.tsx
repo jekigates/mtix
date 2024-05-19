@@ -1,13 +1,15 @@
+import { ProductCard } from "../Components/ProductCard"
 import { Head } from "@inertiajs/react"
+import { ChevronLeft } from "lucide-react"
 
-import { ProductCard } from "./Components/ProductCard"
+import { Button } from "@/Components/ui/button"
 import { ScrollArea, ScrollBar } from "@/Components/ui/scroll-area"
 import { Separator } from "@/Components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
 
-export default function Product({ auth, theater }: PageProps) {
+export default function Index({ auth, theater }: PageProps) {
     const categories: any = Object.values(
         theater.theater_products?.reduce((acc: any, curr) => {
             if (curr.product && curr.product?.category) {
@@ -46,7 +48,7 @@ export default function Product({ auth, theater }: PageProps) {
                     ] = {
                         id: product_variant_id,
                         name: product_variant_name,
-                        stock: stock,
+                        stock,
                         price: product_variant_price,
                     }
                 } else {
@@ -63,18 +65,22 @@ export default function Product({ auth, theater }: PageProps) {
             <Head title="Theater Products" />
 
             <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
-                <div className="space-y-1">
+                <div className="space-y-2">
                     <h2 className="text-2xl font-semibold tracking-tight">
-                        {theater.location?.name} {theater.brand?.name}
+                        Food & Beverage - {theater.location?.name}{" "}
+                        {theater.brand?.name}
                     </h2>
 
-                    <p className="text-sm text-muted-foreground">
-                        {theater.location?.address}
-                    </p>
-
-                    <p className="text-sm text-muted-foreground">
-                        Telepon : {theater.location?.contact}
-                    </p>
+                    <Button
+                        size="fit"
+                        variant="link"
+                        onClick={() => {
+                            window.history.back()
+                        }}
+                    >
+                        <ChevronLeft className="mr-2 h-4 w-4" />
+                        Back
+                    </Button>
                 </div>
 
                 <Separator className="my-4" />

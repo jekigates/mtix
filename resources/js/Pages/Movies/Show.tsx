@@ -20,6 +20,7 @@ export default function Show({ auth, movie }: PageProps) {
                     <Avatar>
                         <AvatarImage
                             src={"../img/ages/" + movie.minimum_age + ".png"}
+                            alt="Age"
                         />
                     </Avatar>
 
@@ -103,7 +104,10 @@ export default function Show({ auth, movie }: PageProps) {
                                 }
                             >
                                 <Link
-                                    href={route("movies.showtimes", movie.id)}
+                                    href={route(
+                                        "movies.showtimes.index",
+                                        movie.id
+                                    )}
                                 >
                                     Buy Ticket
                                 </Link>

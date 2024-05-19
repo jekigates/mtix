@@ -52,7 +52,7 @@ export default function Index({ auth, city, brands, movie }: PageProps) {
                                                 href={
                                                     movie
                                                         ? route(
-                                                              "movies.showtimes",
+                                                              "movies.showtimes.index",
                                                               {
                                                                   id: movie.id,
                                                                   theater_id:
