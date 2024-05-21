@@ -2,6 +2,7 @@ import { ProductCard } from "../Components/ProductCard"
 import { Head } from "@inertiajs/react"
 import { ChevronLeft } from "lucide-react"
 
+import MainContent from "@/Components/MainContent"
 import { Button } from "@/Components/ui/button"
 import { ScrollArea, ScrollBar } from "@/Components/ui/scroll-area"
 import { Separator } from "@/Components/ui/separator"
@@ -64,7 +65,7 @@ export default function Index({ auth, theater }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Theater Products" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="space-y-2">
                     <h2 className="text-2xl font-semibold tracking-tight">
                         Food & Beverage - {theater.location?.name}{" "}
@@ -117,7 +118,7 @@ export default function Index({ auth, theater }: PageProps) {
                         </TabsContent>
                     ))}
                 </Tabs>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

@@ -1,6 +1,7 @@
 import { Head, router } from "@inertiajs/react"
 import Autoplay from "embla-carousel-autoplay"
 
+import MainContent from "@/Components/MainContent"
 import { MovieCard } from "@/Components/MovieCard"
 import {
     Carousel,
@@ -19,7 +20,7 @@ export default function Home({ auth, infos, promos, movies }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Home" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <Carousel
                     className="w-full"
                     plugins={[
@@ -91,7 +92,7 @@ export default function Home({ auth, infos, promos, movies }: PageProps) {
                         />
                     ))}
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

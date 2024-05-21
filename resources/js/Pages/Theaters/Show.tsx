@@ -5,6 +5,7 @@ import { Fragment } from "react/jsx-runtime"
 import { cn } from "@/lib/utils"
 
 import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
+import MainContent from "@/Components/MainContent"
 import { Button, buttonVariants } from "@/Components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import {
@@ -24,7 +25,7 @@ export default function Show({ auth, theater }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Theater Detail" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="space-y-1">
                     <h2 className="text-2xl font-semibold tracking-tight">
                         {theater.location?.name} {theater.brand?.name}
@@ -191,7 +192,7 @@ export default function Show({ auth, theater }: PageProps) {
                         <Separator className="my-4" />
                     </Fragment>
                 ))}
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

@@ -1,5 +1,6 @@
 import { Head, Link } from "@inertiajs/react"
 
+import MainContent from "@/Components/MainContent"
 import { buttonVariants } from "@/Components/ui/button"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
@@ -10,7 +11,7 @@ export default function Index({ auth, infos }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Infos" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="space-y-1">
                     <h2 className="text-2xl font-semibold tracking-tight">
                         Latest News & Updates
@@ -39,7 +40,7 @@ export default function Index({ auth, infos }: PageProps) {
                         </Link>
                     ))}
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

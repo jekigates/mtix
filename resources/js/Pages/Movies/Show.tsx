@@ -3,6 +3,7 @@ import { Clock3 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+import MainContent from "@/Components/MainContent"
 import { Avatar, AvatarImage } from "@/Components/ui/avatar"
 import { Button, buttonVariants } from "@/Components/ui/button"
 import { ScrollArea } from "@/Components/ui/scroll-area"
@@ -15,7 +16,7 @@ export default function Show({ auth, movie }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Movie Detail" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="flex items-center gap-4">
                     <Avatar>
                         <AvatarImage
@@ -199,7 +200,7 @@ export default function Show({ auth, movie }: PageProps) {
                         </ScrollArea>
                     </div>
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

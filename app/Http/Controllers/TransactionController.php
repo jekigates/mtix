@@ -28,8 +28,6 @@ class TransactionController extends Controller
     {
         $qty = $request->query('qty') ?? 1;
 
-        // dd($showtime->studio->theater);
-
         return Inertia::render('Transactions/Create', [
             'movie' => MovieData::fromModel($movie),
             'showtime' => ShowtimeData::fromModel($showtime)->include('studio', 'studio.theater', 'studio.theater.location', 'studio.theater.brand', 'studio.seats', 'theater_movie'),

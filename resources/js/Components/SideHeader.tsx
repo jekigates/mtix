@@ -75,7 +75,7 @@ export default function SideHeader({
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
-                    href={route("dashboard")}
+                    href={route("home")}
                     className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
                     <Icons.logo className="h-6 w-6" />
@@ -85,7 +85,7 @@ export default function SideHeader({
                 </Link>
 
                 <Link
-                    href={route("dashboard")}
+                    href={route("home")}
                     className={cn(
                         "transition-colors hover:text-foreground",
                         url === "/"
@@ -163,9 +163,9 @@ export default function SideHeader({
                 <SheetContent side="left">
                     <nav className="grid gap-6 text-lg font-medium">
                         <Link
-                            href={route("dashboard")}
+                            href={route("home")}
                             onClick={() => {
-                                router.visit(route("dashboard"))
+                                router.visit(route("home"))
                                 setOpen(false)
                             }}
                             className="flex items-center gap-2 text-lg font-semibold"
@@ -175,9 +175,9 @@ export default function SideHeader({
                         </Link>
 
                         <Link
-                            href={route("dashboard")}
+                            href={route("home")}
                             onClick={() => {
-                                router.visit(route("dashboard"))
+                                router.visit(route("home"))
                                 setOpen(false)
                             }}
                             className={cn(

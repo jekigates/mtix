@@ -1,5 +1,6 @@
 import { Head } from "@inertiajs/react"
 
+import MainContent from "@/Components/MainContent"
 import { MovieCard } from "@/Components/MovieCard"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
@@ -10,7 +11,7 @@ export default function Upcoming({ auth, movies }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Upcoming" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
@@ -34,7 +35,7 @@ export default function Upcoming({ auth, movies }: PageProps) {
                         />
                     ))}
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

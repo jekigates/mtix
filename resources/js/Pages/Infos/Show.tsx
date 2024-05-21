@@ -1,5 +1,6 @@
 import { Head } from "@inertiajs/react"
 
+import MainContent from "@/Components/MainContent"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
@@ -9,7 +10,7 @@ export default function Show({ auth, info }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Info Detail" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="space-y-1">
                     <h2 className="text-2xl font-semibold tracking-tight">
                         {info.title}
@@ -31,7 +32,7 @@ export default function Show({ auth, info }: PageProps) {
                         {info.description}
                     </div>
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

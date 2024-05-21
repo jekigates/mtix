@@ -1,11 +1,12 @@
 import { Head, Link } from "@inertiajs/react"
 
+import MainContent from "@/Components/MainContent"
 import { buttonVariants } from "@/Components/ui/button"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
 
-export default function City({
+export default function SelectCity({
     auth,
     selected_city,
     cities,
@@ -14,9 +15,9 @@ export default function City({
 }>) {
     return (
         <MainLayout user={auth.user}>
-            <Head title="Cities" />
+            <Head title="Select City" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="space-y-1">
                     <h2 className="text-2xl font-semibold tracking-tight">
                         Set City - {selected_city.name}
@@ -46,7 +47,7 @@ export default function City({
                         </Link>
                     ))}
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

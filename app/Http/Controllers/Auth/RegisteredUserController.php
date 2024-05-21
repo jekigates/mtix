@@ -16,6 +16,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\DataCollection;
+use Spatie\Permission\Contracts\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -60,6 +61,7 @@ class RegisteredUserController extends Controller
             'gender' => $request->gender,
             'dob' => $request->dob,
         ]);
+        $user->assignRole('customer');
 
         event(new Registered($user));
 

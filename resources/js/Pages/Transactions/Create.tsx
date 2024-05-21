@@ -212,7 +212,7 @@ export default function Create({
                                                         column_number.id
                                                     ) ? (
                                                         <img
-                                                            src="/img/seats/booked.png"
+                                                            src="/img/seats/booking.png"
                                                             width={20}
                                                             height={20}
                                                             alt="Booked"

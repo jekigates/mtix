@@ -5,6 +5,7 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
+import MainContent from "@/Components/MainContent"
 import { Button, buttonVariants } from "@/Components/ui/button"
 import { Card, CardContent, CardHeader } from "@/Components/ui/card"
 import {
@@ -38,7 +39,7 @@ export default function Index({ auth, movie, theater }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Movie Showtimes" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 {theater && (
                     <>
                         <div className="space-y-1">
@@ -428,7 +429,7 @@ export default function Index({ auth, movie, theater }: PageProps) {
                         </Card>
                     ))}
                 </div>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

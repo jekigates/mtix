@@ -1,6 +1,7 @@
 import { Head, Link } from "@inertiajs/react"
 import { ChevronDown } from "lucide-react"
 
+import MainContent from "@/Components/MainContent"
 import { buttonVariants } from "@/Components/ui/button"
 import { Separator } from "@/Components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs"
@@ -12,12 +13,12 @@ export default function Index({ auth, city, brands, movie }: PageProps) {
         <MainLayout user={auth.user}>
             <Head title="Theaters" />
 
-            <div className="mx-auto lg:max-w-4xl px-4 py-6 lg:px-8">
+            <MainContent>
                 <div className="space-y-1">
                     <h2 className="text-2xl font-semibold tracking-tight flex items-center gap-1">
                         Theaters in {movie?.title}
                         <Link
-                            href={route("cities.index")}
+                            href={route("select.city")}
                             className="text-primary flex items-center gap-1"
                         >
                             {city.name}
@@ -79,7 +80,7 @@ export default function Index({ auth, city, brands, movie }: PageProps) {
                         </TabsContent>
                     ))}
                 </Tabs>
-            </div>
+            </MainContent>
         </MainLayout>
     )
 }

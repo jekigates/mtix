@@ -171,396 +171,369 @@ export default function Register({ auth, provinces }: PageProps) {
                 </CardHeader>
 
                 <CardContent>
-                    <form onSubmit={submit}>
-                        <div className="grid gap-4">
-                            <div className="grid gap-2">
-                                <Label htmlFor="phone_number">
-                                    Phone Number
-                                </Label>
+                    <form onSubmit={submit} className="grid gap-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="phone_number">Phone Number</Label>
 
-                                <Input
-                                    id="phone_number"
-                                    type="number"
-                                    value={data.phone_number}
-                                    autoComplete="phone_number"
-                                    autoFocus={true}
-                                    onChange={(e) =>
-                                        setData("phone_number", e.target.value)
-                                    }
-                                    placeholder="Phone Number"
-                                    maxLength={16}
-                                />
+                            <Input
+                                id="phone_number"
+                                type="number"
+                                value={data.phone_number}
+                                autoComplete="phone_number"
+                                autoFocus={true}
+                                onChange={(e) =>
+                                    setData("phone_number", e.target.value)
+                                }
+                                placeholder="Phone Number"
+                                maxLength={16}
+                            />
 
-                                <InputMessage>
-                                    {errors.phone_number}
-                                </InputMessage>
-                            </div>
+                            <InputMessage>{errors.phone_number}</InputMessage>
+                        </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="name">
-                                    Full Name as per your ID
-                                </Label>
+                        <div className="grid gap-2">
+                            <Label htmlFor="name">
+                                Full Name as per your ID
+                            </Label>
 
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    value={data.name}
-                                    autoComplete="name"
-                                    onChange={(e) =>
-                                        setData("name", e.target.value)
-                                    }
-                                    placeholder="Your Name"
-                                />
+                            <Input
+                                id="name"
+                                type="text"
+                                value={data.name}
+                                autoComplete="name"
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
+                                placeholder="Your Name"
+                            />
 
-                                <InputMessage>{errors.name}</InputMessage>
-                            </div>
+                            <InputMessage>{errors.name}</InputMessage>
+                        </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email</Label>
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Email</Label>
 
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    value={data.email}
-                                    autoComplete="username"
-                                    onChange={(e) =>
-                                        setData("email", e.target.value)
-                                    }
-                                    placeholder="Your valid email"
-                                />
+                            <Input
+                                id="email"
+                                type="email"
+                                value={data.email}
+                                autoComplete="username"
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
+                                placeholder="Your valid email"
+                            />
 
-                                <InputMessage>{errors.email}</InputMessage>
-                            </div>
+                            <InputMessage>{errors.email}</InputMessage>
+                        </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="address">
-                                    Address as per your ID
-                                </Label>
+                        <div className="grid gap-2">
+                            <Label htmlFor="address">
+                                Address as per your ID
+                            </Label>
 
-                                <Textarea
-                                    id="address"
-                                    value={data.address}
-                                    autoComplete="address"
-                                    onChange={(e) =>
-                                        setData("address", e.target.value)
-                                    }
-                                    placeholder="Correspondence address based on ID/KTP"
-                                />
+                            <Textarea
+                                id="address"
+                                value={data.address}
+                                autoComplete="address"
+                                onChange={(e) =>
+                                    setData("address", e.target.value)
+                                }
+                                placeholder="Correspondence address based on ID/KTP"
+                            />
 
-                                <InputMessage>{errors.address}</InputMessage>
-                            </div>
+                            <InputMessage>{errors.address}</InputMessage>
+                        </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="province">Province</Label>
+                        <div className="grid gap-2">
+                            <Label htmlFor="province">Province</Label>
 
-                                <Popover
-                                    open={openProvince}
-                                    onOpenChange={setOpenProvince}
-                                >
-                                    <PopoverTrigger asChild>
-                                        <Button
-                                            variant="outline"
-                                            role="combobox"
-                                            aria-expanded={openProvince}
-                                            className="justify-between"
-                                            id="province"
-                                        >
-                                            {data.province_id
-                                                ? provinces.find(
-                                                      (province) =>
-                                                          province.id ===
-                                                          data.province_id
-                                                  )?.name
-                                                : "Select province..."}
-                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                        </Button>
-                                    </PopoverTrigger>
+                            <Popover
+                                open={openProvince}
+                                onOpenChange={setOpenProvince}
+                            >
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openProvince}
+                                        className="justify-between"
+                                        id="province"
+                                    >
+                                        {data.province_id
+                                            ? provinces.find(
+                                                  (province) =>
+                                                      province.id ===
+                                                      data.province_id
+                                              )?.name
+                                            : "Select province..."}
+                                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
 
-                                    <PopoverContent className="p-0">
-                                        <Command>
-                                            <CommandInput placeholder="Search province..." />
+                                <PopoverContent className="p-0">
+                                    <Command>
+                                        <CommandInput placeholder="Search province..." />
 
-                                            <CommandList>
-                                                <CommandEmpty>
-                                                    No province found.
-                                                </CommandEmpty>
+                                        <CommandList>
+                                            <CommandEmpty>
+                                                No province found.
+                                            </CommandEmpty>
 
-                                                <CommandGroup>
-                                                    {provinces.map(
-                                                        (province) => (
-                                                            <CommandItem
-                                                                key={
-                                                                    province.id
-                                                                }
-                                                                onSelect={() => {
-                                                                    setData(
-                                                                        "province_id",
-                                                                        province.id
-                                                                    )
-                                                                    setOpenProvince(
-                                                                        false
-                                                                    )
-                                                                }}
-                                                            >
-                                                                <Check
-                                                                    className={cn(
-                                                                        "mr-2 h-4 w-4",
-                                                                        data.province_id ===
-                                                                            province.id
-                                                                            ? "opacity-100"
-                                                                            : "opacity-0"
-                                                                    )}
-                                                                />
-                                                                {province.name}
-                                                            </CommandItem>
-                                                        )
-                                                    )}
-                                                </CommandGroup>
-                                            </CommandList>
-                                        </Command>
-                                    </PopoverContent>
-                                </Popover>
-
-                                <InputMessage>
-                                    {errors.province_id}
-                                </InputMessage>
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="city">City</Label>
-
-                                <Popover
-                                    open={openCity}
-                                    onOpenChange={setOpenCity}
-                                >
-                                    <PopoverTrigger asChild>
-                                        <Button
-                                            variant="outline"
-                                            role="combobox"
-                                            aria-expanded={openCity}
-                                            className="justify-between"
-                                            id="city"
-                                        >
-                                            {provinces
-                                                .find(
-                                                    (province) =>
-                                                        province.id ===
-                                                        data.province_id
-                                                )
-                                                ?.cities?.find(
-                                                    (city) =>
-                                                        city.id === data.city_id
-                                                )?.name ?? "Select city..."}
-                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                        </Button>
-                                    </PopoverTrigger>
-
-                                    <PopoverContent className="p-0">
-                                        <Command>
-                                            <CommandInput placeholder="Search city..." />
-
-                                            <CommandList>
-                                                <CommandEmpty>
-                                                    No city found.
-                                                </CommandEmpty>
-
-                                                <CommandGroup>
-                                                    {provinces
-                                                        .find(
-                                                            (province) =>
-                                                                province.id ===
-                                                                data.province_id
-                                                        )
-                                                        ?.cities?.map(
-                                                            (city) => (
-                                                                <CommandItem
-                                                                    key={
-                                                                        city.id
-                                                                    }
-                                                                    onSelect={() => {
-                                                                        setData(
-                                                                            "city_id",
-                                                                            city.id
-                                                                        )
-                                                                        setOpenCity(
-                                                                            false
-                                                                        )
-                                                                    }}
-                                                                >
-                                                                    <Check
-                                                                        className={cn(
-                                                                            "mr-2 h-4 w-4",
-                                                                            data.city_id ===
-                                                                                city.id
-                                                                                ? "opacity-100"
-                                                                                : "opacity-0"
-                                                                        )}
-                                                                    />
-                                                                    {city.name}
-                                                                </CommandItem>
+                                            <CommandGroup>
+                                                {provinces.map((province) => (
+                                                    <CommandItem
+                                                        key={province.id}
+                                                        onSelect={() => {
+                                                            setData(
+                                                                "province_id",
+                                                                province.id
                                                             )
-                                                        )}
-                                                </CommandGroup>
-                                            </CommandList>
-                                        </Command>
-                                    </PopoverContent>
-                                </Popover>
+                                                            setOpenProvince(
+                                                                false
+                                                            )
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                data.province_id ===
+                                                                    province.id
+                                                                    ? "opacity-100"
+                                                                    : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {province.name}
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
 
-                                <InputMessage>{errors.city_id}</InputMessage>
-                            </div>
+                            <InputMessage>{errors.province_id}</InputMessage>
+                        </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="gender">Gender</Label>
+                        <div className="grid gap-2">
+                            <Label htmlFor="city">City</Label>
 
-                                <Select
-                                    onValueChange={(e) => {
-                                        setData("gender", e)
-                                    }}
-                                    value={data.gender}
-                                >
-                                    <SelectTrigger id="gender">
-                                        <SelectValue placeholder="Gender" />
+                            <Popover open={openCity} onOpenChange={setOpenCity}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openCity}
+                                        className="justify-between"
+                                        id="city"
+                                    >
+                                        {provinces
+                                            .find(
+                                                (province) =>
+                                                    province.id ===
+                                                    data.province_id
+                                            )
+                                            ?.cities?.find(
+                                                (city) =>
+                                                    city.id === data.city_id
+                                            )?.name ?? "Select city..."}
+                                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+
+                                <PopoverContent className="p-0">
+                                    <Command>
+                                        <CommandInput placeholder="Search city..." />
+
+                                        <CommandList>
+                                            <CommandEmpty>
+                                                No city found.
+                                            </CommandEmpty>
+
+                                            <CommandGroup>
+                                                {provinces
+                                                    .find(
+                                                        (province) =>
+                                                            province.id ===
+                                                            data.province_id
+                                                    )
+                                                    ?.cities?.map((city) => (
+                                                        <CommandItem
+                                                            key={city.id}
+                                                            onSelect={() => {
+                                                                setData(
+                                                                    "city_id",
+                                                                    city.id
+                                                                )
+                                                                setOpenCity(
+                                                                    false
+                                                                )
+                                                            }}
+                                                        >
+                                                            <Check
+                                                                className={cn(
+                                                                    "mr-2 h-4 w-4",
+                                                                    data.city_id ===
+                                                                        city.id
+                                                                        ? "opacity-100"
+                                                                        : "opacity-0"
+                                                                )}
+                                                            />
+                                                            {city.name}
+                                                        </CommandItem>
+                                                    ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+
+                            <InputMessage>{errors.city_id}</InputMessage>
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="gender">Gender</Label>
+
+                            <Select
+                                onValueChange={(e) => {
+                                    setData("gender", e)
+                                }}
+                                value={data.gender}
+                            >
+                                <SelectTrigger id="gender">
+                                    <SelectValue placeholder="Gender" />
+                                </SelectTrigger>
+
+                                <SelectContent>
+                                    <SelectItem value="Male">Male</SelectItem>
+
+                                    <SelectItem value="Female">
+                                        Female
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            <InputMessage>{errors.gender}</InputMessage>
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label>Birth Date</Label>
+
+                            <div className="grid grid-cols-3 gap-2">
+                                <Select onValueChange={setDay} value={day}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Day" />
                                     </SelectTrigger>
 
                                     <SelectContent>
-                                        <SelectItem value="Male">
-                                            Male
-                                        </SelectItem>
-
-                                        <SelectItem value="Female">
-                                            Female
-                                        </SelectItem>
+                                        <SelectGroup>
+                                            <SelectLabel>Day</SelectLabel>
+                                            {days.map((day, index) => (
+                                                <SelectItem
+                                                    key={`day-${index}`}
+                                                    value={day.toString()}
+                                                >
+                                                    {day}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
                                     </SelectContent>
                                 </Select>
 
-                                <InputMessage>{errors.gender}</InputMessage>
+                                <Select onValueChange={setMonth} value={month}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Month" />
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Month</SelectLabel>
+                                            {months.map((month, index) => (
+                                                <SelectItem
+                                                    key={`month-${index}`}
+                                                    value={index.toString()}
+                                                >
+                                                    {month}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select onValueChange={setYear} value={year}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Year" />
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Year</SelectLabel>
+                                            {years.map((year, index) => (
+                                                <SelectItem
+                                                    key={`year-${index}`}
+                                                    value={year.toString()}
+                                                >
+                                                    {year}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label>Birth Date</Label>
-
-                                <div className="grid grid-cols-3 gap-2">
-                                    <Select onValueChange={setDay} value={day}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Day" />
-                                        </SelectTrigger>
-
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectLabel>Day</SelectLabel>
-                                                {days.map((day, index) => (
-                                                    <SelectItem
-                                                        key={`day-${index}`}
-                                                        value={day.toString()}
-                                                    >
-                                                        {day}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
-
-                                    <Select
-                                        onValueChange={setMonth}
-                                        value={month}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Month" />
-                                        </SelectTrigger>
-
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectLabel>Month</SelectLabel>
-                                                {months.map((month, index) => (
-                                                    <SelectItem
-                                                        key={`month-${index}`}
-                                                        value={index.toString()}
-                                                    >
-                                                        {month}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
-
-                                    <Select
-                                        onValueChange={setYear}
-                                        value={year}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Year" />
-                                        </SelectTrigger>
-
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectLabel>Year</SelectLabel>
-                                                {years.map((year, index) => (
-                                                    <SelectItem
-                                                        key={`year-${index}`}
-                                                        value={year.toString()}
-                                                    >
-                                                        {year}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-
-                                <InputMessage>{errors.dob}</InputMessage>
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password">PIN/Password</Label>
-
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    value={data.password}
-                                    autoComplete="current-password"
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                    placeholder="6 digits Number"
-                                />
-
-                                <InputMessage>{errors.password}</InputMessage>
-                            </div>
-
-                            <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
-                                    Re-type PIN/Password
-                                </Label>
-
-                                <Input
-                                    id="password_confirmation"
-                                    type="password"
-                                    value={data.password_confirmation}
-                                    autoComplete="new-password"
-                                    onChange={(e) =>
-                                        setData(
-                                            "password_confirmation",
-                                            e.target.value
-                                        )
-                                    }
-                                    placeholder="6 digits Number"
-                                />
-
-                                <InputMessage>
-                                    {errors.password_confirmation}
-                                </InputMessage>
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="w-full"
-                                disabled={processing}
-                            >
-                                Create an account
-                            </Button>
+                            <InputMessage>{errors.dob}</InputMessage>
                         </div>
 
-                        <div className="mt-4 text-center text-sm">
+                        <div className="grid gap-2">
+                            <Label htmlFor="password">PIN/Password</Label>
+
+                            <Input
+                                id="password"
+                                type="password"
+                                value={data.password}
+                                autoComplete="current-password"
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                                placeholder="6 digits Number"
+                            />
+
+                            <InputMessage>{errors.password}</InputMessage>
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="password_confirmation">
+                                Re-type PIN/Password
+                            </Label>
+
+                            <Input
+                                id="password_confirmation"
+                                type="password"
+                                value={data.password_confirmation}
+                                autoComplete="new-password"
+                                onChange={(e) =>
+                                    setData(
+                                        "password_confirmation",
+                                        e.target.value
+                                    )
+                                }
+                                placeholder="6 digits Number"
+                            />
+
+                            <InputMessage>
+                                {errors.password_confirmation}
+                            </InputMessage>
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full"
+                            disabled={processing}
+                        >
+                            Create an account
+                        </Button>
+
+                        <div className="text-center text-sm">
                             Already have an account?{" "}
                             <Link href={route("login")} className="underline">
                                 Sign in

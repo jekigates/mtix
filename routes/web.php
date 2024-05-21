@@ -3,7 +3,6 @@
 use App\Data\CityData;
 use App\Data\InfoData;
 use App\Data\MovieData;
-use App\Data\NewsData;
 use App\Data\PromoData;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MovieController;
@@ -16,12 +15,14 @@ use App\Http\Controllers\TransactionController;
 use App\Models\City;
 use App\Models\Info;
 use App\Models\Promo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
-Route::get('/', function (Request $request): Response {
+Route::get('/', function (Request $request) {
     $promos = PromoData::collect(Promo::all());
     $infos = InfoData::collect(Info::all());
     $city_id = $request->session()->get('city_id');
@@ -35,7 +36,7 @@ Route::get('/', function (Request $request): Response {
         'promos' => $promos,
         'movies' => $movies,
     ]);
-})->name('dashboard');
+})->name('home');
 
 Route::get('/upcoming', function (Request $request): Response {
     $city_id = $request->session()->get('city_id');
@@ -47,15 +48,15 @@ Route::get('/upcoming', function (Request $request): Response {
     ]);
 })->name('upcoming');
 
-Route::get('/cities', function (Request $request): Response {
+Route::get('/select-city', function (Request $request): Response {
     $cities = CityData::collect(City::orderBy('name')->get());
     $city_id = $request->session()->get('city_id');
 
-    return Inertia::render('City', [
+    return Inertia::render('SelectCity', [
         'cities' => $cities,
         'selected_city' => CityData::fromModel(City::find($city_id)),
     ]);
-})->name('cities.index');
+})->name('select.city');
 
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
 Route::get('/theaters/{theater}', [TheaterController::class, 'show'])->name('theaters.show');
@@ -75,6 +76,20 @@ Route::get('/promos/{id}', [PromoController::class, 'show'])->name('promos.show'
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/select-role', function () {
+        $user = User::find(auth()->user()->id);
+
+        if (count($user->getRoleNames()) === 1 && !$user->hasRole('Super-Admin')) {
+            return redirect()->route('home');
+        }
+
+        $roles = $user->hasRole('Super-Admin') ? Role::all()->pluck('name') : $user->getRoleNames();
+
+        return Inertia::render('SelectRole', [
+            'roles' => $roles,
+        ]);
+    })->name('dashboard');
+
     Route::permanentRedirect('/settings', '/settings/profile');
 
     Route::get('/settings/profile', [SettingController::class, 'profile_edit'])->name('settings.profile.edit');

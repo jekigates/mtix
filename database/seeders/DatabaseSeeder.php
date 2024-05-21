@@ -13,11 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         // Delete all generated images in the public disk
         $directories = Storage::disk('public')->directories();
 
@@ -26,8 +21,6 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            // PermissionsSeeder::class,
-
             // 1. Provinces & Cities
             ProvinceSeeder::class,
 
@@ -57,6 +50,8 @@ class DatabaseSeeder extends Seeder
 
             // 10. Info
             InfoSeeder::class,
+
+            PermissionSeeder::class,
         ]);
     }
 }

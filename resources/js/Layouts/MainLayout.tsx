@@ -1,7 +1,8 @@
-import { PropsWithChildren } from "react";
-import { User } from "@/types";
-import SideHeader from "@/Components/SideHeader";
-import SideFooter from "@/Components/SiteFooter";
+import { PropsWithChildren } from "react"
+
+import SideHeader from "@/Components/SideHeader"
+import SideFooter from "@/Components/SiteFooter"
+import { User } from "@/types"
 
 export default function Main({
     user,
@@ -15,5 +16,5 @@ export default function Main({
 
             <SideFooter />
         </>
-    );
+    )
 }
