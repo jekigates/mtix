@@ -1,5 +1,5 @@
 import { Head, Link, router } from "@inertiajs/react"
-import { ChevronLeft, Crown, ShoppingBag, Store } from "lucide-react"
+import { ChevronLeft, Crown, Store, UserRound } from "lucide-react"
 import { useState } from "react"
 
 import MainContent from "@/Components/MainContent"
@@ -7,6 +7,7 @@ import { Button, buttonVariants } from "@/Components/ui/button"
 import { Label } from "@/Components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group"
 import { Separator } from "@/Components/ui/separator"
+import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
 
 export default function SelectRole({
@@ -15,10 +16,10 @@ export default function SelectRole({
 }: PageProps<{
     roles: string[]
 }>) {
-    const [selectedRole, setSelectedRole] = useState("")
+    const [selectedRole, setSelectedRole] = useState(roles[0])
 
     return (
-        <>
+        <MainLayout user={auth.user}>
             <Head title="Select Role" />
 
             <MainContent className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
@@ -36,24 +37,24 @@ export default function SelectRole({
                 <Separator className="my-4" />
 
                 <RadioGroup
-                    defaultValue="Super-Admin"
+                    defaultValue={roles[0]}
                     className="grid grid-cols-3 gap-4"
                     onValueChange={(e) => setSelectedRole(e)}
                 >
-                    {roles.includes("Super-Admin") && (
+                    {roles.includes("admin") && (
                         <div>
                             <RadioGroupItem
-                                value="Super-Admin"
-                                id="super-admin"
+                                value="admin"
+                                id="admin"
                                 className="peer sr-only"
                             />
 
                             <Label
-                                htmlFor="super-admin"
+                                htmlFor="admin"
                                 className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                             >
                                 <Crown className="mb-3 h-6 w-6" />
-                                Super-Admin
+                                Admin
                             </Label>
                         </div>
                     )}
@@ -88,7 +89,7 @@ export default function SelectRole({
                                 htmlFor="customer"
                                 className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                             >
-                                <ShoppingBag className="mb-3 h-6 w-6" />
+                                <UserRound className="mb-3 h-6 w-6" />
                                 Customer
                             </Label>
                         </div>
@@ -114,7 +115,8 @@ export default function SelectRole({
                         className="flex-1"
                         onClick={() => {
                             switch (selectedRole) {
-                                case "Super-Admin":
+                                case "admin":
+                                    router.visit(route("admin.home"))
                                     break
                                 case "owner":
                                     break
@@ -128,6 +130,6 @@ export default function SelectRole({
                     </Button>
                 </div>
             </MainContent>
-        </>
+        </MainLayout>
     )
 }

@@ -65,6 +65,6 @@
         @apply bg-background text-foreground;
     }
     #app {
-        @apply relative flex min-h-screen flex-col bg-muted/40;
+        @apply relative min-h-screen bg-muted/40;
     }
 }

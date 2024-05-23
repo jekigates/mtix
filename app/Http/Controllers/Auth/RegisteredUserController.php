@@ -61,7 +61,6 @@ class RegisteredUserController extends Controller
             'gender' => $request->gender,
             'dob' => $request->dob,
         ]);
-        $user->assignRole('customer');
 
         event(new Registered($user));
 

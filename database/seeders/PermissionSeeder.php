@@ -7,7 +7,8 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder
@@ -27,7 +28,7 @@ class PermissionSeeder extends Seeder
         // Permission::create(['name' => 'unpublish articles']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'Super-Admin']);
+        $role1 = Role::create(['name' => 'admin']);
         // $role1->givePermissionTo('edit articles');
         // $role1->givePermissionTo('delete articles');
 
@@ -35,7 +36,6 @@ class PermissionSeeder extends Seeder
         // $role2->givePermissionTo('publish articles');
         // $role2->givePermissionTo('unpublish articles');
 
-        $role3 = Role::create(['name' => 'customer']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
