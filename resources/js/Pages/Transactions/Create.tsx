@@ -58,17 +58,17 @@ export default function Create({
             <div className="px-4 py-6 lg:px-8 text-sm">
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center gap-1 text-muted-foreground">
-                        <img src="/img/seats/free.png" />
+                        <img src="/images/seats/free.png" />
                         Available
                     </div>
 
                     <div className="flex items-center gap-1 text-muted-foreground">
-                        <img src="/img/seats/booking.png" />
+                        <img src="/images/seats/booking.png" />
                         Your Seats
                     </div>
 
                     <div className="flex items-center gap-1 text-muted-foreground">
-                        <img src="/img/seats/booked.png" />
+                        <img src="/images/seats/booked.png" />
                         Sold
                     </div>
                 </div>

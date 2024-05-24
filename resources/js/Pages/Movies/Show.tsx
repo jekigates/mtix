@@ -20,7 +20,7 @@ export default function Show({ auth, movie }: PageProps) {
                 <div className="flex items-center gap-4">
                     <Avatar>
                         <AvatarImage
-                            src={"../img/ages/" + movie.minimum_age + ".png"}
+                            src={"../images/ages/" + movie.minimum_age + ".png"}
                             alt="Age"
                         />
                     </Avatar>

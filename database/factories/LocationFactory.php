@@ -29,12 +29,12 @@ class LocationFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Location $location) {
-            $brand_ids = Brand::inRandomOrder()->take(fake()->numberBetween(1, 3))->pluck('id');
+            $brandIds = Brand::inRandomOrder()->take(fake()->numberBetween(1, 3))->pluck('id');
 
-            foreach ($brand_ids as $brand_id) {
+            foreach ($brandIds as $brandId) {
                 Theater::factory()->create([
                     'location_id' => $location->id,
-                    'brand_id' => $brand_id,
+                    'brand_id' => $brandId,
                 ]);
             }
         });

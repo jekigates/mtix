@@ -5,8 +5,6 @@ namespace Database\Factories;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
-
 use function App\Helpers\generate_unsplash_image;
 
 /**

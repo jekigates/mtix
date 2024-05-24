@@ -28,7 +28,6 @@ return new class extends Migration
             $table->date('screening_start_date')->nullable();
             $table->date('screening_end_date')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

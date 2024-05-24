@@ -14,9 +14,9 @@ class InfoSeeder extends Seeder
     public function run(): void
     {
         $images = [
-            'img/news-images/garfield.jpg',
-            'img/news-images/waspada.jpg',
-            'img/news-images/makin-asik.jpg',
+            'images/infos/garfield.jpg',
+            'images/infos/waspada.jpg',
+            'images/infos/makin-asik.jpg',
         ];
 
         foreach ($images as $image) {

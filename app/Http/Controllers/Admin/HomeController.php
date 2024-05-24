@@ -12,13 +12,6 @@ class HomeController extends Controller
 {
     public function index(): Response
     {
-        // dd(auth()->user()->with('roles')->get());
-        // dd(User::find(auth()->user()->id))->with('roles')->get();
-        // dd(User::find(auth()->user()->id)->roles);
-
-        // dd(User::find(auth()->user()->id));
-        // dd(User::with('roles')->find(auth()->user()->id));
-
-        return Inertia::render('Admin/Home');
+        return Inertia::render('Admin/Home/Index');
     }
 }

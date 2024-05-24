@@ -16,18 +16,18 @@ class PromoSeeder extends Seeder
         $promos = [
             [
                 'name' => 'Weekendasik Pakai M.food',
-                'image' => 'img/promos/images/weekend-asik.jpg',
-                'banner_image' => 'img/promos/banner-images/weekend-asik.jpg',
+                'image' => 'images/promos/images/weekend-asik.jpg',
+                'banner_image' => 'images/promos/banner-images/weekend-asik.jpg',
             ],
             [
                 'name' => 'Xxi Cafe - Pesan Xxi Snack Box Di Sini!',
-                'image' => 'img/promos/images/snackbox.jpg',
-                'banner_image' => 'img/promos/banner-images/snackbox.jpg',
+                'image' => 'images/promos/images/snackbox.jpg',
+                'banner_image' => 'images/promos/banner-images/snackbox.jpg',
             ],
             [
                 'name' => 'Mandiri - Cashback 100% Qr Livin By Mandiri',
-                'image' => 'img/promos/images/mandiri-cashback.jpg',
-                'banner_image' => 'img/promos/banner-images/mandiri-cashback.jpeg',
+                'image' => 'images/promos/images/mandiri-cashback.jpg',
+                'banner_image' => 'images/promos/banner-images/mandiri-cashback.jpeg',
             ]
         ];
 

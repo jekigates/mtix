@@ -1,18 +1,23 @@
-import { Link, router } from "@inertiajs/react"
+import { Link, router, usePage } from "@inertiajs/react"
 import {
     Bell,
     CircleUser,
     Cog,
+    CupSoda,
+    Film,
     Home,
     LineChart,
     LogIn,
     Menu,
+    Newspaper,
     Package,
-    Search,
+    Popcorn,
     ShoppingCart,
+    Tag,
+    Theater,
     Users,
 } from "lucide-react"
-import { PropsWithChildren, ReactNode } from "react"
+import { PropsWithChildren, ReactNode, useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -23,7 +28,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuShortcut,
     DropdownMenuTrigger,
@@ -37,13 +41,47 @@ export default function Admin({
     header,
     children,
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
+    const [open, setOpen] = useState(false)
+    const { url } = usePage()
+
+    useEffect(() => {
+        const down = (e: KeyboardEvent) => {
+            if (e.metaKey || e.ctrlKey) {
+                if (
+                    (e.target instanceof HTMLElement &&
+                        e.target.isContentEditable) ||
+                    e.target instanceof HTMLInputElement ||
+                    e.target instanceof HTMLTextAreaElement ||
+                    e.target instanceof HTMLSelectElement
+                ) {
+                    return
+                }
+
+                if (user) {
+                    switch (e.key) {
+                        case "p":
+                            e.preventDefault()
+                            router.visit(route("settings.profile.edit"))
+                            break
+                        case "q":
+                            e.preventDefault()
+                            router.post(route("logout"))
+                            break
+                    }
+                }
+            }
+        }
+        document.addEventListener("keydown", down)
+        return () => document.removeEventListener("keydown", down)
+    }, [])
+
     return (
         <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-muted/40 md:block">
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                         <Link
-                            href="/"
+                            href={route("admin.home")}
                             className="flex items-center gap-2 font-semibold"
                         >
                             <Icons.logo className="h-6 w-6" />
@@ -67,8 +105,13 @@ export default function Admin({
                     <div className="flex-1">
                         <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
                             <Link
-                                href="#"
-                                className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                                href={route("admin.home")}
+                                className={cn(
+                                    "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                    url === "/admin"
+                                        ? "bg-muted text-primary"
+                                        : "text-muted-foreground"
+                                )}
                             >
                                 <Home className="h-4 w-4" />
                                 Dashboard
@@ -78,19 +121,29 @@ export default function Admin({
                                 href="#"
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                             >
-                                <ShoppingCart className="h-4 w-4" />
-                                Orders
-                                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                    6
-                                </Badge>
+                                <Film className="h-4 w-4" />
+                                Movies
+                            </Link>
+
+                            <Link
+                                href={route("admin.products.index")}
+                                className={cn(
+                                    "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                    url === "/admin/products"
+                                        ? "bg-muted text-primary"
+                                        : "text-muted-foreground"
+                                )}
+                            >
+                                <CupSoda className="h-4 w-4" />
+                                Products
                             </Link>
 
                             <Link
                                 href="#"
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                             >
-                                <Package className="h-4 w-4" />
-                                Products{" "}
+                                <Theater className="h-4 w-4" />
+                                Theaters
                             </Link>
 
                             <Link
@@ -105,8 +158,16 @@ export default function Admin({
                                 href="#"
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                             >
-                                <LineChart className="h-4 w-4" />
-                                Analytics
+                                <Tag className="h-4 w-4" />
+                                Promos
+                            </Link>
+
+                            <Link
+                                href="#"
+                                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            >
+                                <Newspaper className="h-4 w-4" />
+                                Infos
                             </Link>
                         </nav>
                     </div>
@@ -114,7 +175,7 @@ export default function Admin({
             </div>
 
             <div className="flex flex-col">
-                <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+                <header className="flex h-14 items-center gap-4 bg-background sm:bg-transparent px-4 lg:h-[60px] sm:px-6">
                     <Sheet>
                         <SheetTrigger asChild>
                             <Button
@@ -133,7 +194,7 @@ export default function Admin({
                         <SheetContent side="left" className="flex flex-col">
                             <nav className="grid gap-2 text-lg font-medium">
                                 <Link
-                                    href="#"
+                                    href={route("admin.home")}
                                     className="flex items-center gap-2 text-lg font-semibold"
                                 >
                                     <Icons.logo className="h-6 w-6" />
@@ -142,8 +203,13 @@ export default function Admin({
                                 </Link>
 
                                 <Link
-                                    href="#"
-                                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                                    href={route("admin.home")}
+                                    className={cn(
+                                        "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
+                                        url === "/admin"
+                                            ? "bg-muted text-foreground"
+                                            : "text-muted-foreground"
+                                    )}
                                 >
                                     <Home className="h-5 w-5" />
                                     Dashboard
@@ -153,19 +219,29 @@ export default function Admin({
                                     href="#"
                                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
-                                    <ShoppingCart className="h-5 w-5" />
-                                    Orders
-                                    <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                        6
-                                    </Badge>
+                                    <Film className="h-5 w-5" />
+                                    Movies
+                                </Link>
+
+                                <Link
+                                    href={route("admin.products.index")}
+                                    className={cn(
+                                        "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
+                                        url === "/admin/products"
+                                            ? "bg-muted text-foreground"
+                                            : "text-muted-foreground"
+                                    )}
+                                >
+                                    <CupSoda className="h-5 w-5" />
+                                    Products
                                 </Link>
 
                                 <Link
                                     href="#"
                                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
-                                    <Package className="h-5 w-5" />
-                                    Products
+                                    <Theater className="h-5 w-5" />
+                                    Theaters
                                 </Link>
 
                                 <Link
@@ -180,38 +256,29 @@ export default function Admin({
                                     href="#"
                                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
-                                    <LineChart className="h-5 w-5" />
-                                    Analytics
+                                    <Tag className="h-5 w-5" />
+                                    Promos
+                                </Link>
+
+                                <Link
+                                    href="#"
+                                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                >
+                                    <Newspaper className="h-5 w-5" />
+                                    Infos
                                 </Link>
                             </nav>
                         </SheetContent>
                     </Sheet>
 
-                    {header && (
-                        <div className="w-full flex-1">
-                            <form>
-                                <div className="relative">
-                                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-
-                                    <Input
-                                        type="search"
-                                        placeholder="Search products..."
-                                        className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                                    />
-                                </div>
-                            </form>
-                        </div>
-                    )}
+                    {header ?? <div className="w-full flex-1"></div>}
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button
                                 variant="secondary"
                                 size="icon"
-                                className={cn(
-                                    "rounded-full",
-                                    !header && "ml-auto"
-                                )}
+                                className="rounded-full"
                             >
                                 <CircleUser className="h-5 w-5" />
                                 <span className="sr-only">
@@ -244,7 +311,7 @@ export default function Admin({
                     </DropdownMenu>
                 </header>
 
-                <main className="flex-1">{children}</main>
+                <main className="flex-1 p-4 sm:px-6 sm:py-0">{children}</main>
             </div>
         </div>
     )

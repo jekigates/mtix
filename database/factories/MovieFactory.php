@@ -6,7 +6,6 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\MovieGenre;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
 
 use function App\Helpers\generate_unsplash_image;
 
@@ -58,12 +57,12 @@ class MovieFactory extends Factory
                 'url' => generate_unsplash_image('movie-images'),
             ]);
 
-            $genre_ids = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');
+            $genreIds = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');
 
-            foreach ($genre_ids as $genre_id) {
+            foreach ($genreIds as $genreId) {
                 MovieGenre::factory()->create([
                     'movie_id' => $movie->id,
-                    'genre_id' => $genre_id,
+                    'genre_id' => $genreId,
                 ]);
             }
         });

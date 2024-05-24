@@ -31,12 +31,12 @@ class TheaterFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Theater $theater) {
-            $movie_ids = Movie::inRandomOrder()->where('screening_start_date', '!=', null)->limit(2)->pluck('id');
+            $movieIds = Movie::inRandomOrder()->where('screening_start_date', '!=', null)->limit(2)->pluck('id');
 
-            foreach ($movie_ids as $movie_id) {
+            foreach ($movieIds as $movieId) {
                 TheaterMovie::factory()->create([
                     'theater_id' => $theater->id,
-                    'movie_id' => $movie_id,
+                    'movie_id' => $movieId,
                 ]);
             }
             TheaterMovie::factory()->create([

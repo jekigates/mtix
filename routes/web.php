@@ -6,7 +6,6 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MovieShowtimeController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\Setting;
-// use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TheaterController;
 use App\Http\Controllers\TheaterProductController;
 use App\Http\Controllers\TransactionController;
@@ -58,6 +57,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin', [Admin\HomeController::class, 'index'])->name('admin.home');
+        Route::get('/admin/products', [Admin\ProductController::class, 'index'])->name('admin.products.index');
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');
