@@ -29,4 +29,6 @@ export type PageProps<
     brands: App.Data.BrandData[]
     theater: App.Data.TheaterData
     showtime: App.Data.ShowtimeData
+    categories: App.Data.CategoryData[]
+    products: App.Data.ProductData[]
 }

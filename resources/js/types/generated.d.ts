@@ -61,6 +61,8 @@ declare namespace App.Data {
         category_id: string
         image: string
         category?: App.Data.CategoryData
+        created_at: string
+        updated_at: string
     }
     export type ProductVariantData = {
         id: string

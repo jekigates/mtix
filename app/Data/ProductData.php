@@ -15,6 +15,8 @@ class ProductData extends Data
         public string $category_id,
         public string $image,
         public Lazy|CategoryData $category,
+        public string $created_at,
+        public string $updated_at,
     ) {}
 
     public static function fromModel(Product $product): self
@@ -26,6 +28,8 @@ class ProductData extends Data
             $product->category_id,
             asset($product->image->url),
             Lazy::create(fn() => CategoryData::from($product->category)),
+            $product->created_at,
+            $product->updated_at,
         );
     }
 }

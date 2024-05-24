@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Data\CategoryData;
+use App\Data\ProductData;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\LaravelData\DataCollection;
 
 class ProductController extends Controller
 {
@@ -14,7 +19,13 @@ class ProductController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Admin/Products/Index');
+        $categories = CategoryData::collect(Category::all());
+        $products = ProductData::collect(Product::all(), DataCollection::class)->include('category');
+
+        return Inertia::render('Admin/Products/Index', [
+            'categories' => $categories,
+            'products' => $products,
+        ]);
     }
 
     /**

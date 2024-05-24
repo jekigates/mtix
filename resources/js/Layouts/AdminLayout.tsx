@@ -88,18 +88,6 @@ export default function Admin({
 
                             <span className="">21 Cineplex</span>
                         </Link>
-
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="ml-auto h-8 w-8"
-                        >
-                            <Bell className="h-4 w-4" />
-
-                            <span className="sr-only">
-                                Toggle notifications
-                            </span>
-                        </Button>
                     </div>
 
                     <div className="flex-1">
@@ -311,7 +299,7 @@ export default function Admin({
                     </DropdownMenu>
                 </header>
 
-                <main className="flex-1 p-4 sm:px-6 sm:py-0">{children}</main>
+                <main className="flex-1 p-4 sm:px-6 sm:pt-0">{children}</main>
             </div>
         </div>
     )
