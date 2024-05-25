@@ -1,18 +1,13 @@
 import { Link, router, usePage } from "@inertiajs/react"
 import {
-    Bell,
     CircleUser,
     Cog,
     CupSoda,
     Film,
     Home,
-    LineChart,
     LogIn,
     Menu,
     Newspaper,
-    Package,
-    Popcorn,
-    ShoppingCart,
     Tag,
     Theater,
     Users,
@@ -22,7 +17,6 @@ import { PropsWithChildren, ReactNode, useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 import { Icons } from "@/Components/Icons"
-import { Badge } from "@/Components/ui/badge"
 import { Button } from "@/Components/ui/button"
 import {
     DropdownMenu,
@@ -32,7 +26,6 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Input } from "@/Components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet"
 import { User } from "@/types"
 
@@ -76,8 +69,8 @@ export default function Admin({
     }, [])
 
     return (
-        <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-            <div className="hidden border-r bg-muted/40 md:block">
+        <div className="flex min-h-screen w-full">
+            <div className="hidden border-r bg-muted/40 md:block md:min-w-[220px] lg:min-w-[280px]">
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                         <Link
@@ -162,8 +155,8 @@ export default function Admin({
                 </div>
             </div>
 
-            <div className="flex flex-col">
-                <header className="flex h-14 items-center gap-4 bg-background sm:bg-transparent px-4 lg:h-[60px] sm:px-6">
+            <div className="flex flex-col flex-1 max-w-full">
+                <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] sm:px-6">
                     <Sheet>
                         <SheetTrigger asChild>
                             <Button
@@ -299,7 +292,10 @@ export default function Admin({
                     </DropdownMenu>
                 </header>
 
-                <main className="flex-1 p-4 sm:px-6 sm:pt-0">{children}</main>
+                {/* <main className="flex-1 p-4 sm:px-6">{children}</main> */}
+                <main className="flex flex-1 flex-col gap-4 p-4 sm:px-6">
+                    {children}
+                </main>
             </div>
         </div>
     )
