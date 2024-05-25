@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils"
 const InputMessage = React.forwardRef<
     HTMLParagraphElement,
     React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => {
-    return (
+>(({ className, children, ...props }, ref) => {
+    return children ? (
         <p
             ref={ref}
             className={cn(
@@ -14,8 +14,10 @@ const InputMessage = React.forwardRef<
                 className
             )}
             {...props}
-        />
-    )
+        >
+            {children}
+        </p>
+    ) : null
 })
 InputMessage.displayName = "InputMessage"
 

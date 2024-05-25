@@ -28,3 +28,18 @@ export const setCookie = (cname: string, cvalue: string, exdays: number) => {
     let expires = "expires=" + d.toUTCString()
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
 }
+
+export const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (!files) return ""
+
+    if (files.length === 0) return ""
+
+    if (files[0].size > 10000000) {
+        alert("File must not be more than 10 Megabytes.")
+        return ""
+    }
+
+    return URL.createObjectURL(files[0])
+}

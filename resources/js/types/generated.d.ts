@@ -57,7 +57,7 @@ declare namespace App.Data {
     export type ProductData = {
         id: string
         name: string
-        price: number
+        description: string
         category_id: string
         image: string
         category?: App.Data.CategoryData
@@ -68,7 +68,8 @@ declare namespace App.Data {
         id: string
         product_id: string
         name: string
-        price: number | null
+        stock: number
+        price: number
     }
     export type PromoData = {
         id: string
@@ -130,6 +131,6 @@ declare namespace App.Data {
         product_variant_id: string | null
         stock: number
         product?: App.Data.ProductData
-        product_variant?: App.Data.ProductVariantData | null
+        product_variant?: App.Data.ProductVariantData
     }
 }

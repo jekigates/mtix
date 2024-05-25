@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Data\CategoryData;
 use App\Data\ProductData;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\LaravelData\DataCollection;
@@ -33,15 +36,23 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = CategoryData::collect(Category::all());
+
+        return Inertia::render('Admin/Products/Create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request): RedirectResponse
     {
-        //
+        $product = Product::create($request->only(['name', 'description', 'category_id']));
+        $product->image()->create(['url' => $request->file('image')->store('products')]);
+        $product->variants()->createMany($request->variants);
+
+        return Redirect::route('admin.products.index');
     }
 
     /**

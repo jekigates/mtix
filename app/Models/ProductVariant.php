@@ -12,6 +12,13 @@ class ProductVariant extends Model
     use HasFactory, HasUuids;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'stock', 'price'];
+
+    /**
      * Get the product that owns the product variant.
      */
     public function product(): BelongsTo

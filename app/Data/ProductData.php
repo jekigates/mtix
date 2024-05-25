@@ -11,7 +11,7 @@ class ProductData extends Data
     public function __construct(
         public string $id,
         public string $name,
-        public int $price,
+        public string $description,
         public string $category_id,
         public string $image,
         public Lazy|CategoryData $category,
@@ -24,7 +24,7 @@ class ProductData extends Data
         return new self(
             $product->id,
             $product->name,
-            $product->price,
+            $product->description,
             $product->category_id,
             asset($product->image->url),
             Lazy::create(fn() => CategoryData::from($product->category)),

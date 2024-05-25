@@ -40,16 +40,10 @@ export const columns: ColumnDef<App.Data.ProductData>[] = [
         ),
     },
     {
-        accessorKey: "price",
+        accessorKey: "description",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Price" />
+            <DataTableColumnHeader column={column} title="Description" />
         ),
-        cell: ({ row }) => {
-            const price = parseFloat(row.getValue("price"))
-            const formatted = formatRupiah(price)
-
-            return <div className="text-right font-medium">{formatted}</div>
-        },
     },
     {
         id: "category",

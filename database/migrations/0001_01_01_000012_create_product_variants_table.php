@@ -15,8 +15,9 @@ return new class extends Migration
             $table->char('id', length: 36)->primary();
             $table->char('product_id', length: 36);
             $table->foreign('product_id')->references('id')->on('products');
-            $table->enum('name', ['Regular', 'Small', 'Medium', 'Large']);
-            $table->integer('price')->nullable();
+            $table->string('name');
+            $table->integer('stock');
+            $table->integer('price');
             $table->timestamps();
         });
     }

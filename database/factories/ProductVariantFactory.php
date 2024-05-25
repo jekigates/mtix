@@ -17,7 +17,9 @@ class ProductVariantFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->randomElement(['Small', 'Medium', 'Large']),
+            'name' => fake()->word(),
+            'stock' => fake()->numberBetween(600, 1000),
+            'price' => fake()->numberBetween(1, 10) * 1000,
         ];
     }
 }

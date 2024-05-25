@@ -12,7 +12,14 @@ class Image extends Model
     use HasFactory, HasUuids;
 
     /**
-     * Get the parent imageable model (product or promo or movie or news).
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['url'];
+
+    /**
+     * Get the parent imageable model (product variant or promo or movie or news).
      */
     public function imageable(): MorphTo
     {

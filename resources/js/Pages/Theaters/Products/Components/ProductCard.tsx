@@ -26,48 +26,30 @@ export function ProductCard({
                 </a>
 
                 <div className="col-span-9 space-y-4">
-                    {Object.values(product.product_variants).length > 0 ? (
-                        Object.values(product.product_variants).map(
-                            (product_variant: any) => (
-                                <Card key={product_variant.id}>
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium">
-                                            {product.name} (
-                                            {product_variant.name[0]})
-                                        </CardTitle>
+                    {Object.values(product.product_variants).map(
+                        (product_variant: any) => (
+                            <Card key={product_variant.id}>
+                                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                    <CardTitle className="text-sm font-medium">
+                                        {product.name} ({product_variant.name})
+                                    </CardTitle>
 
-                                        <p>
-                                            {product_variant.price
-                                                ? formatRupiah(
-                                                      product_variant.price
-                                                  )
-                                                : formatRupiah(product.price)}
-                                        </p>
-                                    </CardHeader>
+                                    <p>
+                                        {product_variant.price
+                                            ? formatRupiah(
+                                                  product_variant.price
+                                              )
+                                            : formatRupiah(product.price)}
+                                    </p>
+                                </CardHeader>
 
-                                    <CardContent className="text-xs text-muted-foreground">
-                                        <p>
-                                            {product.name}{" "}
-                                            {product_variant.name}
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                            )
+                                <CardContent className="text-xs text-muted-foreground">
+                                    <p>
+                                        {product.name} {product_variant.name}
+                                    </p>
+                                </CardContent>
+                            </Card>
                         )
-                    ) : (
-                        <div className="flex justify-between">
-                            <div>
-                                <h3 className="font-medium leading-none">
-                                    {product.name}
-                                </h3>
-                                <p className="mt-1 text-sm text-muted-foreground">
-                                    {product.name}
-                                </p>
-                            </div>
-                            <p className="text-sm font-medium">
-                                {formatRupiah(product.price)}
-                            </p>
-                        </div>
                     )}
                 </div>
             </div>

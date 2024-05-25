@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('theater_id')->references('id')->on('theaters');
             $table->char('product_id', length: 36);
             $table->foreign('product_id')->references('id')->on('products');
-            $table->char('product_variant_id', length: 36)->nullable();
+            $table->char('product_variant_id', length: 36);
             $table->foreign('product_variant_id')->references('id')->on('product_variants');
             $table->integer('stock');
             $table->unique(['theater_id', 'product_id', 'product_variant_id']);

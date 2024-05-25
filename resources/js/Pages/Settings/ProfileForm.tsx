@@ -72,6 +72,7 @@ export default function ProfileForm({
                     name="email"
                     value={data.email}
                     autoComplete="username"
+                    autoFocus={true}
                     onChange={(e) => setData("email", e.target.value)}
                     placeholder="Your valid email"
                     maxLength={50}
@@ -97,8 +98,7 @@ export default function ProfileForm({
                     type="number"
                     name="phone_number"
                     value={data.phone_number}
-                    autoComplete="phone_number"
-                    autoFocus={true}
+                    autoComplete="tel"
                     onChange={(e) => setData("phone_number", e.target.value)}
                     placeholder="Phone Number"
                     maxLength={16}

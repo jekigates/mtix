@@ -54,9 +54,13 @@ Route::middleware('auth')->group(function () {
         Route::get('security', [Setting\SecurityController::class, 'edit'])->name('security.edit');
     });
 
-    Route::middleware('role:admin')->group(function () {
-        Route::get('/admin', [Admin\HomeController::class, 'index'])->name('admin.home');
-        Route::get('/admin/products', [Admin\ProductController::class, 'index'])->name('admin.products.index');
+    Route::middleware('role:admin')->name('admin.')->group(function () {
+        Route::get('/admin', [Admin\HomeController::class, 'index'])->name('home');
+        // Route::get('/admin/products', [Admin\ProductController::class, 'index'])->name('products.index');
+        // Route::get('/admin/products/create', [Admin\ProductController::class, 'create'])->name('products.create');
+        // Route::post('/admin/products', [Admin\ProductController::class, 'store'])->name('products.store');
+
+        Route::resource('/admin/products', Admin\ProductController::class)->except(['destroy']);
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');

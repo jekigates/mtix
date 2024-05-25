@@ -177,7 +177,7 @@ export default function AccountForm({
                         </Button>
                     </PopoverTrigger>
 
-                    <PopoverContent className="p-0">
+                    <PopoverContent className="p-0 w-full">
                         <Command>
                             <CommandInput placeholder="Search province..." />
 
@@ -249,7 +249,7 @@ export default function AccountForm({
                         </Button>
                     </PopoverTrigger>
 
-                    <PopoverContent className="p-0">
+                    <PopoverContent className="p-0 w-full">
                         <Command>
                             <CommandInput placeholder="Search city..." />
 
@@ -306,6 +306,7 @@ export default function AccountForm({
                         setData("gender", e)
                     }}
                     defaultValue={data.gender}
+                    name="gender"
                 >
                     <SelectTrigger id="gender">
                         <SelectValue placeholder="Gender" />
@@ -325,13 +326,16 @@ export default function AccountForm({
             </div>
 
             <div className="grid gap-2">
-                <Label className={errors.dob ? "text-destructive" : ""}>
+                <Label
+                    htmlFor="day"
+                    className={errors.dob ? "text-destructive" : ""}
+                >
                     Birth Date
                 </Label>
 
                 <div className="grid grid-cols-3 gap-2">
-                    <Select onValueChange={setDay} value={day}>
-                        <SelectTrigger>
+                    <Select onValueChange={setDay} value={day} name="day">
+                        <SelectTrigger id="day">
                             <SelectValue placeholder="Day" />
                         </SelectTrigger>
 
@@ -350,7 +354,7 @@ export default function AccountForm({
                         </SelectContent>
                     </Select>
 
-                    <Select onValueChange={setMonth} value={month}>
+                    <Select onValueChange={setMonth} value={month} name="month">
                         <SelectTrigger>
                             <SelectValue placeholder="Month" />
                         </SelectTrigger>
@@ -370,7 +374,7 @@ export default function AccountForm({
                         </SelectContent>
                     </Select>
 
-                    <Select onValueChange={setYear} value={year}>
+                    <Select onValueChange={setYear} value={year} name="year">
                         <SelectTrigger>
                             <SelectValue placeholder="Year" />
                         </SelectTrigger>

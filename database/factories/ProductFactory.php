@@ -21,7 +21,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name(),
-            'price' => fake()->numberBetween(1, 10) * 1000,
+            'description' => fake()->text(fake()->numberBetween(50, 100)),
         ];
     }
 
@@ -32,11 +32,11 @@ class ProductFactory extends Factory
                 'url' => generate_unsplash_image('product-images'),
             ]);
 
-            $variantCount = fake()->numberBetween(0, 2);
+            $variantCount = fake()->numberBetween(1, 2);
+
             for ($i = 0; $i < $variantCount; $i++) {
                 ProductVariant::factory()->create([
                     'product_id' => $product->id,
-                    'price' => fake()->boolean() ? fake()->numberBetween(1, 10) * 1000 : null,
                 ]);
             }
         });

@@ -1,6 +1,8 @@
 import { Head, Link } from "@inertiajs/react"
 import { PlusCircle, Search } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 import { columns } from "./Components/Columns"
 import { DataTable } from "./Components/DataTable"
 import {
@@ -11,7 +13,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb"
-import { Button } from "@/Components/ui/button"
+import { Button, buttonVariants } from "@/Components/ui/button"
 import {
     Card,
     CardContent,
@@ -64,13 +66,21 @@ export default function Index({ auth, categories, products }: PageProps) {
                 <>
                     <div className="flex items-center">
                         <div className="ml-auto flex items-center gap-2">
-                            <Button size="sm" className="h-8 gap-1">
+                            <Link
+                                href={route("admin.products.create")}
+                                className={cn(
+                                    buttonVariants({
+                                        size: "sm",
+                                    }),
+                                    "h-8 gap-1"
+                                )}
+                            >
                                 <PlusCircle className="h-3.5 w-3.5" />
 
                                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                                     Add Product
                                 </span>
-                            </Button>
+                            </Link>
                         </div>
                     </div>
 
@@ -100,6 +110,7 @@ export default function Index({ auth, categories, products }: PageProps) {
                             Inventory
                         </h1>
                     </div>
+
                     <div
                         className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
                         x-chunk="dashboard-02-chunk-1"
@@ -108,10 +119,12 @@ export default function Index({ auth, categories, products }: PageProps) {
                             <h3 className="text-2xl font-bold tracking-tight">
                                 You have no products
                             </h3>
+
                             <p className="text-sm text-muted-foreground">
                                 You can start selling as soon as you add a
                                 product.
                             </p>
+
                             <Button className="mt-4">Add Product</Button>
                         </div>
                     </div>

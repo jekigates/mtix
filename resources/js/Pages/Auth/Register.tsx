@@ -271,7 +271,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </Button>
                                 </PopoverTrigger>
 
-                                <PopoverContent className="p-0">
+                                <PopoverContent className="p-0 w-full">
                                     <Command>
                                         <CommandInput placeholder="Search province..." />
 
@@ -341,7 +341,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </Button>
                                 </PopoverTrigger>
 
-                                <PopoverContent className="p-0">
+                                <PopoverContent className="p-0 w-full">
                                     <Command>
                                         <CommandInput placeholder="Search city..." />
 
