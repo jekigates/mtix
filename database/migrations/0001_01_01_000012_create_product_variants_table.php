@@ -16,7 +16,6 @@ return new class extends Migration
             $table->char('product_id', length: 36);
             $table->foreign('product_id')->references('id')->on('products');
             $table->string('name');
-            $table->integer('stock');
             $table->integer('price');
             $table->timestamps();
         });

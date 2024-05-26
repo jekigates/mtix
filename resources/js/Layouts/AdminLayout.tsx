@@ -125,7 +125,7 @@ function SidebarNav() {
     const { url } = usePage()
 
     return (
-        <div className="hidden border-r bg-muted/40 md:block md:min-w-[220px] lg:min-w-[280px]">
+        <div className="hidden border-r bg-muted/40 lg:block lg:min-w-[220px] xl:min-w-[280px]">
             <div className="flex h-full max-h-screen flex-col gap-2">
                 <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link

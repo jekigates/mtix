@@ -58,9 +58,11 @@ declare namespace App.Data {
         id: string
         name: string
         description: string
+        recipe: string
         category_id: string
         image: string
         category?: App.Data.CategoryData
+        variants?: Array<App.Data.ProductVariantData>
         created_at: string
         updated_at: string
     }
@@ -68,7 +70,6 @@ declare namespace App.Data {
         id: string
         product_id: string
         name: string
-        stock: number
         price: number
     }
     export type PromoData = {

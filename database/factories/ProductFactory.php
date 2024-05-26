@@ -22,6 +22,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->unique()->name(),
             'description' => fake()->text(fake()->numberBetween(50, 100)),
+            'recipe' => fake()->text(),
         ];
     }
 

@@ -16,7 +16,7 @@ class ProductVariant extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'stock', 'price'];
+    protected $fillable = ['name', 'price'];
 
     /**
      * Get the product that owns the product variant.

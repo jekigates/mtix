@@ -30,7 +30,7 @@ export default function Index({ auth, categories, products }: PageProps) {
         <AdminLayout
             user={auth.user}
             header={
-                <>
+                <div className="w-full flex-1">
                     <Breadcrumb className="hidden md:flex">
                         <BreadcrumbList>
                             <BreadcrumbItem>
@@ -48,16 +48,7 @@ export default function Index({ auth, categories, products }: PageProps) {
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
-
-                    <div className="relative ml-auto flex-1 md:grow-0">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            type="search"
-                            placeholder="Search products..."
-                            className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-                        />
-                    </div>
-                </>
+                </div>
             }
         >
             <Head title="Products" />

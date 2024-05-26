@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from "@inertiajs/react"
+import { Head, Link, router, useForm } from "@inertiajs/react"
 import {
     Check,
     ChevronLeft,
@@ -56,26 +56,33 @@ import { Textarea } from "@/Components/ui/textarea"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
-export default function Index({ auth, categories }: PageProps) {
-    const { data, setData, post, processing, errors, reset, clearErrors } =
-        useForm({
-            name: "",
-            description: "",
-            recipe: "",
-            category_id: "",
-            image: new File([], ""),
-            variants: [{ name: "", price: 0 }],
-        })
+export default function Edit({ auth, categories, product }: PageProps) {
+    const { data, setData, processing, errors, reset, clearErrors } = useForm({
+        name: product.name,
+        description: product.description,
+        recipe: product.recipe,
+        category_id: product.category_id,
+        image: new File([], ""),
+        variants: product.variants,
+    })
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
 
-        post(route("admin.products.store"))
+        router.post(route("admin.products.update", product.id), {
+            _method: "PATCH",
+            name: data.name,
+            description: data.description,
+            recipe: data.recipe,
+            category_id: data.category_id,
+            image: data.image,
+            variants: data.variants,
+        })
     }
 
     const [openCategoryId, setOpenCategoryId] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
-    const [imageUrl, setImageUrl] = useState("")
+    const [imageUrl, setImageUrl] = useState(product.image)
 
     const errorVariants = errors as Record<string, string>
 
@@ -107,14 +114,14 @@ export default function Index({ auth, categories }: PageProps) {
                             <BreadcrumbSeparator />
 
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Create Product</BreadcrumbPage>
+                                <BreadcrumbPage>Edit Product</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
             }
         >
-            <Head title="Create Product" />
+            <Head title="Edit Product" />
 
             <form
                 onSubmit={submit}
@@ -136,7 +143,7 @@ export default function Index({ auth, categories }: PageProps) {
                     </Link>
 
                     <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                        Create Product
+                        Edit Product
                     </h1>
 
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
@@ -154,7 +161,7 @@ export default function Index({ auth, categories }: PageProps) {
                         </Button>
 
                         <Button size="sm" disabled={processing}>
-                            Save Product
+                            Update Product
                         </Button>
                     </div>
                 </div>
@@ -286,132 +293,122 @@ export default function Index({ auth, categories }: PageProps) {
                                     <TableBody>
                                         {(() => {
                                             const newVariants = [
-                                                ...data.variants,
+                                                ...(data.variants || []),
                                             ]
 
                                             return newVariants.map(
-                                                (variant, index) => {
-                                                    return (
-                                                        <TableRow
-                                                            key={`variant-${index}`}
-                                                        >
-                                                            <TableCell className="font-semibold">
-                                                                <Label
-                                                                    htmlFor={`name-${index}`}
-                                                                    className="sr-only"
-                                                                >
-                                                                    Variant Name
-                                                                </Label>
+                                                (variant, index) => (
+                                                    <TableRow
+                                                        key={`variant-${index}`}
+                                                    >
+                                                        <TableCell className="font-semibold">
+                                                            <Label
+                                                                htmlFor={`name-${index}`}
+                                                                className="sr-only"
+                                                            >
+                                                                Variant Name
+                                                            </Label>
 
-                                                                <Input
-                                                                    id={`name-${index}`}
-                                                                    type="text"
-                                                                    value={
-                                                                        newVariants[
-                                                                            index
-                                                                        ].name
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) => {
-                                                                        newVariants[
-                                                                            index
-                                                                        ].name =
-                                                                            e.target.value
+                                                            <Input
+                                                                id={`name-${index}`}
+                                                                type="text"
+                                                                value={
+                                                                    newVariants[
+                                                                        index
+                                                                    ].name
+                                                                }
+                                                                onChange={(
+                                                                    e
+                                                                ) => {
+                                                                    newVariants[
+                                                                        index
+                                                                    ].name =
+                                                                        e.target.value
+                                                                    setData(
+                                                                        "variants",
+                                                                        newVariants
+                                                                    )
+                                                                }}
+                                                                className={
+                                                                    errorVariants[
+                                                                        `variants.${index}.name`
+                                                                    ]
+                                                                        ? "border-destructive"
+                                                                        : ""
+                                                                }
+                                                            />
+                                                        </TableCell>
+
+                                                        <TableCell>
+                                                            <Label
+                                                                htmlFor={`price-${index}`}
+                                                                className="sr-only"
+                                                            >
+                                                                Variant Price
+                                                            </Label>
+
+                                                            <Input
+                                                                id={`price-${index}`}
+                                                                type="number"
+                                                                value={
+                                                                    newVariants[
+                                                                        index
+                                                                    ].price
+                                                                }
+                                                                onChange={(
+                                                                    e
+                                                                ) => {
+                                                                    newVariants[
+                                                                        index
+                                                                    ].price =
+                                                                        parseInt(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    setData(
+                                                                        "variants",
+                                                                        newVariants
+                                                                    )
+                                                                }}
+                                                                className={
+                                                                    errorVariants[
+                                                                        `variants.${index}.price`
+                                                                    ]
+                                                                        ? "border-destructive"
+                                                                        : ""
+                                                                }
+                                                            />
+                                                        </TableCell>
+
+                                                        <TableCell>
+                                                            <Button
+                                                                variant="destructive"
+                                                                disabled={
+                                                                    newVariants.length <=
+                                                                    1
+                                                                }
+                                                                onClick={() => {
+                                                                    if (
+                                                                        newVariants.length >
+                                                                        1
+                                                                    ) {
+                                                                        newVariants.splice(
+                                                                            index,
+                                                                            1
+                                                                        )
                                                                         setData(
                                                                             "variants",
                                                                             newVariants
                                                                         )
-                                                                    }}
-                                                                    className={
-                                                                        errorVariants[
-                                                                            `variants.${index}.name`
-                                                                        ]
-                                                                            ? "border-destructive"
-                                                                            : ""
                                                                     }
-                                                                />
-                                                            </TableCell>
-
-                                                            <TableCell>
-                                                                <Label
-                                                                    htmlFor={`price-${index}`}
-                                                                    className="sr-only"
-                                                                >
-                                                                    Variant
-                                                                    Price
-                                                                </Label>
-
-                                                                <Input
-                                                                    id={`price-${index}`}
-                                                                    type="number"
-                                                                    defaultValue={
-                                                                        newVariants[
-                                                                            index
-                                                                        ].price
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) => {
-                                                                        if (
-                                                                            e
-                                                                                .target
-                                                                                .value !==
-                                                                            ""
-                                                                        ) {
-                                                                            newVariants[
-                                                                                index
-                                                                            ].price =
-                                                                                parseInt(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                )
-                                                                            setData(
-                                                                                "variants",
-                                                                                newVariants
-                                                                            )
-                                                                        }
-                                                                    }}
-                                                                    className={
-                                                                        errorVariants[
-                                                                            `variants.${index}.price`
-                                                                        ]
-                                                                            ? "border-destructive"
-                                                                            : ""
-                                                                    }
-                                                                />
-                                                            </TableCell>
-
-                                                            <TableCell>
-                                                                <Button
-                                                                    variant="destructive"
-                                                                    disabled={
-                                                                        newVariants.length <=
-                                                                        1
-                                                                    }
-                                                                    onClick={() => {
-                                                                        if (
-                                                                            newVariants.length >
-                                                                            1
-                                                                        ) {
-                                                                            newVariants.splice(
-                                                                                index,
-                                                                                1
-                                                                            )
-                                                                            setData(
-                                                                                "variants",
-                                                                                newVariants
-                                                                            )
-                                                                        }
-                                                                    }}
-                                                                >
-                                                                    Remove
-                                                                </Button>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    )
-                                                }
+                                                                }}
+                                                            >
+                                                                Remove
+                                                            </Button>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )
                                             )
                                         })()}
                                     </TableBody>
@@ -424,13 +421,17 @@ export default function Index({ auth, categories }: PageProps) {
                                     variant="ghost"
                                     className="gap-1"
                                     onClick={() => {
-                                        setData("variants", [
-                                            ...data.variants,
-                                            {
-                                                name: "",
-                                                price: 0,
-                                            },
-                                        ])
+                                        if (data.variants) {
+                                            setData("variants", [
+                                                ...data.variants,
+                                                {
+                                                    id: "",
+                                                    product_id: "",
+                                                    name: "",
+                                                    price: 0,
+                                                },
+                                            ])
+                                        }
                                     }}
                                     type="button"
                                 >
@@ -624,7 +625,7 @@ export default function Index({ auth, categories }: PageProps) {
                     </Button>
 
                     <Button size="sm" disabled={processing}>
-                        Save Product
+                        Update Product
                     </Button>
                 </div>
             </form>

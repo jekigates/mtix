@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class ProductUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,11 +16,11 @@ class ProductRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:50'],
             'description' => ['required', 'string', 'max:100'],
+            'recipe' => ['required', 'string'],
             'category_id' => ['required', 'string', 'max:36'],
             'variants.*.name' => ['required', 'string', 'max:50'],
             'variants.*.price' => ['required', 'integer', 'min:1'],
-            'variants.*.stock' => ['required', 'integer', 'min:1'],
-            'image' => ['required', 'file', 'max:' . (10 * 1024 * 1024), 'mimes:jpeg,bmp,png,gif'],
+            'image' => ['file', 'max:' . (10 * 1024 * 1024), 'mimes:jpeg,bmp,png,gif'],
         ];
     }
 }

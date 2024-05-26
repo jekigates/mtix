@@ -11,7 +11,6 @@ class ProductVariantData extends Data
         public string $id,
         public string $product_id,
         public string $name,
-        public int $stock,
         public int $price,
     ) {}
 
@@ -21,7 +20,6 @@ class ProductVariantData extends Data
             $productVariant->id,
             $productVariant->product_id,
             $productVariant->name,
-            $productVariant->stock,
             $productVariant->price,
         );
     }
