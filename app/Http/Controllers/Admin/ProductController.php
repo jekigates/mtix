@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Data\CategoryData;
 use App\Data\ProductData;
+use App\Enums\ProductStatusesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductStoreRequest;
 use App\Http\Requests\Admin\ProductUpdateRequest;
@@ -39,9 +40,11 @@ class ProductController extends Controller
     public function create(): Response
     {
         $categories = CategoryData::collect(Category::all());
+        $statuses = ProductStatusesEnum::toArray();
 
         return Inertia::render('Admin/Products/Create', [
             'categories' => $categories,
+            'statuses' => $statuses,
         ]);
     }
 
@@ -50,7 +53,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request): RedirectResponse
     {
-        $product = Product::create($request->only(['name', 'description', 'recipe', 'category_id']));
+        $product = Product::create($request->only(['name', 'description', 'recipe', 'category_id', 'status']));
         $product->image()->create(['url' => $request->file('image')->store('product-images', 'public')]);
         $product->variants()->createMany($request->variants);
 
@@ -71,9 +74,11 @@ class ProductController extends Controller
     public function edit(Product $product): Response
     {
         $categories = CategoryData::collect(Category::all());
+        $statuses = ProductStatusesEnum::toArray();
 
         return Inertia::render('Admin/Products/Edit', [
             'categories' => $categories,
+            'statuses' => $statuses,
             'product' => ProductData::fromModel($product)->include('variants'),
         ]);
     }
@@ -83,7 +88,7 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->only(['name', 'description', 'recipe', 'category_id']));
+        $product->update($request->only(['name', 'description', 'recipe', 'category_id', 'status']));
 
         if ($request->hasFile('image')) {
             $path = str_replace('storage/', '', $product->image->url);

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Enums\ProductStatusesEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductUpdateRequest extends FormRequest
 {
@@ -21,6 +23,7 @@ class ProductUpdateRequest extends FormRequest
             'variants.*.name' => ['required', 'string', 'max:50'],
             'variants.*.price' => ['required', 'integer', 'min:1'],
             'image' => ['file', 'max:' . (10 * 1024 * 1024), 'mimes:jpeg,bmp,png,gif'],
+            'status' => ['required', Rule::in(ProductStatusesEnum::toArray())]
         ];
     }
 }

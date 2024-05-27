@@ -21,11 +21,41 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card"
-import { Input } from "@/Components/ui/input"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
 export default function Index({ auth, categories, products }: PageProps) {
+    const categoryOptions: any = Object.values(
+        categories.reduce((acc: any, curr) => {
+            const id = curr.id
+            const name = curr.name
+
+            if (!acc[id]) {
+                acc[id] = {
+                    value: curr.name,
+                    label: curr.name,
+                }
+            }
+
+            return acc
+        }, {})
+    )
+
+    const statusOptions: any = Object.values(
+        products.reduce((acc: any, curr) => {
+            const status = curr.status
+
+            if (!acc[status]) {
+                acc[status] = {
+                    value: status,
+                    label: status,
+                }
+            }
+
+            return acc
+        }, {})
+    )
+
     return (
         <AdminLayout
             user={auth.user}
@@ -89,7 +119,8 @@ export default function Index({ auth, categories, products }: PageProps) {
                             <DataTable
                                 columns={columns}
                                 data={products}
-                                categories={categories}
+                                categoryOptions={categoryOptions}
+                                statusOptions={statusOptions}
                             />
                         </CardContent>
                     </Card>

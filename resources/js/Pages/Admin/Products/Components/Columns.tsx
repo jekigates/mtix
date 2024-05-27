@@ -1,7 +1,7 @@
-import { Link } from "@inertiajs/react"
 import { ColumnDef } from "@tanstack/react-table"
 
-import { buttonVariants } from "@/Components/ui/button"
+import { DataTableRowActions } from "./DataTableViewOptions"
+import { Badge } from "@/Components/ui/badge"
 import { Checkbox } from "@/Components/ui/checkbox"
 import { DataTableColumnHeader } from "@/Components/ui/data-table-column-header"
 
@@ -48,36 +48,6 @@ export const columns: ColumnDef<App.Data.ProductData>[] = [
         },
     },
     {
-        accessorKey: "description",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Description" />
-        ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex">
-                    <span className="max-w-[100px] truncate">
-                        {row.getValue("description")}
-                    </span>
-                </div>
-            )
-        },
-    },
-    {
-        accessorKey: "recipe",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Recipe" />
-        ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex">
-                    <span className="max-w-[100px] truncate">
-                        {row.getValue("recipe")}
-                    </span>
-                </div>
-            )
-        },
-    },
-    {
         id: "category",
         accessorKey: "category.name",
         header: ({ column }) => (
@@ -97,6 +67,25 @@ export const columns: ColumnDef<App.Data.ProductData>[] = [
         },
     },
     {
+        accessorKey: "status",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Status" />
+        ),
+        cell: ({ row }) => {
+            const variant =
+                row.getValue("status") === "active"
+                    ? "default"
+                    : row.getValue("status") === "draft"
+                      ? "secondary"
+                      : "outline"
+
+            return <Badge variant={variant}>{row.getValue("status")}</Badge>
+        },
+        filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id))
+        },
+    },
+    {
         accessorKey: "created_at",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Created At" />
@@ -104,15 +93,6 @@ export const columns: ColumnDef<App.Data.ProductData>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => {
-            return (
-                <Link
-                    href={route("admin.products.edit", row.original.id)}
-                    className={buttonVariants()}
-                >
-                    Edit
-                </Link>
-            )
-        },
+        cell: ({ row }) => <DataTableRowActions row={row} />,
     },
 ]

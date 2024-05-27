@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react"
 import { Head, Link, router, useForm } from "@inertiajs/react"
 import {
     Check,
@@ -10,7 +11,6 @@ import { FormEventHandler, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
-import { handleUpload } from "@/Common/helpers"
 import { InputMessage } from "@/Components/InputMessage"
 import {
     Breadcrumb,
@@ -45,6 +45,13 @@ import {
     PopoverTrigger,
 } from "@/Components/ui/popover"
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select"
+import {
     Table,
     TableBody,
     TableCell,
@@ -55,14 +62,31 @@ import {
 import { Textarea } from "@/Components/ui/textarea"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
+import { handleUpload } from "@/utils"
 
-export default function Edit({ auth, categories, product }: PageProps) {
-    const { data, setData, processing, errors, reset, clearErrors } = useForm({
+export default function Edit({
+    auth,
+    categories,
+    product,
+    statuses,
+}: PageProps<{
+    statuses: string[]
+}>) {
+    const {
+        data,
+        setData,
+        processing,
+        errors,
+        reset,
+        clearErrors,
+        recentlySuccessful,
+    } = useForm({
         name: product.name,
         description: product.description,
         recipe: product.recipe,
         category_id: product.category_id,
         image: new File([], ""),
+        status: product.status,
         variants: product.variants,
     })
 
@@ -71,12 +95,7 @@ export default function Edit({ auth, categories, product }: PageProps) {
 
         router.post(route("admin.products.update", product.id), {
             _method: "PATCH",
-            name: data.name,
-            description: data.description,
-            recipe: data.recipe,
-            category_id: data.category_id,
-            image: data.image,
-            variants: data.variants,
+            ...data,
         })
     }
 
@@ -147,6 +166,18 @@ export default function Edit({ auth, categories, product }: PageProps) {
                     </h1>
 
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                        <Transition
+                            show={recentlySuccessful}
+                            enter="transition ease-in-out"
+                            enterFrom="opacity-0"
+                            leave="transition ease-in-out"
+                            leaveTo="opacity-0"
+                        >
+                            <p className="text-sm text-muted-foreground">
+                                Saved.
+                            </p>
+                        </Transition>
+
                         <Button
                             variant="outline"
                             size="sm"
@@ -440,10 +471,8 @@ export default function Edit({ auth, categories, product }: PageProps) {
                                 </Button>
                             </CardFooter>
                         </Card>
-                    </div>
 
-                    <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                        <Card x-chunk="dashboard-07-chunk-3">
+                        <Card x-chunk="dashboard-07-chunk-2">
                             <CardHeader>
                                 <CardTitle>Product Category</CardTitle>
                             </CardHeader>
@@ -541,6 +570,58 @@ export default function Edit({ auth, categories, product }: PageProps) {
                                 </div>
                             </CardContent>
                         </Card>
+                    </div>
+
+                    <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                        <Card x-chunk="dashboard-07-chunk-3">
+                            <CardHeader>
+                                <CardTitle>Product Status</CardTitle>
+                            </CardHeader>
+
+                            <CardContent>
+                                <div className="grid gap-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="status">Status</Label>
+
+                                        <Select
+                                            value={
+                                                data.status as App.Enums.ProductStatusesEnum
+                                            }
+                                            onValueChange={(e) =>
+                                                setData(
+                                                    "status",
+                                                    e as App.Enums.ProductStatusesEnum
+                                                )
+                                            }
+                                        >
+                                            <SelectTrigger
+                                                id="status"
+                                                aria-label="Select status"
+                                            >
+                                                <SelectValue placeholder="Select status" />
+                                            </SelectTrigger>
+
+                                            <SelectContent>
+                                                {statuses.map(
+                                                    (status, index) => (
+                                                        <SelectItem
+                                                            key={`status-${index}`}
+                                                            value={status}
+                                                        >
+                                                            {status}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </SelectContent>
+                                        </Select>
+
+                                        <InputMessage>
+                                            {errors.status}
+                                        </InputMessage>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
 
                         <Card
                             className="overflow-hidden"
@@ -611,6 +692,16 @@ export default function Edit({ auth, categories, product }: PageProps) {
                 </div>
 
                 <div className="flex items-center justify-center gap-2 md:hidden">
+                    <Transition
+                        show={recentlySuccessful}
+                        enter="transition ease-in-out"
+                        enterFrom="opacity-0"
+                        leave="transition ease-in-out"
+                        leaveTo="opacity-0"
+                    >
+                        <p className="text-sm text-muted-foreground">Saved.</p>
+                    </Transition>
+
                     <Button
                         variant="outline"
                         size="sm"

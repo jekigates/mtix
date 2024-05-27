@@ -2,7 +2,7 @@ import { InertiaLinkProps, Link } from "@inertiajs/react"
 
 import { cn } from "@/lib/utils"
 
-import { formatDate } from "@/Common/helpers"
+import { formatDate } from "@/utils"
 
 export function PromoCard({
     promo,

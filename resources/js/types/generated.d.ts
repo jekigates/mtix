@@ -61,6 +61,7 @@ declare namespace App.Data {
         recipe: string
         category_id: string
         image: string
+        status: App.Enums.ProductStatusesEnum
         category?: App.Data.CategoryData
         variants?: Array<App.Data.ProductVariantData>
         created_at: string
@@ -134,4 +135,7 @@ declare namespace App.Data {
         product?: App.Data.ProductData
         product_variant?: App.Data.ProductVariantData
     }
+}
+declare namespace App.Enums {
+    export type ProductStatusesEnum = "draft" | "active" | "archived"
 }

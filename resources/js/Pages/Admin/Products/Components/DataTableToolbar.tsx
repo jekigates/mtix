@@ -8,12 +8,22 @@ import { Input } from "@/Components/ui/input"
 
 interface DataTableToolbarProps<TData> {
     table: Table<TData>
-    categories: App.Data.CategoryData[]
+    categoryOptions: {
+        label: string
+        value: string
+        icon?: React.ComponentType<{ className?: string }>
+    }[]
+    statusOptions: {
+        label: string
+        value: string
+        icon?: React.ComponentType<{ className?: string }>
+    }[]
 }
 
 export function DataTableToolbar<TData>({
     table,
-    categories,
+    categoryOptions,
+    statusOptions,
 }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
 
@@ -37,7 +47,14 @@ export function DataTableToolbar<TData>({
                     <DataTableFacetedFilter
                         column={table.getColumn("category")}
                         title="Category"
-                        options={categories}
+                        options={categoryOptions}
+                    />
+                )}
+                {table.getColumn("status") && (
+                    <DataTableFacetedFilter
+                        column={table.getColumn("status")}
+                        title="Status"
+                        options={statusOptions}
                     />
                 )}
                 {isFiltered && (

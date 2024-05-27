@@ -1,8 +1,6 @@
-import { Fragment } from "react/jsx-runtime"
-
-import { formatRupiah } from "@/Common/helpers"
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Separator } from "@/Components/ui/separator"
+import { formatRupiah } from "@/utils"
 
 export function ProductCard({
     product,

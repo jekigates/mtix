@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProductStatusesEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->text('recipe');
             $table->char('category_id', length: 36);
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->enum('status', ProductStatusesEnum::toArray());
             $table->timestamps();
         });
     }

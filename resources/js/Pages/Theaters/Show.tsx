@@ -4,7 +4,6 @@ import { Fragment } from "react/jsx-runtime"
 
 import { cn } from "@/lib/utils"
 
-import { formatDate, formatRupiah, formatTime } from "@/Common/helpers"
 import MainContent from "@/Components/MainContent"
 import { Button, buttonVariants } from "@/Components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
@@ -19,6 +18,7 @@ import {
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
+import { formatDate, formatRupiah, formatTime } from "@/utils"
 
 export default function Show({ auth, theater }: PageProps) {
     return (

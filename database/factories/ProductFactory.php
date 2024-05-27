@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProductStatusesEnum;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,6 +24,7 @@ class ProductFactory extends Factory
             'name' => fake()->unique()->name(),
             'description' => fake()->text(fake()->numberBetween(50, 100)),
             'recipe' => fake()->text(),
+            'status' => fake()->randomElement(array_column(ProductStatusesEnum::cases(), 'value')),
         ];
     }
 

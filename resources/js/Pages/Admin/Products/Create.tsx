@@ -10,7 +10,6 @@ import { FormEventHandler, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
-import { handleUpload } from "@/Common/helpers"
 import { InputMessage } from "@/Components/InputMessage"
 import {
     Breadcrumb,
@@ -45,6 +44,13 @@ import {
     PopoverTrigger,
 } from "@/Components/ui/popover"
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/Components/ui/select"
+import {
     Table,
     TableBody,
     TableCell,
@@ -55,14 +61,22 @@ import {
 import { Textarea } from "@/Components/ui/textarea"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
+import { handleUpload } from "@/utils"
 
-export default function Index({ auth, categories }: PageProps) {
+export default function Index({
+    auth,
+    categories,
+    statuses,
+}: PageProps<{
+    statuses: string[]
+}>) {
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm({
             name: "",
             description: "",
             recipe: "",
             category_id: "",
+            status: "",
             image: new File([], ""),
             variants: [{ name: "", price: 0 }],
         })
@@ -439,10 +453,8 @@ export default function Index({ auth, categories }: PageProps) {
                                 </Button>
                             </CardFooter>
                         </Card>
-                    </div>
 
-                    <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                        <Card x-chunk="dashboard-07-chunk-3">
+                        <Card x-chunk="dashboard-07-chunk-2">
                             <CardHeader>
                                 <CardTitle>Product Category</CardTitle>
                             </CardHeader>
@@ -535,6 +547,53 @@ export default function Index({ auth, categories }: PageProps) {
 
                                         <InputMessage>
                                             {errors.category_id}
+                                        </InputMessage>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                        <Card x-chunk="dashboard-07-chunk-3">
+                            <CardHeader>
+                                <CardTitle>Product Status</CardTitle>
+                            </CardHeader>
+
+                            <CardContent>
+                                <div className="grid gap-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="status">Status</Label>
+
+                                        <Select
+                                            value={data.status}
+                                            onValueChange={(e) =>
+                                                setData("status", e)
+                                            }
+                                        >
+                                            <SelectTrigger
+                                                id="status"
+                                                aria-label="Select status"
+                                            >
+                                                <SelectValue placeholder="Select status" />
+                                            </SelectTrigger>
+
+                                            <SelectContent>
+                                                {statuses.map(
+                                                    (status, index) => (
+                                                        <SelectItem
+                                                            key={`status-${index}`}
+                                                            value={status}
+                                                        >
+                                                            {status}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </SelectContent>
+                                        </Select>
+
+                                        <InputMessage>
+                                            {errors.status}
                                         </InputMessage>
                                     </div>
                                 </div>

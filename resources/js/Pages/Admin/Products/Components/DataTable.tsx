@@ -28,13 +28,23 @@ import {
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
-    categories: App.Data.CategoryData[]
+    categoryOptions: {
+        label: string
+        value: string
+        icon?: React.ComponentType<{ className?: string }>
+    }[]
+    statusOptions: {
+        label: string
+        value: string
+        icon?: React.ComponentType<{ className?: string }>
+    }[]
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
-    categories,
+    categoryOptions,
+    statusOptions,
 }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnVisibility, setColumnVisibility] =
@@ -67,7 +77,11 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="space-y-4">
-            <DataTableToolbar table={table} categories={categories} />
+            <DataTableToolbar
+                table={table}
+                categoryOptions={categoryOptions}
+                statusOptions={statusOptions}
+            />
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>

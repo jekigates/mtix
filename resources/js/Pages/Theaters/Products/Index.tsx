@@ -41,7 +41,6 @@ export default function Index({ auth, theater }: PageProps) {
                 if (curr.product_variant) {
                     const product_variant_id = curr.product_variant.id
                     const product_variant_name = curr.product_variant.name
-                    const product_variant_stock = curr.product_variant.stock
                     const product_variant_price = curr.product_variant.price
 
                     acc[category_id].products[product_id].product_variants[
@@ -49,7 +48,6 @@ export default function Index({ auth, theater }: PageProps) {
                     ] = {
                         id: product_variant_id,
                         name: product_variant_name,
-                        stock: product_variant_stock,
                         price: product_variant_price,
                     }
                 }

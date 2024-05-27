@@ -1,7 +1,6 @@
 import { Head, router } from "@inertiajs/react"
 import { useState } from "react"
 
-import { formatRupiah } from "@/Common/helpers"
 import { Alert, AlertDescription } from "@/Components/ui/alert"
 import { Button } from "@/Components/ui/button"
 import {
@@ -18,6 +17,7 @@ import { ScrollArea } from "@/Components/ui/scroll-area"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
+import { formatRupiah } from "@/utils"
 
 export default function Create({
     auth,

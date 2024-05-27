@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductStatusesEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -18,7 +19,19 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'recipe', 'category_id'];
+    protected $fillable = ['name', 'description', 'recipe', 'category_id', 'status'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => ProductStatusesEnum::class,
+        ];
+    }
 
     /**
      * Get the product's image.

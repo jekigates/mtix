@@ -1,10 +1,10 @@
 import { Head } from "@inertiajs/react"
 
-import { formatDate } from "@/Common/helpers"
 import MainContent from "@/Components/MainContent"
 import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
+import { formatDate } from "@/utils"
 
 export default function Show({ auth, promo }: PageProps) {
     return (
