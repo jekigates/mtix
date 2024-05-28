@@ -204,14 +204,13 @@ export default function Edit({
                                 <CardTitle>Product Details</CardTitle>
 
                                 <CardDescription>
-                                    Lipsum dolor sit amet, consectetur
-                                    adipiscing elit
+                                    Manage product information in this section.
                                 </CardDescription>
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-2">
+                                <div className="grid gap-6">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="name"
                                             className={
@@ -240,7 +239,7 @@ export default function Edit({
                                         </InputMessage>
                                     </div>
 
-                                    <div className="grid gap-2">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="description"
                                             className={
@@ -268,7 +267,7 @@ export default function Edit({
                                         </InputMessage>
                                     </div>
 
-                                    <div className="grid gap-2">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="recipe"
                                             className={
@@ -301,11 +300,11 @@ export default function Edit({
 
                         <Card x-chunk="dashboard-07-chunk-1">
                             <CardHeader>
-                                <CardTitle>Variant</CardTitle>
+                                <CardTitle>Product Variant</CardTitle>
 
                                 <CardDescription>
-                                    Lipsum dolor sit amet, consectetur
-                                    adipiscing elit
+                                    Manage the different versions of your
+                                    product.
                                 </CardDescription>
                             </CardHeader>
 
@@ -490,8 +489,8 @@ export default function Edit({
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-2">
+                                <div className="grid gap-6">
+                                    <div className="grid 3">
                                         <Label
                                             htmlFor="category_id"
                                             className={
@@ -591,8 +590,8 @@ export default function Edit({
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-2">
+                                <div className="grid gap-6">
+                                    <div className="grid gap-3">
                                         <Label htmlFor="status">Status</Label>
 
                                         <Select
@@ -605,6 +604,7 @@ export default function Edit({
                                                     e as App.Enums.ProductStatusesEnum
                                                 )
                                             }
+                                            name="status"
                                         >
                                             <SelectTrigger
                                                 id="status"
@@ -643,22 +643,18 @@ export default function Edit({
                                 <CardTitle>Product Image</CardTitle>
 
                                 <CardDescription>
-                                    Lipsum dolor sit amet, consectetur
-                                    adipiscing elit
+                                    Visual representation of the product.
                                 </CardDescription>
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-2">
+                                <div className="grid gap-3">
                                     {imageUrl ? (
                                         <img
                                             alt="Product image"
                                             className="aspect-square w-full rounded-md object-cover cursor-pointer"
                                             height="300"
-                                            src={
-                                                imageUrl ??
-                                                "/images/placeholder.svg"
-                                            }
+                                            src={imageUrl}
                                             width="300"
                                             onClick={() =>
                                                 fileInputRef.current?.click()

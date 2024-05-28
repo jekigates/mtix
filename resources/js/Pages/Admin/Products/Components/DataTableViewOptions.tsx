@@ -41,7 +41,13 @@ export function DataTableRowActions<
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="w-[160px]">
-                <DropdownMenuItem>Show</DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() =>
+                        router.visit(route("admin.products.show", id))
+                    }
+                >
+                    Show
+                </DropdownMenuItem>
 
                 <DropdownMenuItem
                     onClick={() =>

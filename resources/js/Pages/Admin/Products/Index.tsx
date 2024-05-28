@@ -32,8 +32,8 @@ export default function Index({ auth, categories, products }: PageProps) {
 
             if (!acc[id]) {
                 acc[id] = {
-                    value: curr.name,
-                    label: curr.name,
+                    value: id,
+                    label: name,
                 }
             }
 

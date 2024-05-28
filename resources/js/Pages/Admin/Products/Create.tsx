@@ -180,14 +180,13 @@ export default function Index({
                                 <CardTitle>Product Details</CardTitle>
 
                                 <CardDescription>
-                                    Lipsum dolor sit amet, consectetur
-                                    adipiscing elit
+                                    Manage product information in this section.
                                 </CardDescription>
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-2">
+                                <div className="grid gap-6">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="name"
                                             className={
@@ -216,7 +215,7 @@ export default function Index({
                                         </InputMessage>
                                     </div>
 
-                                    <div className="grid gap-2">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="description"
                                             className={
@@ -244,7 +243,7 @@ export default function Index({
                                         </InputMessage>
                                     </div>
 
-                                    <div className="grid gap-2">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="recipe"
                                             className={
@@ -277,11 +276,11 @@ export default function Index({
 
                         <Card x-chunk="dashboard-07-chunk-1">
                             <CardHeader>
-                                <CardTitle>Variant</CardTitle>
+                                <CardTitle>Product Variant</CardTitle>
 
                                 <CardDescription>
-                                    Lipsum dolor sit amet, consectetur
-                                    adipiscing elit
+                                    Manage the different versions of your
+                                    product.
                                 </CardDescription>
                             </CardHeader>
 
@@ -461,8 +460,8 @@ export default function Index({
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-2">
+                                <div className="grid gap-6">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="category_id"
                                             className={
@@ -562,8 +561,8 @@ export default function Index({
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-4">
-                                    <div className="grid gap-2">
+                                <div className="grid gap-6">
+                                    <div className="grid gap-3">
                                         <Label htmlFor="status">Status</Label>
 
                                         <Select
@@ -609,22 +608,18 @@ export default function Index({
                                 <CardTitle>Product Image</CardTitle>
 
                                 <CardDescription>
-                                    Lipsum dolor sit amet, consectetur
-                                    adipiscing elit
+                                    Visual representation of the product.
                                 </CardDescription>
                             </CardHeader>
 
                             <CardContent>
-                                <div className="grid gap-2">
+                                <div className="grid gap-3">
                                     {imageUrl ? (
                                         <img
                                             alt="Product image"
                                             className="aspect-square w-full rounded-md object-cover cursor-pointer"
                                             height="300"
-                                            src={
-                                                imageUrl ??
-                                                "/images/placeholder.svg"
-                                            }
+                                            src={imageUrl}
                                             width="300"
                                             onClick={() =>
                                                 fileInputRef.current?.click()
