@@ -8,22 +8,10 @@ import { Input } from "@/Components/ui/input"
 
 interface DataTableToolbarProps<TData> {
     table: Table<TData>
-    categoryOptions: {
-        label: string
-        value: string
-        icon?: React.ComponentType<{ className?: string }>
-    }[]
-    statusOptions: {
-        label: string
-        value: string
-        icon?: React.ComponentType<{ className?: string }>
-    }[]
 }
 
 export function DataTableToolbar<TData>({
     table,
-    categoryOptions,
-    statusOptions,
 }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
 
@@ -31,34 +19,19 @@ export function DataTableToolbar<TData>({
         <div className="flex items-center justify-between">
             <div className="flex flex-1 items-center space-x-2">
                 <Input
-                    placeholder="Filter names..."
+                    placeholder="Filter titles..."
                     value={
-                        (table.getColumn("name")?.getFilterValue() as string) ??
-                        ""
+                        (table
+                            .getColumn("title")
+                            ?.getFilterValue() as string) ?? ""
                     }
                     onChange={(event) =>
                         table
-                            .getColumn("name")
+                            .getColumn("title")
                             ?.setFilterValue(event.target.value)
                     }
                     className="h-8 w-[150px] lg:w-[250px]"
                 />
-
-                {table.getColumn("category") && (
-                    <DataTableFacetedFilter
-                        column={table.getColumn("category")}
-                        title="Category"
-                        options={categoryOptions}
-                    />
-                )}
-
-                {table.getColumn("status") && (
-                    <DataTableFacetedFilter
-                        column={table.getColumn("status")}
-                        title="Status"
-                        options={statusOptions}
-                    />
-                )}
 
                 {isFiltered && (
                     <Button

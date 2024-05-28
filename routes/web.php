@@ -54,9 +54,10 @@ Route::middleware('auth')->group(function () {
         Route::get('security', [Setting\SecurityController::class, 'edit'])->name('security.edit');
     });
 
-    Route::middleware('role:admin')->name('admin.')->group(function () {
-        Route::get('/admin', [Admin\HomeController::class, 'index'])->name('home');
-        Route::resource('/admin/products', Admin\ProductController::class);
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
+        Route::get('', [Admin\HomeController::class, 'index'])->name('home');
+        Route::resource('products', Admin\ProductController::class);
+        Route::resource('infos', Admin\InfoController::class);
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');

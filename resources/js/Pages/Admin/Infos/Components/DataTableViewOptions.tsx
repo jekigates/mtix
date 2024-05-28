@@ -19,7 +19,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
     row,
 }: DataTableRowActionsProps<TData>) {
-    const { id, status, theater_products_count } = row.original
+    const { id } = row.original
 
     return (
         <DropdownMenu>
@@ -36,37 +36,27 @@ export function DataTableRowActions<TData>({
 
             <DropdownMenuContent align="end" className="w-[160px]">
                 <DropdownMenuItem
-                    onClick={() =>
-                        router.visit(route("admin.products.show", id))
-                    }
+                    onClick={() => router.visit(route("admin.infos.show", id))}
                 >
                     Show
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
-                    onClick={() =>
-                        router.visit(route("admin.products.edit", id))
-                    }
+                    onClick={() => router.visit(route("admin.infos.edit", id))}
                 >
                     Edit
                 </DropdownMenuItem>
 
-                {status === "archived" && theater_products_count === 0 && (
-                    <>
-                        <DropdownMenuSeparator />
+                <DropdownMenuSeparator />
 
-                        <DropdownMenuItem
-                            onClick={() =>
-                                router.delete(
-                                    route("admin.products.destroy", id)
-                                )
-                            }
-                        >
-                            Delete
-                            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-                        </DropdownMenuItem>
-                    </>
-                )}
+                <DropdownMenuItem
+                    onClick={() =>
+                        router.delete(route("admin.infos.destroy", id))
+                    }
+                >
+                    Delete
+                    <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

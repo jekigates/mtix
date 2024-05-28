@@ -24,38 +24,7 @@ import {
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
-export default function Index({ auth, categories, products }: PageProps) {
-    const categoryOptions: any = Object.values(
-        categories.reduce((acc: any, curr) => {
-            const id = curr.id
-            const name = curr.name
-
-            if (!acc[id]) {
-                acc[id] = {
-                    value: id,
-                    label: name,
-                }
-            }
-
-            return acc
-        }, {})
-    )
-
-    const statusOptions: any = Object.values(
-        products.reduce((acc: any, curr) => {
-            const status = curr.status
-
-            if (!acc[status]) {
-                acc[status] = {
-                    value: status,
-                    label: status,
-                }
-            }
-
-            return acc
-        }, {})
-    )
-
+export default function Index({ auth, infos }: PageProps) {
     return (
         <AdminLayout
             user={auth.user}
@@ -74,21 +43,21 @@ export default function Index({ auth, categories, products }: PageProps) {
                             <BreadcrumbSeparator />
 
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Products</BreadcrumbPage>
+                                <BreadcrumbPage>Infos</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
             }
         >
-            <Head title="Products" />
+            <Head title="Infos" />
 
-            {products.length > 0 ? (
+            {infos.length > 0 ? (
                 <>
                     <div className="flex items-center">
                         <div className="ml-auto flex items-center gap-2">
                             <Link
-                                href={route("admin.products.create")}
+                                href={route("admin.infos.create")}
                                 className={cn(
                                     buttonVariants({
                                         size: "sm",
@@ -99,7 +68,7 @@ export default function Index({ auth, categories, products }: PageProps) {
                                 <PlusCircle className="h-3.5 w-3.5" />
 
                                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                    Add Product
+                                    Add Info
                                 </span>
                             </Link>
                         </div>
@@ -107,21 +76,16 @@ export default function Index({ auth, categories, products }: PageProps) {
 
                     <Card x-chunk="dashboard-06-chunk-0">
                         <CardHeader>
-                            <CardTitle>Products</CardTitle>
+                            <CardTitle>Infos</CardTitle>
 
                             <CardDescription>
-                                Manage your products and view their sales
-                                performance.
+                                Manage and stay abreast with the latest news and
+                                updates.
                             </CardDescription>
                         </CardHeader>
 
                         <CardContent>
-                            <DataTable
-                                columns={columns}
-                                data={products}
-                                categoryOptions={categoryOptions}
-                                statusOptions={statusOptions}
-                            />
+                            <DataTable columns={columns} data={infos} />
                         </CardContent>
                     </Card>
                 </>
@@ -129,7 +93,7 @@ export default function Index({ auth, categories, products }: PageProps) {
                 <>
                     <div className="flex items-center">
                         <h1 className="text-lg font-semibold md:text-2xl">
-                            Products
+                            Infos
                         </h1>
                     </div>
 
@@ -139,19 +103,19 @@ export default function Index({ auth, categories, products }: PageProps) {
                     >
                         <div className="flex flex-col items-center gap-1 text-center">
                             <h3 className="text-2xl font-bold tracking-tight">
-                                You have no products
+                                You have no infos
                             </h3>
 
                             <p className="text-sm text-muted-foreground">
-                                You can start selling as soon as you add a
-                                product.
+                                Start disseminating information by adding a new
+                                info.
                             </p>
 
                             <Link
-                                href={route("admin.products.create")}
+                                href={route("admin.infos.create")}
                                 className={cn(buttonVariants(), "mt-4")}
                             >
-                                Add Product
+                                Add Info
                             </Link>
                         </div>
                     </div>

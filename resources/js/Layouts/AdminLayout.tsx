@@ -199,8 +199,13 @@ function SidebarNav() {
                         </Link>
 
                         <Link
-                            href="#"
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            href={route("admin.infos.index")}
+                            className={cn(
+                                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                url.startsWith("/admin/infos")
+                                    ? "bg-muted text-primary"
+                                    : "text-muted-foreground"
+                            )}
                         >
                             <Newspaper className="h-4 w-4" />
                             Infos
@@ -299,8 +304,13 @@ function MobileNav() {
                     </Link>
 
                     <Link
-                        href="#"
-                        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                        href={route("admin.infos.index")}
+                        className={cn(
+                            "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
+                            url.startsWith("/admin/infos")
+                                ? "bg-muted text-foreground"
+                                : "text-muted-foreground"
+                        )}
                     >
                         <Newspaper className="h-5 w-5" />
                         Infos
