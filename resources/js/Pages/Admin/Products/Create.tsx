@@ -570,6 +570,7 @@ export default function Index({
                                             onValueChange={(e) =>
                                                 setData("status", e)
                                             }
+                                            name="status"
                                         >
                                             <SelectTrigger
                                                 id="status"

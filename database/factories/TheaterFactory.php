@@ -44,13 +44,13 @@ class TheaterFactory extends Factory
                 'movie_id' => Movie::inRandomOrder()->where('screening_start_date', null)->first()->id,
             ]);
 
-            $productVariants = ProductVariant::inRandomOrder()->take(18)->get();
+            $products = Product::inRandomOrder()->take(fake()->numberBetween(1, Product::count()))->get();
 
-            foreach ($productVariants as $productVariant) {
+            foreach ($products as $product) {
                 TheaterProduct::factory()->create([
                     'theater_id' => $theater->id,
-                    'product_id' => $productVariant->product->id,
-                    'product_variant_id' => $productVariant->id,
+                    'product_id' => $product->id,
+                    'product_variant_id' => $product->variants->random()->id,
                 ]);
             }
 
