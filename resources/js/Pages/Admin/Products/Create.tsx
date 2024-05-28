@@ -63,7 +63,7 @@ import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 import { handleUpload } from "@/utils"
 
-export default function Index({
+export default function Create({
     auth,
     categories,
     statuses,
@@ -320,16 +320,12 @@ export default function Index({
                                                                     id={`name-${index}`}
                                                                     type="text"
                                                                     value={
-                                                                        newVariants[
-                                                                            index
-                                                                        ].name
+                                                                        variant.name
                                                                     }
                                                                     onChange={(
                                                                         e
                                                                     ) => {
-                                                                        newVariants[
-                                                                            index
-                                                                        ].name =
+                                                                        variant.name =
                                                                             e.target.value
                                                                         setData(
                                                                             "variants",
@@ -359,9 +355,7 @@ export default function Index({
                                                                     id={`price-${index}`}
                                                                     type="number"
                                                                     defaultValue={
-                                                                        newVariants[
-                                                                            index
-                                                                        ].price
+                                                                        variant.price
                                                                     }
                                                                     onChange={(
                                                                         e
@@ -372,9 +366,7 @@ export default function Index({
                                                                                 .value !==
                                                                             ""
                                                                         ) {
-                                                                            newVariants[
-                                                                                index
-                                                                            ].price =
+                                                                            variant.price =
                                                                                 parseInt(
                                                                                     e
                                                                                         .target

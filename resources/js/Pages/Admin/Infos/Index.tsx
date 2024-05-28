@@ -53,7 +53,7 @@ export default function Index({ auth, infos }: PageProps) {
             <Head title="Infos" />
 
             {infos.length > 0 ? (
-                <>
+                <div className="space-y-4">
                     <div className="flex items-center">
                         <div className="ml-auto flex items-center gap-2">
                             <Link
@@ -88,9 +88,9 @@ export default function Index({ auth, infos }: PageProps) {
                             <DataTable columns={columns} data={infos} />
                         </CardContent>
                     </Card>
-                </>
+                </div>
             ) : (
-                <>
+                <div className="h-full flex flex-col gap-4">
                     <div className="flex items-center">
                         <h1 className="text-lg font-semibold md:text-2xl">
                             Infos
@@ -119,7 +119,7 @@ export default function Index({ auth, infos }: PageProps) {
                             </Link>
                         </div>
                     </div>
-                </>
+                </div>
             )}
         </AdminLayout>
     )

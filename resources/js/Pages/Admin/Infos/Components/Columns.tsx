@@ -34,12 +34,16 @@ export const columns: ColumnDef<App.Data.InfoData>[] = [
     {
         accessorKey: "title",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Title" />
+            <DataTableColumnHeader
+                column={column}
+                title="Title"
+                className="font-medium"
+            />
         ),
         cell: ({ row }) => {
             return (
                 <div className="flex">
-                    <span className="max-w-[200px] truncate">
+                    <span className="max-w-[500px] truncate font-medium">
                         {row.getValue("title")}
                     </span>
                 </div>

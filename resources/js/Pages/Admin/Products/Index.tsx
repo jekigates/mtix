@@ -84,7 +84,7 @@ export default function Index({ auth, categories, products }: PageProps) {
             <Head title="Products" />
 
             {products.length > 0 ? (
-                <>
+                <div className="space-y-4">
                     <div className="flex items-center">
                         <div className="ml-auto flex items-center gap-2">
                             <Link
@@ -124,9 +124,9 @@ export default function Index({ auth, categories, products }: PageProps) {
                             />
                         </CardContent>
                     </Card>
-                </>
+                </div>
             ) : (
-                <>
+                <div className="h-full flex flex-col gap-4">
                     <div className="flex items-center">
                         <h1 className="text-lg font-semibold md:text-2xl">
                             Products
@@ -155,7 +155,7 @@ export default function Index({ auth, categories, products }: PageProps) {
                             </Link>
                         </div>
                     </div>
-                </>
+                </div>
             )}
         </AdminLayout>
     )

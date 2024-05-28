@@ -343,16 +343,12 @@ export default function Edit({
                                                                 id={`name-${index}`}
                                                                 type="text"
                                                                 value={
-                                                                    newVariants[
-                                                                        index
-                                                                    ].name
+                                                                    variant.name
                                                                 }
                                                                 onChange={(
                                                                     e
                                                                 ) => {
-                                                                    newVariants[
-                                                                        index
-                                                                    ].name =
+                                                                    variant.name =
                                                                         e.target.value
                                                                     setData(
                                                                         "variants",
@@ -381,16 +377,12 @@ export default function Edit({
                                                                 id={`price-${index}`}
                                                                 type="number"
                                                                 value={
-                                                                    newVariants[
-                                                                        index
-                                                                    ].price
+                                                                    variant.price
                                                                 }
                                                                 onChange={(
                                                                     e
                                                                 ) => {
-                                                                    newVariants[
-                                                                        index
-                                                                    ].price =
+                                                                    variant.price =
                                                                         parseInt(
                                                                             e
                                                                                 .target
@@ -418,20 +410,14 @@ export default function Edit({
                                                                 disabled={
                                                                     newVariants.length <=
                                                                         1 ||
-                                                                    (newVariants[
-                                                                        index
-                                                                    ]
-                                                                        ?.theater_products_count ??
+                                                                    (variant?.theater_products_count ??
                                                                         0) > 0
                                                                 }
                                                                 onClick={() => {
                                                                     if (
                                                                         newVariants.length >
                                                                             1 ||
-                                                                        (newVariants[
-                                                                            index
-                                                                        ]
-                                                                            ?.theater_products_count ??
+                                                                        (variant?.theater_products_count ??
                                                                             0) ===
                                                                             0
                                                                     ) {

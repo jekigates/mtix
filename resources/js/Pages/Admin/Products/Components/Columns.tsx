@@ -40,7 +40,7 @@ export const columns: ColumnDef<App.Data.ProductData>[] = [
         cell: ({ row }) => {
             return (
                 <div className="flex">
-                    <span className="max-w-[200px] truncate">
+                    <span className="max-w-[500px] truncate font-medium">
                         {row.getValue("name")}
                     </span>
                 </div>

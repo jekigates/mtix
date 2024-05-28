@@ -12,6 +12,13 @@ class Info extends Model
     use HasFactory, HasUuids;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'description'];
+
+    /**
      * Get the info's image.
      */
     public function image(): MorphOne
