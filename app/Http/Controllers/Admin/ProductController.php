@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index(): Response
     {
         $categories = CategoryData::collect(Category::all());
-        $products = ProductData::collect(Product::all(), DataCollection::class)->include('category');
+        $products = ProductData::collect(Product::all(), DataCollection::class)->include('category', 'theater_products_count');
 
         return Inertia::render('Admin/Products/Index', [
             'categories' => $categories,
@@ -79,7 +79,7 @@ class ProductController extends Controller
         return Inertia::render('Admin/Products/Edit', [
             'categories' => $categories,
             'statuses' => $statuses,
-            'product' => ProductData::fromModel($product)->include('variants'),
+            'product' => ProductData::fromModel($product)->include('variants', 'variants.theater_products_count'),
         ]);
     }
 
@@ -99,9 +99,13 @@ class ProductController extends Controller
             $product->image()->update(['url' => $request->file('image')->store('product-images', 'public')]);
         }
 
+        $variantIds = collect($request->variants)->pluck('id')->all();
+
         foreach ($request->variants as $variant) {
             $product->variants()->updateOrCreate(['id' => $variant['id']], $variant);
         }
+
+        $product->variants()->whereNotIn('id', $variantIds)->delete();
 
         return Redirect::route('admin.products.edit', $product->id);
     }
@@ -109,8 +113,18 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product): RedirectResponse
     {
-        //
+        $path = str_replace('storage/', '', $product->image->url);
+
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        $product->image->delete();
+        $product->variants->each->delete();
+        $product->delete();
+
+        return Redirect::route('admin.products.index');
     }
 }

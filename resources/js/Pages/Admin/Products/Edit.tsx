@@ -414,15 +414,27 @@ export default function Edit({
 
                                                         <TableCell>
                                                             <Button
+                                                                type="button"
                                                                 variant="destructive"
                                                                 disabled={
                                                                     newVariants.length <=
-                                                                    1
+                                                                        1 ||
+                                                                    (newVariants[
+                                                                        index
+                                                                    ]
+                                                                        ?.theater_products_count ??
+                                                                        0) > 0
                                                                 }
                                                                 onClick={() => {
                                                                     if (
                                                                         newVariants.length >
-                                                                        1
+                                                                            1 ||
+                                                                        (newVariants[
+                                                                            index
+                                                                        ]
+                                                                            ?.theater_products_count ??
+                                                                            0) ===
+                                                                            0
                                                                     ) {
                                                                         newVariants.splice(
                                                                             index,

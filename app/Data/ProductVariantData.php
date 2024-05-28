@@ -3,15 +3,22 @@
 namespace App\Data;
 
 use App\Models\ProductVariant;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Lazy;
 
 class ProductVariantData extends Data
 {
+    /**
+    * @param Lazy|Collection<int, TheaterProductData> $theater_products
+    */
     public function __construct(
         public string $id,
         public string $product_id,
         public string $name,
         public int $price,
+        public Lazy|Collection $theater_products,
+        public Lazy|int $theater_products_count,
     ) {}
 
     public static function fromModel(ProductVariant $productVariant): self
@@ -21,6 +28,8 @@ class ProductVariantData extends Data
             $productVariant->product_id,
             $productVariant->name,
             $productVariant->price,
+            Lazy::create(fn() => TheaterProductData::collect($productVariant->theaterProducts)),
+            Lazy::create(fn() => $productVariant->theaterProducts()->count()),
         );
     }
 }

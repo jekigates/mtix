@@ -7,13 +7,8 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
     DropdownMenuSeparator,
     DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
 
@@ -24,9 +19,13 @@ interface DataTableRowActionsProps<
 }
 
 export function DataTableRowActions<
-    TData extends { id: string; status: string },
+    TData extends {
+        id: string
+        status: string
+        theater_products_count: number
+    },
 >({ row }: DataTableRowActionsProps<TData>) {
-    const { id, status } = row.original
+    const { id, status, theater_products_count } = row.original
 
     return (
         <DropdownMenu>
@@ -36,11 +35,14 @@ export function DataTableRowActions<
                     className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
                 >
                     <DotsHorizontalIcon className="h-4 w-4" />
+
                     <span className="sr-only">Open menu</span>
                 </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent align="end" className="w-[160px]">
                 <DropdownMenuItem>Show</DropdownMenuItem>
+
                 <DropdownMenuItem
                     onClick={() =>
                         router.visit(route("admin.products.edit", id))
@@ -49,10 +51,17 @@ export function DataTableRowActions<
                     Edit
                 </DropdownMenuItem>
 
-                {status === "archived" && (
+                {status === "archived" && theater_products_count === 0 && (
                     <>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+
+                        <DropdownMenuItem
+                            onClick={() =>
+                                router.delete(
+                                    route("admin.products.destroy", id)
+                                )
+                            }
+                        >
                             Delete
                             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
                         </DropdownMenuItem>

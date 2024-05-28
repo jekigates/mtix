@@ -399,6 +399,7 @@ export default function Index({
 
                                                             <TableCell>
                                                                 <Button
+                                                                    type="button"
                                                                     variant="destructive"
                                                                     disabled={
                                                                         newVariants.length <=

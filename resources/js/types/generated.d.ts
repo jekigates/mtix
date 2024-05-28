@@ -64,6 +64,8 @@ declare namespace App.Data {
         status: App.Enums.ProductStatusesEnum
         category?: App.Data.CategoryData
         variants?: Array<App.Data.ProductVariantData>
+        theater_products?: Array<App.Data.TheaterProductData>
+        theater_products_count?: number
         created_at: string
         updated_at: string
     }
@@ -72,6 +74,8 @@ declare namespace App.Data {
         product_id: string
         name: string
         price: number
+        theater_products?: Array<App.Data.TheaterProductData>
+        theater_products_count?: number
     }
     export type PromoData = {
         id: string

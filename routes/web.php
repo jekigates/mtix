@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
         // Route::get('/admin/products/create', [Admin\ProductController::class, 'create'])->name('products.create');
         // Route::post('/admin/products', [Admin\ProductController::class, 'store'])->name('products.store');
 
-        Route::resource('/admin/products', Admin\ProductController::class)->except(['destroy']);
+        Route::resource('/admin/products', Admin\ProductController::class);
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');
