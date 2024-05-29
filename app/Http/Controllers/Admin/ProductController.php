@@ -63,8 +63,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $id)
     {
+        $product = Product::withoutGlobalScopes()->findOrFail($id);
+
         return Inertia::render('Admin/Products/Show', [
             'product' => ProductData::fromModel($product)->include('category', 'variants'),
         ]);
@@ -73,8 +75,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product): Response
+    public function edit(string $id): Response
     {
+        $product = Product::withoutGlobalScopes()->findOrFail($id);
         $categories = CategoryData::collect(Category::all());
         $statuses = ProductStatusesEnum::toArray();
 
@@ -88,8 +91,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
+    public function update(ProductUpdateRequest $request, string $id): RedirectResponse
     {
+        $product = Product::withoutGlobalScopes()->findOrFail($id);
         $product->update($request->only(['name', 'description', 'recipe', 'category_id', 'status']));
 
         if ($request->hasFile('image')) {
@@ -115,8 +119,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
+        $product = Product::withoutGlobalScopes()->findOrFail($id);
+
         $path = str_replace('storage/', '', $product->image->url);
 
         if (Storage::disk('public')->exists($path)) {

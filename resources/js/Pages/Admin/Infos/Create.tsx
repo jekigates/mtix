@@ -5,6 +5,7 @@ import { FormEventHandler, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 import { InputMessage } from "@/Components/InputMessage"
+import RichTextEditor from "@/Components/TextEditor"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -18,13 +19,11 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
-import { Textarea } from "@/Components/ui/textarea"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 import { handleUpload } from "@/utils"
@@ -167,7 +166,7 @@ export default function Create({ auth }: PageProps) {
                                             Info Description
                                         </Label>
 
-                                        <Textarea
+                                        {/* <Textarea
                                             id="description"
                                             value={data.description}
                                             onChange={(e) =>
@@ -175,6 +174,13 @@ export default function Create({ auth }: PageProps) {
                                                     "description",
                                                     e.target.value
                                                 )
+                                            }
+                                        /> */}
+                                        {/* <Tiptap /> */}
+                                        <RichTextEditor
+                                            value={data.description}
+                                            onChange={(value) =>
+                                                setData("description", value)
                                             }
                                         />
 

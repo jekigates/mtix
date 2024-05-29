@@ -9,6 +9,7 @@ use App\Models\Info;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -72,8 +73,17 @@ class InfoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Info $info): RedirectResponse
     {
-        //
+        $path = str_replace('storage/', '', $info->image->url);
+
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        $info->image->delete();
+        $info->delete();
+
+        return Redirect::route('admin.infos.index');
     }
 }

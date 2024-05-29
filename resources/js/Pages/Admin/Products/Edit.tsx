@@ -476,7 +476,7 @@ export default function Edit({
 
                             <CardContent>
                                 <div className="grid gap-6">
-                                    <div className="grid 3">
+                                    <div className="grid gap-3">
                                         <Label
                                             htmlFor="category_id"
                                             className={

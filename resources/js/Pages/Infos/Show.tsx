@@ -28,9 +28,10 @@ export default function Show({ auth, info }: PageProps) {
                         Description
                     </h4>
 
-                    <div className="text-sm font-normal leading-snug text-muted-foreground">
-                        {info.description}
-                    </div>
+                    <div
+                        className="text-sm font-normal leading-snug text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: info.description }}
+                    ></div>
                 </div>
             </MainContent>
         </MainLayout>
