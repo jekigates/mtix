@@ -13,17 +13,18 @@ class InfoSeeder extends Seeder
      */
     public function run(): void
     {
-        $images = [
+        $bannerImages = [
             'images/infos/garfield.jpg',
             'images/infos/waspada.jpg',
             'images/infos/makin-asik.jpg',
         ];
 
-        foreach ($images as $image) {
-            $infos = Info::factory()->create();
+        foreach ($bannerImages as $bannerImage) {
+            $info = Info::factory()->create();
 
-            $infos->image()->create([
-                'url' => $image,
+            $banner = $info->banner()->create();
+            $banner->image()->create([
+                'url' => $bannerImage,
             ]);
         }
     }

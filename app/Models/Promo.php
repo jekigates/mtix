@@ -18,4 +18,12 @@ class Promo extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    /**
+     * Get the promo's banner.
+     */
+    public function banner(): MorphOne
+    {
+        return $this->morphOne(Banner::class, 'bannerable');
+    }
 }

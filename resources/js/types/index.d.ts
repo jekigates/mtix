@@ -32,4 +32,5 @@ export type PageProps<
     categories: App.Data.CategoryData[]
     product: App.Data.ProductData
     products: App.Data.ProductData[]
+    banners: App.Data.BannerData[]
 }

@@ -9,7 +9,6 @@ use App\Models\Info;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -41,7 +40,6 @@ class InfoController extends Controller
     public function store(InfoStoreRequest $request): RedirectResponse
     {
         $info = Info::create($request->validated());
-        $info->image()->create(['url' => $request->file('image')->store('info-images', 'public')]);
 
         return Redirect::route('admin.infos.index');
     }
@@ -75,13 +73,6 @@ class InfoController extends Controller
      */
     public function destroy(Info $info): RedirectResponse
     {
-        $path = str_replace('storage/', '', $info->image->url);
-
-        if (Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
-
-        $info->image->delete();
         $info->delete();
 
         return Redirect::route('admin.infos.index');

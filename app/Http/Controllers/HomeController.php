@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\BannerData;
 use App\Data\CityData;
 use App\Data\InfoData;
 use App\Data\MovieData;
 use App\Data\PromoData;
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\City;
 use App\Models\Info;
 use App\Models\Promo;
@@ -20,15 +22,13 @@ class HomeController extends Controller
 {
     public function index(Request $request): Response
     {
-        $promos = PromoData::collect(Promo::all());
-        $infos = InfoData::collect(Info::all());
+        $banners = BannerData::collect(Banner::all());
         $city_id = $request->session()->get('city_id');
         $city = City::findOrFail($city_id);
         $movies = MovieData::collect($city->getActiveMovies());
 
         return Inertia::render('Home', [
-            'infos' => $infos,
-            'promos' => $promos,
+            'banners' => $banners,
             'movies' => $movies,
         ]);
     }

@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index(): Response
     {
         $categories = CategoryData::collect(Category::all());
-        $products = ProductData::collect(Product::withoutGlobalScopes()->get(), DataCollection::class)->include('category', 'theater_products_count');
+        $products = ProductData::collect(Product::withoutGlobalScopes()->get(), DataCollection::class)->include('category');
 
         return Inertia::render('Admin/Products/Index', [
             'categories' => $categories,
@@ -84,7 +84,7 @@ class ProductController extends Controller
         return Inertia::render('Admin/Products/Edit', [
             'categories' => $categories,
             'statuses' => $statuses,
-            'product' => ProductData::fromModel($product)->include('variants', 'variants.theater_products_count'),
+            'product' => ProductData::fromModel($product)->include('variants'),
         ]);
     }
 

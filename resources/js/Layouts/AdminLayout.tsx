@@ -4,6 +4,7 @@ import {
     Cog,
     CupSoda,
     Film,
+    GalleryHorizontal,
     Home,
     LogIn,
     Menu,
@@ -28,6 +29,57 @@ import {
 } from "@/Components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet"
 import { User } from "@/types"
+
+const navItems = [
+    {
+        title: "Home",
+        href: route("admin.home"),
+        icon: Home,
+    },
+    {
+        title: "Movies",
+        href: "/admin/movies",
+        icon: Film,
+    },
+    {
+        title: "Products",
+        href: route("admin.products.index"),
+        icon: CupSoda,
+    },
+    {
+        title: "Theaters",
+        href: "/admin/theaters",
+        icon: Theater,
+    },
+    {
+        title: "Customers",
+        href: "/admin/customers",
+        icon: Users,
+    },
+    {
+        title: "Banners",
+        href: "/admin/banners",
+        icon: GalleryHorizontal,
+    },
+    {
+        title: "Promos",
+        href: "/admin/promos ",
+        icon: Tag,
+    },
+    {
+        title: "Infos",
+        href: route("admin.infos.index"),
+        icon: Newspaper,
+    },
+]
+
+interface navProps extends React.HTMLAttributes<HTMLElement> {
+    items: {
+        href: string
+        title: string
+        icon: React.ComponentType<{ className?: string }>
+    }[]
+}
 
 export default function Admin({
     user,
@@ -67,11 +119,11 @@ export default function Admin({
 
     return (
         <div className="flex min-h-screen w-full">
-            <SidebarNav />
+            <SidebarNav items={navItems} />
 
             <div className="flex flex-col flex-1 max-w-full">
                 <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] sm:px-6">
-                    <MobileNav />
+                    <MobileNav items={navItems} />
 
                     {header ?? <div className="w-full flex-1"></div>}
 
@@ -119,7 +171,7 @@ export default function Admin({
     )
 }
 
-function SidebarNav() {
+function SidebarNav({ items }: navProps) {
     const { url } = usePage()
 
     return (
@@ -138,76 +190,28 @@ function SidebarNav() {
 
                 <div className="flex-1">
                     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                        <Link
-                            href={route("admin.home")}
-                            className={cn(
-                                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                                url === "/admin"
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground"
-                            )}
-                        >
-                            <Home className="h-4 w-4" />
-                            Dashboard
-                        </Link>
+                        {items.map((item) => {
+                            let pathname = ""
+                            try {
+                                pathname = new URL(item.href).pathname
+                            } catch (error) {}
 
-                        <Link
-                            href="#"
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                        >
-                            <Film className="h-4 w-4" />
-                            Movies
-                        </Link>
-
-                        <Link
-                            href={route("admin.products.index")}
-                            className={cn(
-                                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                                url.startsWith("/admin/products")
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground"
-                            )}
-                        >
-                            <CupSoda className="h-4 w-4" />
-                            Products
-                        </Link>
-
-                        <Link
-                            href="#"
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                        >
-                            <Theater className="h-4 w-4" />
-                            Theaters
-                        </Link>
-
-                        <Link
-                            href="#"
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                        >
-                            <Users className="h-4 w-4" />
-                            Customers
-                        </Link>
-
-                        <Link
-                            href="#"
-                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                        >
-                            <Tag className="h-4 w-4" />
-                            Promos
-                        </Link>
-
-                        <Link
-                            href={route("admin.infos.index")}
-                            className={cn(
-                                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                                url.startsWith("/admin/infos")
-                                    ? "bg-muted text-primary"
-                                    : "text-muted-foreground"
-                            )}
-                        >
-                            <Newspaper className="h-4 w-4" />
-                            Infos
-                        </Link>
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={pathname === "" ? "" : item.href}
+                                    className={cn(
+                                        "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                        url === pathname
+                                            ? "bg-muted text-primary"
+                                            : "text-muted-foreground"
+                                    )}
+                                >
+                                    <item.icon className="h-4 w-4" />
+                                    {item.title}
+                                </Link>
+                            )
+                        })}
                     </nav>
                 </div>
             </div>
@@ -215,11 +219,12 @@ function SidebarNav() {
     )
 }
 
-function MobileNav() {
+function MobileNav({ items }: navProps) {
+    const [open, setOpen] = useState(false)
     const { url } = usePage()
 
     return (
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
                 <Button
                     variant="outline"
@@ -243,76 +248,34 @@ function MobileNav() {
                         <span className="sr-only">21 Cineplex</span>
                     </Link>
 
-                    <Link
-                        href={route("admin.home")}
-                        className={cn(
-                            "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
-                            url === "/admin"
-                                ? "bg-muted text-foreground"
-                                : "text-muted-foreground"
-                        )}
-                    >
-                        <Home className="h-5 w-5" />
-                        Dashboard
-                    </Link>
+                    {items.map((item) => {
+                        let pathname = ""
+                        try {
+                            pathname = new URL(item.href).pathname
+                        } catch (error) {}
 
-                    <Link
-                        href="#"
-                        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                    >
-                        <Film className="h-5 w-5" />
-                        Movies
-                    </Link>
-
-                    <Link
-                        href={route("admin.products.index")}
-                        className={cn(
-                            "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
-                            url.startsWith("/admin/products")
-                                ? "bg-muted text-foreground"
-                                : "text-muted-foreground"
-                        )}
-                    >
-                        <CupSoda className="h-5 w-5" />
-                        Products
-                    </Link>
-
-                    <Link
-                        href="#"
-                        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                    >
-                        <Theater className="h-5 w-5" />
-                        Theaters
-                    </Link>
-
-                    <Link
-                        href="#"
-                        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                    >
-                        <Users className="h-5 w-5" />
-                        Customers
-                    </Link>
-
-                    <Link
-                        href="#"
-                        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                    >
-                        <Tag className="h-5 w-5" />
-                        Promos
-                    </Link>
-
-                    <Link
-                        href={route("admin.infos.index")}
-                        className={cn(
-                            "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
-                            url.startsWith("/admin/infos")
-                                ? "bg-muted text-foreground"
-                                : "text-muted-foreground"
-                        )}
-                    >
-                        <Newspaper className="h-5 w-5" />
-                        Infos
-                    </Link>
+                        return (
+                            <Link
+                                key={item.href}
+                                href={pathname === "" ? "" : item.href}
+                                onClick={() => {
+                                    router.visit(
+                                        pathname === "" ? "" : item.href
+                                    )
+                                    setOpen(false)
+                                }}
+                                className={cn(
+                                    "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground",
+                                    url === pathname
+                                        ? "bg-muted text-foreground"
+                                        : "text-muted-foreground"
+                                )}
+                            >
+                                <item.icon className="h-5 w-5" />
+                                {item.title}
+                            </Link>
+                        )
+                    })}
                 </nav>
             </SheetContent>
         </Sheet>

@@ -19,10 +19,10 @@ class Info extends Model
     protected $fillable = ['title', 'description'];
 
     /**
-     * Get the info's image.
+     * Get the info's banner.
      */
-    public function image(): MorphOne
+    public function banner(): MorphOne
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphOne(Banner::class, 'bannerable');
     }
 }

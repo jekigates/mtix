@@ -28,7 +28,7 @@ class InfoController extends Controller
     public function show(Info $info): Response
     {
         return Inertia::render('Infos/Show', [
-            'info' => InfoData::fromModel($info),
+            'info' => InfoData::from($info),
         ]);
     }
 }

@@ -11,12 +11,15 @@ use App\Http\Controllers\TheaterProductController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\BannerController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/upcoming', 'upcoming')->name('upcoming');
     Route::get('/select-city', 'selectCity')->name('select.city');
 });
+
+Route::get('/banners/{banner}', [BannerController::class, 'show'])->name('banners.show');
 
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaters.index');
 Route::get('/theaters/{theater}', [TheaterController::class, 'show'])->name('theaters.show');

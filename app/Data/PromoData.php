@@ -12,7 +12,6 @@ class PromoData extends Data
       public string $name,
       public string $description,
       public string $image,
-      public string $banner_image,
       public string $valid_start_date,
       public string $valid_end_date,
     ) {}
@@ -24,7 +23,6 @@ class PromoData extends Data
             $promo->name,
             $promo->description,
             asset($promo->image->url),
-            asset($promo->banner_image),
             $promo->valid_start_date,
             $promo->valid_end_date,
         );

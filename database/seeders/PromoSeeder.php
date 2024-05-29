@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\Promo;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,7 +35,11 @@ class PromoSeeder extends Seeder
         foreach ($promos as $promo) {
             $new_promo = Promo::factory()->create([
                 'name' => $promo['name'],
-                'banner_image' => $promo['banner_image'],
+            ]);
+
+            $banner = $new_promo->banner()->create();
+            $banner->image()->create([
+                'url' => $promo['banner_image'],
             ]);
 
             $new_promo->image()->create([

@@ -1,4 +1,8 @@
 declare namespace App.Data {
+    export type BannerData = {
+        id: string
+        image: string
+    }
     export type BrandData = {
         id: string
         name: string
@@ -22,7 +26,6 @@ declare namespace App.Data {
         id: string
         title: string
         description: string
-        image: string
         created_at: string
         updated_at: string
     }
@@ -55,6 +58,7 @@ declare namespace App.Data {
         theater_movies?: Array<App.Data.TheaterMovieData>
     }
     export type ProductData = {
+        theater_products_count: number
         id: string
         name: string
         description: string
@@ -65,24 +69,22 @@ declare namespace App.Data {
         category?: App.Data.CategoryData
         variants?: Array<App.Data.ProductVariantData>
         theater_products?: Array<App.Data.TheaterProductData>
-        theater_products_count?: number
         created_at: string
         updated_at: string
     }
     export type ProductVariantData = {
+        theater_products_count: number
         id: string
         product_id: string
         name: string
         price: number
         theater_products?: Array<App.Data.TheaterProductData>
-        theater_products_count?: number
     }
     export type PromoData = {
         id: string
         name: string
         description: string
         image: string
-        banner_image: string
         valid_start_date: string
         valid_end_date: string
     }

@@ -15,7 +15,7 @@ import { Separator } from "@/Components/ui/separator"
 import MainLayout from "@/Layouts/MainLayout"
 import { PageProps } from "@/types"
 
-export default function Home({ auth, infos, promos, movies }: PageProps) {
+export default function Home({ auth, banners, movies }: PageProps) {
     return (
         <MainLayout user={auth.user}>
             <Head title="Home" />
@@ -31,7 +31,25 @@ export default function Home({ auth, infos, promos, movies }: PageProps) {
                     opts={{ loop: true }}
                 >
                     <CarouselContent>
-                        {infos.map((info) => (
+                        {banners.map((banner, index) => (
+                            <CarouselItem
+                                key={banner.id}
+                                onClick={() => {
+                                    router.visit(
+                                        route("banners.show", banner.id)
+                                    )
+                                }}
+                            >
+                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 h-40 md:h-56">
+                                    <img
+                                        src={banner.image}
+                                        alt={`Banner ${index + 1}`}
+                                        className="h-full w-full object-cover object-center"
+                                    />
+                                </div>
+                            </CarouselItem>
+                        ))}
+                        {/* {infos.map((info) => (
                             <CarouselItem
                                 key={info.id}
                                 onClick={() => {
@@ -63,7 +81,7 @@ export default function Home({ auth, infos, promos, movies }: PageProps) {
                                     />
                                 </div>
                             </CarouselItem>
-                        ))}
+                        ))} */}
                     </CarouselContent>
 
                     <CarouselPrevious />

@@ -6,9 +6,13 @@ use App\Models\ProductVariant;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
+use Spatie\LaravelData\Attributes\Computed;
 
 class ProductVariantData extends Data
 {
+    #[Computed]
+    public int $theater_products_count;
+
     /**
     * @param Lazy|Collection<int, TheaterProductData> $theater_products
     */
@@ -18,8 +22,9 @@ class ProductVariantData extends Data
         public string $name,
         public int $price,
         public Lazy|Collection $theater_products,
-        public Lazy|int $theater_products_count,
-    ) {}
+    ) {
+        $this->theater_products_count = $theater_products->count();
+    }
 
     public static function fromModel(ProductVariant $productVariant): self
     {
@@ -29,7 +34,6 @@ class ProductVariantData extends Data
             $productVariant->name,
             $productVariant->price,
             Lazy::create(fn() => TheaterProductData::collect($productVariant->theaterProducts)),
-            Lazy::create(fn() => $productVariant->theaterProducts()->count()),
         );
     }
 }

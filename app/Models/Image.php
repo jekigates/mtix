@@ -19,7 +19,7 @@ class Image extends Model
     protected $fillable = ['url'];
 
     /**
-     * Get the parent imageable model (product variant or promo or movie or news).
+     * Get the parent imageable model (product variant or banner or movie).
      */
     public function imageable(): MorphTo
     {

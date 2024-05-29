@@ -31,6 +31,7 @@ export function DataTableToolbar<TData>({
                             ?.setFilterValue(event.target.value)
                     }
                     className="h-8 w-[150px] lg:w-[250px]"
+                    name="filter"
                 />
 
                 {isFiltered && (
