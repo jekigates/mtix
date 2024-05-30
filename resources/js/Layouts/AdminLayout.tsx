@@ -73,7 +73,7 @@ const navItems = [
     },
 ]
 
-interface navProps extends React.HTMLAttributes<HTMLElement> {
+interface NavProps extends React.HTMLAttributes<HTMLElement> {
     items: {
         href: string
         title: string
@@ -171,7 +171,7 @@ export default function Admin({
     )
 }
 
-function SidebarNav({ items }: navProps) {
+function SidebarNav({ items }: NavProps) {
     const { url } = usePage()
 
     return (
@@ -219,7 +219,7 @@ function SidebarNav({ items }: navProps) {
     )
 }
 
-function MobileNav({ items }: navProps) {
+function MobileNav({ items }: NavProps) {
     const [open, setOpen] = useState(false)
     const { url } = usePage()
 

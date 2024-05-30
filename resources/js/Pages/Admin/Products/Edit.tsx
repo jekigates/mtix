@@ -457,6 +457,7 @@ export default function Edit({
                                                     product_id: "",
                                                     name: "",
                                                     price: 0,
+                                                    theater_products_count: 0,
                                                 },
                                             ])
                                         }

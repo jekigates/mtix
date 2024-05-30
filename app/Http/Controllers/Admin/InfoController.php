@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Data\InfoData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\InfoStoreRequest;
+use App\Http\Requests\Admin\InfoRequest;
 use App\Models\Info;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class InfoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(InfoStoreRequest $request): RedirectResponse
+    public function store(InfoRequest $request): RedirectResponse
     {
         $info = Info::create($request->validated());
 
@@ -47,25 +47,31 @@ class InfoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Info $info): Response
     {
-        //
+        return Inertia::render('Admin/Infos/Show', [
+            'info' => InfoData::from($info),
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Info $info): Response
     {
-        //
+        return Inertia::render('Admin/Infos/Edit', [
+            'info' => InfoData::from($info),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(InfoRequest $request, Info $info): RedirectResponse
     {
-        //
+        $info->update($request->validated());
+
+        return Redirect::route('admin.infos.index');
     }
 
     /**
