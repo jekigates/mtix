@@ -18,6 +18,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\LaravelData\DataCollection;
 
+use function App\Helpers\deleteStorageImage;
+
 class ProductController extends Controller
 {
     /**
@@ -97,10 +99,7 @@ class ProductController extends Controller
         $product->update($request->only(['name', 'description', 'recipe', 'category_id', 'status']));
 
         if ($request->hasFile('image')) {
-            $path = str_replace('storage/', '', $product->image->url);
-            if (Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->delete($path);
-            }
+            deleteStorageImage($product->image->url);
 
             $product->image()->update(['url' => $request->file('image')->store('product-images', 'public')]);
         }
@@ -122,12 +121,7 @@ class ProductController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $product = Product::withoutGlobalScopes()->findOrFail($id);
-
-        $path = str_replace('storage/', '', $product->image->url);
-
-        if (Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
+        deleteStorageImage($product->image->url);
 
         $product->image->delete();
         $product->variants->each->delete();

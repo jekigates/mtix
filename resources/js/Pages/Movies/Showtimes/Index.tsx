@@ -360,11 +360,10 @@ export default function Index({ auth, movie, theater }: PageProps) {
                                                                 </SelectTrigger>
                                                                 <SelectContent>
                                                                     <SelectGroup>
-                                                                        {[
-                                                                            ...Array(
-                                                                                8
-                                                                            ),
-                                                                        ].map(
+                                                                        {Array.from(
+                                                                            {
+                                                                                length: 8,
+                                                                            },
                                                                             (
                                                                                 _,
                                                                                 i

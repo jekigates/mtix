@@ -15,7 +15,7 @@ class PromoController extends Controller
      */
     public function index(): Response
     {
-        $promos = PromoData::collect(Promo::where('valid_start_date', '>=', now())->where('valid_end_date', '>=', now())->get());
+        $promos = PromoData::collect(Promo::all());
 
         return Inertia::render('Promos/Index', [
             'promos' => $promos,

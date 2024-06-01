@@ -113,6 +113,7 @@ export default function Login({
                                 onCheckedChange={() =>
                                     setData("remember", !data.remember)
                                 }
+                                name="terms"
                             />
 
                             <label

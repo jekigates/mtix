@@ -78,7 +78,7 @@ export default function Create({
             category_id: "",
             status: "",
             image: new File([], ""),
-            variants: [{ name: "", price: 0 }],
+            variants: [{ name: "", price: 1000 }],
         })
 
     const submit: FormEventHandler = (e) => {
@@ -98,7 +98,7 @@ export default function Create({
             user={auth.user}
             header={
                 <div className="w-full flex-1">
-                    <Breadcrumb className="hidden md:flex">
+                    <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
@@ -130,10 +130,7 @@ export default function Create({
         >
             <Head title="Create Product" />
 
-            <form
-                onSubmit={submit}
-                className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4"
-            >
+            <form onSubmit={submit} className="grid flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
                     <Link
                         href={route("admin.products.index")}
@@ -309,83 +306,104 @@ export default function Create({
                                                             key={`variant-${index}`}
                                                         >
                                                             <TableCell className="font-semibold">
-                                                                <Label
-                                                                    htmlFor={`name-${index}`}
-                                                                    className="sr-only"
-                                                                >
-                                                                    Variant Name
-                                                                </Label>
+                                                                <div className="grid gap-2">
+                                                                    <Label
+                                                                        htmlFor={`name-${index}`}
+                                                                        className="sr-only"
+                                                                    >
+                                                                        Variant
+                                                                        Name
+                                                                    </Label>
 
-                                                                <Input
-                                                                    id={`name-${index}`}
-                                                                    type="text"
-                                                                    value={
-                                                                        variant.name
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) => {
-                                                                        variant.name =
-                                                                            e.target.value
-                                                                        setData(
-                                                                            "variants",
-                                                                            newVariants
-                                                                        )
-                                                                    }}
-                                                                    className={
-                                                                        errorVariants[
-                                                                            `variants.${index}.name`
-                                                                        ]
-                                                                            ? "border-destructive"
-                                                                            : ""
-                                                                    }
-                                                                />
-                                                            </TableCell>
-
-                                                            <TableCell>
-                                                                <Label
-                                                                    htmlFor={`price-${index}`}
-                                                                    className="sr-only"
-                                                                >
-                                                                    Variant
-                                                                    Price
-                                                                </Label>
-
-                                                                <Input
-                                                                    id={`price-${index}`}
-                                                                    type="number"
-                                                                    defaultValue={
-                                                                        variant.price
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) => {
-                                                                        if (
+                                                                    <Input
+                                                                        id={`name-${index}`}
+                                                                        type="text"
+                                                                        value={
+                                                                            variant.name
+                                                                        }
+                                                                        onChange={(
                                                                             e
-                                                                                .target
-                                                                                .value !==
-                                                                            ""
-                                                                        ) {
-                                                                            variant.price =
-                                                                                parseInt(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                )
+                                                                        ) => {
+                                                                            variant.name =
+                                                                                e.target.value
                                                                             setData(
                                                                                 "variants",
                                                                                 newVariants
                                                                             )
+                                                                        }}
+                                                                        className={
+                                                                            errorVariants[
+                                                                                `variants.${index}.name`
+                                                                            ]
+                                                                                ? "border-destructive"
+                                                                                : ""
                                                                         }
-                                                                    }}
-                                                                    className={
-                                                                        errorVariants[
-                                                                            `variants.${index}.price`
-                                                                        ]
-                                                                            ? "border-destructive"
-                                                                            : ""
-                                                                    }
-                                                                />
+                                                                    />
+
+                                                                    <InputMessage>
+                                                                        {
+                                                                            errorVariants[
+                                                                                `variants.${index}.name`
+                                                                            ]
+                                                                        }
+                                                                    </InputMessage>
+                                                                </div>
+                                                            </TableCell>
+
+                                                            <TableCell>
+                                                                <div className="grid gap-2">
+                                                                    <Label
+                                                                        htmlFor={`price-${index}`}
+                                                                        className="sr-only"
+                                                                    >
+                                                                        Variant
+                                                                        Price
+                                                                    </Label>
+
+                                                                    <Input
+                                                                        id={`price-${index}`}
+                                                                        type="number"
+                                                                        defaultValue={
+                                                                            variant.price
+                                                                        }
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            if (
+                                                                                e
+                                                                                    .target
+                                                                                    .value !==
+                                                                                ""
+                                                                            ) {
+                                                                                variant.price =
+                                                                                    parseInt(
+                                                                                        e
+                                                                                            .target
+                                                                                            .value
+                                                                                    )
+                                                                                setData(
+                                                                                    "variants",
+                                                                                    newVariants
+                                                                                )
+                                                                            }
+                                                                        }}
+                                                                        className={
+                                                                            errorVariants[
+                                                                                `variants.${index}.price`
+                                                                            ]
+                                                                                ? "border-destructive"
+                                                                                : ""
+                                                                        }
+                                                                    />
+
+                                                                    <InputMessage>
+                                                                        {
+                                                                            errorVariants[
+                                                                                `variants.${index}.price`
+                                                                            ]
+                                                                        }
+                                                                    </InputMessage>
+                                                                </div>
                                                             </TableCell>
 
                                                             <TableCell>

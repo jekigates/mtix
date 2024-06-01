@@ -11,9 +11,12 @@ class PromoData extends Data
       public string $id,
       public string $name,
       public string $description,
-      public string $image,
+      public int $discount,
       public string $valid_start_date,
       public string $valid_end_date,
+      public string $image,
+      public string $created_at,
+      public string $updated_at,
     ) {}
 
     public static function fromModel(Promo $promo): self
@@ -22,9 +25,12 @@ class PromoData extends Data
             $promo->id,
             $promo->name,
             $promo->description,
-            asset($promo->image->url),
+            $promo->discount,
             $promo->valid_start_date,
             $promo->valid_end_date,
+            asset($promo->image->url),
+            $promo->created_at,
+            $promo->updated_at,
         );
     }
 }

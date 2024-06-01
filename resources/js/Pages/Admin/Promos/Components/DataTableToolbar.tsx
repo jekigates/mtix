@@ -2,6 +2,7 @@ import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
 import { Button } from "@/Components/ui/button"
+import { DataTableFacetedFilter } from "@/Components/ui/data-table-faceted-filter"
 import { DataTableViewOptions } from "@/Components/ui/data-table-view-options"
 import { Input } from "@/Components/ui/input"
 
@@ -18,15 +19,14 @@ export function DataTableToolbar<TData>({
         <div className="flex items-center justify-between">
             <div className="flex flex-1 items-center space-x-2">
                 <Input
-                    placeholder="Filter titles..."
+                    placeholder="Filter names..."
                     value={
-                        (table
-                            .getColumn("title")
-                            ?.getFilterValue() as string) ?? ""
+                        (table.getColumn("name")?.getFilterValue() as string) ??
+                        ""
                     }
                     onChange={(event) =>
                         table
-                            .getColumn("title")
+                            .getColumn("name")
                             ?.setFilterValue(event.target.value)
                     }
                     className="h-8 w-[150px] lg:w-[250px]"

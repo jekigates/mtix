@@ -24,7 +24,7 @@ import {
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
-export default function Index({ auth, infos }: PageProps) {
+export default function Index({ auth, promos }: PageProps) {
     return (
         <AdminLayout
             user={auth.user}
@@ -43,21 +43,21 @@ export default function Index({ auth, infos }: PageProps) {
                             <BreadcrumbSeparator />
 
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Infos</BreadcrumbPage>
+                                <BreadcrumbPage>Promos</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
             }
         >
-            <Head title="Infos" />
+            <Head title="Promos" />
 
-            {infos.length > 0 ? (
+            {promos.length > 0 ? (
                 <div className="space-y-4">
                     <div className="flex items-center">
                         <div className="ml-auto flex items-center gap-2">
                             <Link
-                                href={route("admin.infos.create")}
+                                href={route("admin.promos.create")}
                                 className={cn(
                                     buttonVariants({
                                         size: "sm",
@@ -68,7 +68,7 @@ export default function Index({ auth, infos }: PageProps) {
                                 <PlusCircle className="h-3.5 w-3.5" />
 
                                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                    Add Info
+                                    Add Promo
                                 </span>
                             </Link>
                         </div>
@@ -76,16 +76,16 @@ export default function Index({ auth, infos }: PageProps) {
 
                     <Card x-chunk="dashboard-06-chunk-0">
                         <CardHeader>
-                            <CardTitle>Infos</CardTitle>
+                            <CardTitle>Promos</CardTitle>
 
                             <CardDescription>
-                                Manage and stay abreast with the latest news and
-                                updates.
+                                Manage and keep track of ongoing promotions,
+                                discounts, and special offers.
                             </CardDescription>
                         </CardHeader>
 
                         <CardContent>
-                            <DataTable columns={columns} data={infos} />
+                            <DataTable columns={columns} data={promos} />
                         </CardContent>
                     </Card>
                 </div>
@@ -93,7 +93,7 @@ export default function Index({ auth, infos }: PageProps) {
                 <div className="h-full flex flex-col gap-4">
                     <div className="flex items-center">
                         <h1 className="text-lg font-semibold md:text-2xl">
-                            Infos
+                            Promos
                         </h1>
                     </div>
 
@@ -103,19 +103,19 @@ export default function Index({ auth, infos }: PageProps) {
                     >
                         <div className="flex flex-col items-center gap-1 text-center">
                             <h3 className="text-2xl font-bold tracking-tight">
-                                You have no infos
+                                You have no promos
                             </h3>
 
                             <p className="text-sm text-muted-foreground">
-                                Start disseminating information by adding a new
-                                info.
+                                Start boosting your business visibility and
+                                sales by adding a new promo.
                             </p>
 
                             <Link
-                                href={route("admin.infos.create")}
+                                href={route("admin.promos.create")}
                                 className={cn(buttonVariants(), "mt-4")}
                             >
-                                Add Info
+                                Add Promo
                             </Link>
                         </div>
                     </div>

@@ -84,9 +84,12 @@ declare namespace App.Data {
         id: string
         name: string
         description: string
-        image: string
+        discount: number
         valid_start_date: string
         valid_end_date: string
+        image: string
+        created_at: string
+        updated_at: string
     }
     export type ProvinceData = {
         id: string

@@ -6,7 +6,8 @@ use App\Enums\ProductStatusesEnum;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use function App\Helpers\generate_unsplash_image;
+
+use function App\Helpers\generateUnsplashImage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -32,7 +33,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $product) {
             $product->image()->create([
-                'url' => generate_unsplash_image('product-images'),
+                'url' => generateUnsplashImage('product-images'),
             ]);
 
             $variantCount = fake()->numberBetween(1, 2);

@@ -21,7 +21,7 @@ class ProductUpdateRequest extends FormRequest
             'recipe' => ['required', 'string'],
             'category_id' => ['required', 'string', 'max:36'],
             'variants.*.name' => ['required', 'string', 'max:50'],
-            'variants.*.price' => ['required', 'integer', 'min:1'],
+            'variants.*.price' => ['required', 'integer', 'min:1000'],
             'image' => ['file', 'max:' . (10 * 1024 * 1024), 'mimes:jpeg,bmp,png,gif'],
             'status' => ['required', Rule::in(ProductStatusesEnum::toArray())]
         ];

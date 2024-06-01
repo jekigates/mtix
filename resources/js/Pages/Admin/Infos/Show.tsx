@@ -28,7 +28,7 @@ export default function Show({ auth, info }: PageProps) {
             user={auth.user}
             header={
                 <div className="w-full flex-1">
-                    <Breadcrumb className="hidden md:flex">
+                    <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>

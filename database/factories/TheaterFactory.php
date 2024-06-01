@@ -7,7 +7,6 @@ use App\Models\TheaterMovie;
 use App\Models\TheaterProduct;
 use App\Models\Movie;
 use App\Models\Product;
-use App\Models\ProductVariant;
 use App\Models\Studio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

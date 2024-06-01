@@ -7,7 +7,7 @@ use App\Models\Movie;
 use App\Models\MovieGenre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-use function App\Helpers\generate_unsplash_image;
+use function App\Helpers\generateUnsplashImage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
@@ -54,7 +54,7 @@ class MovieFactory extends Factory
     {
         return $this->afterCreating(function (Movie $movie) {
             $movie->image()->create([
-                'url' => generate_unsplash_image('movie-images'),
+                'url' => generateUnsplashImage('movie-images'),
             ]);
 
             $genreIds = Genre::inRandomOrder()->take(fake()->numberBetween(1, 2))->pluck('id');

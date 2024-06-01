@@ -179,7 +179,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                 id="phone_number"
                                 type="number"
                                 value={data.phone_number}
-                                autoComplete="phone_number"
+                                autoComplete="tel"
                                 autoFocus={true}
                                 onChange={(e) =>
                                     setData("phone_number", e.target.value)
@@ -399,6 +399,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                     setData("gender", e)
                                 }}
                                 value={data.gender}
+                                name="gender"
                             >
                                 <SelectTrigger id="gender">
                                     <SelectValue placeholder="Gender" />
@@ -417,10 +418,16 @@ export default function Register({ auth, provinces }: PageProps) {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label>Birth Date</Label>
+                            <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                Birth Date
+                            </p>
 
                             <div className="grid grid-cols-3 gap-2">
-                                <Select onValueChange={setDay} value={day}>
+                                <Select
+                                    onValueChange={setDay}
+                                    value={day}
+                                    name="day"
+                                >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Day" />
                                     </SelectTrigger>
@@ -440,7 +447,11 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </SelectContent>
                                 </Select>
 
-                                <Select onValueChange={setMonth} value={month}>
+                                <Select
+                                    onValueChange={setMonth}
+                                    value={month}
+                                    name="month"
+                                >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Month" />
                                     </SelectTrigger>
@@ -460,7 +471,11 @@ export default function Register({ auth, provinces }: PageProps) {
                                     </SelectContent>
                                 </Select>
 
-                                <Select onValueChange={setYear} value={year}>
+                                <Select
+                                    onValueChange={setYear}
+                                    value={year}
+                                    name="year"
+                                >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Year" />
                                     </SelectTrigger>

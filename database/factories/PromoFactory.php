@@ -20,6 +20,7 @@ class PromoFactory extends Factory
 
         return [
             'description' => fake()->paragraphs(9, true),
+            'discount' => fake()->numberBetween(1, 3) * 5000,
             'valid_start_date' => $valid_start_date->toDateString(),
             'valid_end_date' => $valid_start_date->addDays(7)->toDateString(),
         ];

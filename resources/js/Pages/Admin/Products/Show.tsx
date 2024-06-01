@@ -41,7 +41,7 @@ export default function Show({
             user={auth.user}
             header={
                 <div className="w-full flex-1">
-                    <Breadcrumb className="hidden md:flex">
+                    <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
@@ -73,7 +73,7 @@ export default function Show({
         >
             <Head title="Show Product" />
 
-            <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+            <div className="grid flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
                     <Link
                         href={route("admin.products.index")}

@@ -18,7 +18,7 @@ class ProductVariantFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'price' => fake()->numberBetween(1, 10) * 1000,
+            'price' => fake()->numberBetween(2, 100) * (fake()->boolean() ? 500 : 1000),
         ];
     }
 }
