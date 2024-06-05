@@ -12,7 +12,7 @@ class TheaterProductData extends Data
         public string $id,
         public string $theater_id,
         public string $product_id,
-        public ?string $product_variant_id,
+        public string $product_variant_id,
         public int $stock,
         public Lazy|ProductData $product,
         public Lazy|ProductVariantData $product_variant,

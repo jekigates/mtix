@@ -27,7 +27,7 @@ class PromoController extends Controller
      */
     public function show(string $id): Response
     {
-        $promo = Promo::where('valid_start_date', '>=', now())->where('valid_end_date', '>=', now())->findOrFail($id);
+        $promo = Promo::active()->findOrFail($id);
 
         return Inertia::render('Promos/Show', [
             'promo' => PromoData::fromModel($promo),

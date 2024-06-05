@@ -19,23 +19,11 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card"
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/Components/ui/table"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
+import { formatRupiah } from "@/utils"
 
-export default function Show({
-    auth,
-    product,
-}: PageProps<{
-    statuses: string[]
-}>) {
+export default function Create({ auth, promo }: PageProps) {
     return (
         <AdminLayout
             user={auth.user}
@@ -55,8 +43,8 @@ export default function Show({
 
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
-                                    <Link href={route("admin.products.index")}>
-                                        Products
+                                    <Link href={route("admin.promos.index")}>
+                                        Promos
                                     </Link>
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
@@ -64,19 +52,19 @@ export default function Show({
                             <BreadcrumbSeparator />
 
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Show Product</BreadcrumbPage>
+                                <BreadcrumbPage>Show Promo</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
             }
         >
-            <Head title="Show Product" />
+            <Head title="Show Promo" />
 
-            <div className="grid flex-1 auto-rows-max gap-4">
+            <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
                     <Link
-                        href={route("admin.products.index")}
+                        href={route("admin.promos.index")}
                         className={cn(
                             buttonVariants({
                                 variant: "outline",
@@ -90,7 +78,7 @@ export default function Show({
                     </Link>
 
                     <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                        Show Product
+                        Show Promo
                     </h1>
                 </div>
 
@@ -98,10 +86,11 @@ export default function Show({
                     <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
                         <Card x-chunk="dashboard-07-chunk-0">
                             <CardHeader>
-                                <CardTitle>Product Details</CardTitle>
+                                <CardTitle>Promo Details</CardTitle>
 
                                 <CardDescription>
-                                    Manage product information in this section.
+                                    Manage the details of the promo in this
+                                    section.
                                 </CardDescription>
                             </CardHeader>
 
@@ -109,139 +98,91 @@ export default function Show({
                                 <div className="grid gap-6">
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                            Product Name
+                                            Promo Name
                                         </p>
 
                                         <p className="text-sm text-muted-foreground">
-                                            {product.name}
+                                            {promo.name}
                                         </p>
                                     </div>
 
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                            Product Description
+                                            Promo Discount
                                         </p>
 
                                         <p className="text-sm text-muted-foreground">
-                                            {product.description}
+                                            {formatRupiah(promo.discount)}
                                         </p>
                                     </div>
 
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                            Product Recipe
+                                            Promo Valid Start Date
                                         </p>
 
                                         <p className="text-sm text-muted-foreground">
-                                            {product.recipe}
+                                            {promo.valid_start_date}
                                         </p>
                                     </div>
 
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                            Product Category
+                                            Promo Valid End Date
                                         </p>
 
                                         <p className="text-sm text-muted-foreground">
-                                            {product.category?.name}
+                                            {promo.valid_end_date}
                                         </p>
                                     </div>
 
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                            Product Created At
+                                            Promo Description
+                                        </p>
+
+                                        <p
+                                            className="text-sm text-muted-foreground"
+                                            dangerouslySetInnerHTML={{
+                                                __html: promo.description,
+                                            }}
+                                        ></p>
+                                    </div>
+
+                                    <div className="grid gap-3">
+                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                            Promo Created At
                                         </p>
 
                                         <p className="text-sm text-muted-foreground">
-                                            {product.created_at}
+                                            {promo.created_at}
                                         </p>
                                     </div>
                                 </div>
-                            </CardContent>
-                        </Card>
-
-                        <Card x-chunk="dashboard-07-chunk-1">
-                            <CardHeader>
-                                <CardTitle>Product Variant</CardTitle>
-
-                                <CardDescription>
-                                    Manage the different versions of your
-                                    product.
-                                </CardDescription>
-                            </CardHeader>
-
-                            <CardContent>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Variant Name</TableHead>
-
-                                            <TableHead>Variant Price</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-
-                                    <TableBody>
-                                        {product.variants?.map(
-                                            (variant, index) => (
-                                                <TableRow
-                                                    key={`variant-${index}`}
-                                                >
-                                                    <TableCell className="font-semibold">
-                                                        {variant.name}
-                                                    </TableCell>
-
-                                                    <TableCell>
-                                                        {variant.price}
-                                                    </TableCell>
-                                                </TableRow>
-                                            )
-                                        )}
-                                    </TableBody>
-                                </Table>
                             </CardContent>
                         </Card>
                     </div>
 
                     <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                        <Card x-chunk="dashboard-07-chunk-3">
-                            <CardHeader>
-                                <CardTitle>Product Status</CardTitle>
-                            </CardHeader>
-
-                            <CardContent>
-                                <div className="grid gap-6">
-                                    <div className="grid gap-3">
-                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                            Status
-                                        </p>
-
-                                        <p className="text-sm text-muted-foreground">
-                                            {product.category?.name}
-                                        </p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-
                         <Card
                             className="overflow-hidden"
                             x-chunk="dashboard-07-chunk-4"
                         >
                             <CardHeader>
-                                <CardTitle>Product Image</CardTitle>
+                                <CardTitle>Promo Image</CardTitle>
 
                                 <CardDescription>
-                                    Visual representation of the product.
+                                    Visual representation of the promo.
                                 </CardDescription>
                             </CardHeader>
 
                             <CardContent>
                                 <div className="grid gap-3">
                                     <img
-                                        alt="Product image"
+                                        alt="Promo image"
                                         className="aspect-square w-full rounded-md object-cover"
                                         height="300"
-                                        src={product.image}
+                                        src={promo.image}
                                         width="300"
                                     />
                                 </div>

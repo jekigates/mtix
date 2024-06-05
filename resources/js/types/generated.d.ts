@@ -139,7 +139,7 @@ declare namespace App.Data {
         id: string
         theater_id: string
         product_id: string
-        product_variant_id: string | null
+        product_variant_id: string
         stock: number
         product?: App.Data.ProductData
         product_variant?: App.Data.ProductVariantData

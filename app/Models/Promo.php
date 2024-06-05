@@ -13,21 +13,30 @@ class Promo extends Model
     use HasFactory, HasUuids;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'description', 'discount', 'valid_start_date', 'valid_end_date'];
+
+    /**
      * The "booted" method of the model.
      */
     protected static function booted(): void
     {
         static::addGlobalScope('active', function (Builder $builder) {
-            $builder->where('valid_start_date', '<=', now())
-            ->where('valid_end_date', '>=', now())
-            ->orWhere('valid_start_date', '>', now());
+            $builder->active();
         });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('valid_start_date', '<=', now())->orWhere('valid_end_date', '>=', now());
     }
 
     public function scopeValid(Builder $query): void
     {
-        $query->where('valid_start_date', '<=', now())
-        ->Where('valid_end_date', '>=', now());
+        $query->where('valid_start_date', '<=', now())->where('valid_end_date', '>=', now());
     }
 
     /**

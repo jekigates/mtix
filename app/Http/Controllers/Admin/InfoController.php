@@ -7,10 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\InfoRequest;
 use App\Models\Info;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+
+use function App\Helpers\deleteStorageImage;
 
 class InfoController extends Controller
 {
@@ -71,7 +72,7 @@ class InfoController extends Controller
     {
         $info->update($request->validated());
 
-        return Redirect::route('admin.infos.index');
+        return Redirect::route('admin.infos.edit', $info->id);
     }
 
     /**
@@ -79,6 +80,11 @@ class InfoController extends Controller
      */
     public function destroy(Info $info): RedirectResponse
     {
+        if ($info->banner) {
+            deleteStorageImage($info->banner->url);
+            $info->banner->delete();
+        }
+
         $info->delete();
 
         return Redirect::route('admin.infos.index');

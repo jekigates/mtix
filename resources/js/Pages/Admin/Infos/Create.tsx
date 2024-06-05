@@ -145,7 +145,14 @@ export default function Create({ auth }: PageProps) {
                                     </div>
 
                                     <div className="grid gap-3">
-                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                        <p
+                                            className={cn(
+                                                "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                                                errors.description
+                                                    ? "text-destructive"
+                                                    : ""
+                                            )}
+                                        >
                                             Info Description
                                         </p>
 

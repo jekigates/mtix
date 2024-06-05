@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('promos', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->string('name', length: 50);
-            $table->text('description');
             $table->integer('discount');
             $table->date('valid_start_date');
             $table->date('valid_end_date');
+            $table->text('description');
             $table->timestamps();
         });
     }

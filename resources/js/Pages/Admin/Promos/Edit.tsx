@@ -1,5 +1,4 @@
 import { Head, Link, router, useForm, usePage } from "@inertiajs/react"
-import { addDays } from "date-fns"
 import { ChevronLeft, Upload } from "lucide-react"
 import { FormEventHandler, useRef, useState } from "react"
 import { DateRange } from "react-day-picker"
@@ -31,15 +30,20 @@ import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 import { handleUpload } from "@/utils"
 
-export default function Create({ auth }: PageProps) {
+export default function Edit({ auth, promo }: PageProps) {
+    const [date, setDate] = useState<DateRange | undefined>({
+        from: new Date(promo.valid_start_date),
+        to: new Date(promo.valid_end_date),
+    })
+
     const { errors } = usePage().props
 
     const { data, setData, processing, reset, clearErrors } = useForm({
-        name: "",
-        discount: 5000,
-        valid_start_date: addDays(new Date(), 7),
-        valid_end_date: addDays(new Date(), 14),
-        description: "",
+        name: promo.name,
+        discount: promo.discount,
+        valid_start_date: new Date(promo.valid_start_date),
+        valid_end_date: new Date(promo.valid_end_date),
+        description: promo.description,
         image: new File([], ""),
     })
 
@@ -75,16 +79,15 @@ export default function Create({ auth }: PageProps) {
             }
         }
 
-        router.post(route("admin.promos.store"), { ...data, ...updateData })
+        router.post(route("admin.promos.update", promo.id), {
+            _method: "PATCH",
+            ...data,
+            ...updateData,
+        })
     }
 
     const fileInputRef = useRef<HTMLInputElement>(null)
-    const [imageUrl, setImageUrl] = useState("")
-
-    const [date, setDate] = useState<DateRange | undefined>({
-        from: data.valid_start_date,
-        to: data.valid_end_date,
-    })
+    const [imageUrl, setImageUrl] = useState(promo.image)
 
     return (
         <AdminLayout
@@ -114,14 +117,14 @@ export default function Create({ auth }: PageProps) {
                             <BreadcrumbSeparator />
 
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Create Promo</BreadcrumbPage>
+                                <BreadcrumbPage>Edit Promo</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
             }
         >
-            <Head title="Create Promo" />
+            <Head title="Edit Promo" />
 
             <form
                 onSubmit={submit}
@@ -143,7 +146,7 @@ export default function Create({ auth }: PageProps) {
                     </Link>
 
                     <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                        Create Promo
+                        Edit Promo
                     </h1>
 
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
@@ -161,7 +164,7 @@ export default function Create({ auth }: PageProps) {
                         </Button>
 
                         <Button size="sm" disabled={processing}>
-                            Save Promo
+                            Update Promo
                         </Button>
                     </div>
                 </div>
@@ -255,10 +258,12 @@ export default function Create({ auth }: PageProps) {
                                             Promo Valid Date
                                         </p>
 
-                                        <DatePickerWithRange
-                                            date={date}
-                                            setDate={setDate}
-                                        />
+                                        <div className="grid gap-2">
+                                            <DatePickerWithRange
+                                                date={date}
+                                                setDate={setDate}
+                                            />
+                                        </div>
 
                                         <InputMessage>
                                             {errors.valid_start_date}
@@ -374,7 +379,7 @@ export default function Create({ auth }: PageProps) {
                     </Button>
 
                     <Button size="sm" disabled={processing}>
-                        Save Promo
+                        Update Promo
                     </Button>
                 </div>
             </form>

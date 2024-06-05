@@ -11,9 +11,7 @@ use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\LaravelData\DataCollection;
@@ -65,7 +63,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): Response
     {
         $product = Product::withoutGlobalScopes()->findOrFail($id);
 

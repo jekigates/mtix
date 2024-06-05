@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react"
 import { Head, Link, useForm } from "@inertiajs/react"
 import { ChevronLeft } from "lucide-react"
 import { FormEventHandler } from "react"
@@ -29,7 +30,7 @@ import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
 export default function Edit({ auth, info }: PageProps) {
-    const { data, setData, patch, processing, errors, reset, clearErrors } =
+    const { data, setData, patch, processing, errors, recentlySuccessful } =
         useForm({
             title: info.title,
             description: info.description,
@@ -145,7 +146,14 @@ export default function Edit({ auth, info }: PageProps) {
                                     </div>
 
                                     <div className="grid gap-3">
-                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                        <p
+                                            className={cn(
+                                                "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                                                errors.description
+                                                    ? "text-destructive"
+                                                    : ""
+                                            )}
+                                        >
                                             Info Description
                                         </p>
 
@@ -163,10 +171,22 @@ export default function Edit({ auth, info }: PageProps) {
                                 </div>
                             </CardContent>
 
-                            <CardFooter className="border-t px-6 py-4">
+                            <CardFooter className="border-t px-6 py-4 flex items-center gap-4">
                                 <Button size="sm" disabled={processing}>
                                     Update Info
                                 </Button>
+
+                                <Transition
+                                    show={recentlySuccessful}
+                                    enter="transition ease-in-out"
+                                    enterFrom="opacity-0"
+                                    leave="transition ease-in-out"
+                                    leaveTo="opacity-0"
+                                >
+                                    <p className="text-sm text-muted-foreground">
+                                        Saved.
+                                    </p>
+                                </Transition>
                             </CardFooter>
                         </Card>
                     </div>

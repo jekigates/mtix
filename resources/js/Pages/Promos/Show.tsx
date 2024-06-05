@@ -39,9 +39,12 @@ export default function Show({ auth, promo }: PageProps) {
                             Description
                         </h4>
 
-                        <div className="text-sm font-normal leading-snug text-muted-foreground">
-                            {promo.description}
-                        </div>
+                        <div
+                            className="text-sm font-normal leading-snug text-muted-foreground"
+                            dangerouslySetInnerHTML={{
+                                __html: promo.description,
+                            }}
+                        ></div>
                     </div>
                 </div>
             </MainContent>

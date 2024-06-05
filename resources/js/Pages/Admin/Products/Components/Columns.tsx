@@ -2,50 +2,33 @@ import { ColumnDef } from "@tanstack/react-table"
 
 import { DataTableRowActions } from "./DataTableViewOptions"
 import { Badge } from "@/Components/ui/badge"
-import { Checkbox } from "@/Components/ui/checkbox"
 import { DataTableColumnHeader } from "@/Components/ui/data-table-column-header"
 
 export const columns: ColumnDef<App.Data.ProductData>[] = [
     {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label="Select all"
-                className="translate-y-[2px]"
-            />
-        ),
+        id: "image",
         cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-                className="translate-y-[2px]"
-            />
+            <div className="w-16 h-16">
+                <img
+                    alt="Promo image"
+                    className="aspect-square rounded-md object-cover w-full h-full"
+                    src={row.original.image}
+                />
+            </div>
         ),
-        enableSorting: false,
-        enableHiding: false,
     },
     {
         accessorKey: "name",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Name" />
         ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex">
-                    <span className="max-w-[500px] truncate font-medium">
-                        {row.getValue("name")}
-                    </span>
-                </div>
-            )
-        },
+        cell: ({ row }) => (
+            <div className="flex">
+                <span className="max-w-[500px] truncate font-medium">
+                    {row.getValue("name")}
+                </span>
+            </div>
+        ),
     },
     {
         id: "category",
@@ -53,15 +36,13 @@ export const columns: ColumnDef<App.Data.ProductData>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Category" />
         ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex">
-                    <span className="max-w-[100px] truncate">
-                        {row.getValue("category")}
-                    </span>
-                </div>
-            )
-        },
+        cell: ({ row }) => (
+            <div className="flex">
+                <span className="max-w-[100px] truncate">
+                    {row.getValue("category")}
+                </span>
+            </div>
+        ),
         filterFn: (row, id, value) => {
             return value.includes(row.getValue(id))
         },

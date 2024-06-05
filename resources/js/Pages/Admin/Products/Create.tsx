@@ -289,7 +289,11 @@ export default function Create({
 
                                             <TableHead>Variant Price</TableHead>
 
-                                            <TableHead></TableHead>
+                                            <TableHead>
+                                                <span className="sr-only">
+                                                    Action
+                                                </span>
+                                            </TableHead>
                                         </TableRow>
                                     </TableHeader>
 

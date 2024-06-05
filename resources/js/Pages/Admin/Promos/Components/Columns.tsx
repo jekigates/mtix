@@ -1,36 +1,21 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 import { DataTableRowActions } from "./DataTableViewOptions"
-import { Checkbox } from "@/Components/ui/checkbox"
 import { DataTableColumnHeader } from "@/Components/ui/data-table-column-header"
 import { formatRupiah } from "@/utils"
 
 export const columns: ColumnDef<App.Data.PromoData>[] = [
     {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label="Select all"
-                className="translate-y-[2px]"
-            />
-        ),
+        id: "image",
         cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-                className="translate-y-[2px]"
-            />
+            <div className="w-16 h-16">
+                <img
+                    alt="Promo image"
+                    className="aspect-square rounded-md object-cover w-full h-full"
+                    src={row.original.image}
+                />
+            </div>
         ),
-        enableSorting: false,
-        enableHiding: false,
     },
     {
         accessorKey: "name",
@@ -41,30 +26,26 @@ export const columns: ColumnDef<App.Data.PromoData>[] = [
                 className="font-medium"
             />
         ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex">
-                    <span className="max-w-[500px] truncate font-medium">
-                        {row.getValue("name")}
-                    </span>
-                </div>
-            )
-        },
+        cell: ({ row }) => (
+            <div className="flex">
+                <span className="max-w-[500px] truncate font-medium">
+                    {row.getValue("name")}
+                </span>
+            </div>
+        ),
     },
     {
         accessorKey: "discount",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Discount" />
         ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex">
-                    <span className="max-w-[100px] truncate">
-                        {formatRupiah(row.getValue("discount"))}
-                    </span>
-                </div>
-            )
-        },
+        cell: ({ row }) => (
+            <div className="flex">
+                <span className="max-w-[100px] truncate">
+                    {formatRupiah(row.getValue("discount"))}
+                </span>
+            </div>
+        ),
     },
     {
         accessorKey: "valid_start_date",
