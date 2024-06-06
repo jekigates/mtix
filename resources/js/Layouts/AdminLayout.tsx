@@ -28,6 +28,7 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet"
+import { Toaster } from "@/Components/ui/toaster"
 import { User } from "@/types"
 
 const navItems = [
@@ -118,56 +119,66 @@ export default function Admin({
     }, [])
 
     return (
-        <div className="flex min-h-screen w-full">
-            <SidebarNav items={navItems} />
+        <>
+            <div className="flex min-h-screen w-full">
+                <SidebarNav items={navItems} />
 
-            <div className="flex flex-col flex-1 max-w-full">
-                <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 sm:h-[60px] sm:px-6">
-                    <MobileNav items={navItems} />
+                <div className="flex flex-col flex-1 max-w-full">
+                    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 sm:h-[60px] sm:px-6">
+                        <MobileNav items={navItems} />
 
-                    {header ?? <div className="w-full flex-1"></div>}
+                        {header ?? <div className="w-full flex-1"></div>}
 
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button
-                                variant="secondary"
-                                size="icon"
-                                className="rounded-full"
-                            >
-                                <CircleUser className="h-5 w-5" />
-                                <span className="sr-only">
-                                    Toggle user menu
-                                </span>
-                            </Button>
-                        </DropdownMenuTrigger>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="secondary"
+                                    size="icon"
+                                    className="rounded-full"
+                                >
+                                    <CircleUser className="h-5 w-5" />
+                                    <span className="sr-only">
+                                        Toggle user menu
+                                    </span>
+                                </Button>
+                            </DropdownMenuTrigger>
 
-                        <DropdownMenuContent align="end" className="w-60">
-                            <DropdownMenuItem
-                                onClick={() =>
-                                    router.visit(route("settings.profile.edit"))
-                                }
-                            >
-                                <Cog className="mr-2 h-4 w-4" />
-                                <span>Settings</span>
-                                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                            </DropdownMenuItem>
+                            <DropdownMenuContent align="end" className="w-60">
+                                <DropdownMenuItem
+                                    onClick={() =>
+                                        router.visit(
+                                            route("settings.profile.edit")
+                                        )
+                                    }
+                                >
+                                    <Cog className="mr-2 h-4 w-4" />
+                                    <span>Settings</span>
+                                    <DropdownMenuShortcut>
+                                        ⇧⌘P
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
 
-                            <DropdownMenuSeparator />
+                                <DropdownMenuSeparator />
 
-                            <DropdownMenuItem
-                                onClick={() => router.post(route("logout"))}
-                            >
-                                <LogIn className="mr-2 h-4 w-4" />
-                                <span>Logout</span>
-                                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </header>
+                                <DropdownMenuItem
+                                    onClick={() => router.post(route("logout"))}
+                                >
+                                    <LogIn className="mr-2 h-4 w-4" />
+                                    <span>Logout</span>
+                                    <DropdownMenuShortcut>
+                                        ⇧⌘Q
+                                    </DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </header>
 
-                <main className="flex-1 p-4 sm:px-6">{children}</main>
+                    <main className="flex-1 p-4 sm:px-6">{children}</main>
+                </div>
             </div>
-        </div>
+
+            <Toaster />
+        </>
     )
 }
 

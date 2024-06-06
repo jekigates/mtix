@@ -1,5 +1,4 @@
-import { Transition } from "@headlessui/react"
-import { useForm, usePage } from "@inertiajs/react"
+import { router, useForm, usePage } from "@inertiajs/react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { FormEventHandler, useEffect, useState } from "react"
 
@@ -32,6 +31,7 @@ import {
     SelectValue,
 } from "@/Components/ui/select"
 import { Textarea } from "@/Components/ui/textarea"
+import { useToast } from "@/Components/ui/use-toast"
 import { PageProps } from "@/types"
 
 export default function AccountForm({
@@ -40,20 +40,46 @@ export default function AccountForm({
     provinces: App.Data.ProvinceData[]
 }) {
     const user = usePage<PageProps>().props.auth.user
+    const { errors } = usePage().props
+    const { toast } = useToast()
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm({
-            address: user.address,
-            province_id: user.province_id,
-            city_id: user.city_id,
-            gender: user.gender,
-            dob: new Date(user.dob),
-        })
+    const { data, setData, processing } = useForm({
+        address: user.address,
+        province_id: user.province_id,
+        city_id: user.city_id,
+        gender: user.gender,
+        dob: new Date(user.dob),
+    })
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
 
-        patch(route("settings.account.update"))
+        let updateData: any = {
+            dob: null,
+        }
+
+        if (year !== "" && month !== "" && day !== "") {
+            updateData.dob = new Date(
+                parseInt(year),
+                parseInt(month),
+                parseInt(day)
+            )
+        }
+
+        router.patch(
+            route("settings.account.update"),
+            {
+                ...data,
+                ...updateData,
+            },
+            {
+                onSuccess: () => {
+                    toast({
+                        description: "Your account has been updated.",
+                    })
+                },
+            }
+        )
     }
 
     const [openProvince, setOpenProvince] = useState(false)
@@ -120,8 +146,6 @@ export default function AccountForm({
                 "dob",
                 new Date(parseInt(year), parseInt(month), parseInt(day))
             )
-        } else {
-            setData("dob", new Date(user.dob))
         }
     }, [day, month, year])
 
@@ -403,16 +427,6 @@ export default function AccountForm({
 
             <div className="flex items-center gap-4">
                 <Button disabled={processing}>Update account</Button>
-
-                <Transition
-                    show={recentlySuccessful}
-                    enter="transition ease-in-out"
-                    enterFrom="opacity-0"
-                    leave="transition ease-in-out"
-                    leaveTo="opacity-0"
-                >
-                    <p className="text-sm text-muted-foreground">Saved.</p>
-                </Transition>
             </div>
         </form>
     )

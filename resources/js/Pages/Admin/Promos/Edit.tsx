@@ -26,11 +26,14 @@ import {
 } from "@/Components/ui/card"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
+import { useToast } from "@/Components/ui/use-toast"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 import { handleUpload } from "@/utils"
 
 export default function Edit({ auth, promo }: PageProps) {
+    const { toast } = useToast()
+
     const [date, setDate] = useState<DateRange | undefined>({
         from: new Date(promo.valid_start_date),
         to: new Date(promo.valid_end_date),
@@ -79,11 +82,20 @@ export default function Edit({ auth, promo }: PageProps) {
             }
         }
 
-        router.post(route("admin.promos.update", promo.id), {
-            _method: "PATCH",
-            ...data,
-            ...updateData,
-        })
+        router.post(
+            route("admin.promos.update", promo.id),
+            {
+                _method: "PATCH",
+                ...data,
+                ...updateData,
+            },
+            {
+                onSuccess: () =>
+                    toast({
+                        description: "Your promo has been updated.",
+                    }),
+            }
+        )
     }
 
     const fileInputRef = useRef<HTMLInputElement>(null)

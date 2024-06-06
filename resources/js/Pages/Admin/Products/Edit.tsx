@@ -60,6 +60,7 @@ import {
     TableRow,
 } from "@/Components/ui/table"
 import { Textarea } from "@/Components/ui/textarea"
+import { useToast } from "@/Components/ui/use-toast"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 import { handleUpload } from "@/utils"
@@ -72,16 +73,10 @@ export default function Edit({
 }: PageProps<{
     statuses: string[]
 }>) {
+    const { toast } = useToast()
     const { errors } = usePage().props
 
-    const {
-        data,
-        setData,
-        processing,
-        reset,
-        clearErrors,
-        recentlySuccessful,
-    } = useForm({
+    const { data, setData, processing, reset, clearErrors } = useForm({
         name: product.name,
         description: product.description,
         recipe: product.recipe,
@@ -94,10 +89,19 @@ export default function Edit({
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
 
-        router.post(route("admin.products.update", product.id), {
-            _method: "PATCH",
-            ...data,
-        })
+        router.post(
+            route("admin.products.update", product.id),
+            {
+                _method: "PATCH",
+                ...data,
+            },
+            {
+                onSuccess: () =>
+                    toast({
+                        description: "Your product has been updated.",
+                    }),
+            }
+        )
     }
 
     const [openCategoryId, setOpenCategoryId] = useState(false)
@@ -164,18 +168,6 @@ export default function Edit({
                     </h1>
 
                     <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-muted-foreground">
-                                Saved.
-                            </p>
-                        </Transition>
-
                         <Button
                             variant="outline"
                             size="sm"
@@ -705,16 +697,6 @@ export default function Edit({
                 </div>
 
                 <div className="flex items-center justify-center gap-2 md:hidden">
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-muted-foreground">Saved.</p>
-                    </Transition>
-
                     <Button
                         variant="outline"
                         size="sm"
