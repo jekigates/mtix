@@ -1,6 +1,9 @@
 declare namespace App.Data {
     export type BannerData = {
         id: string
+        bannerable_id: string
+        bannerable_type: string
+        created_at: string
         image: string
     }
     export type BrandData = {

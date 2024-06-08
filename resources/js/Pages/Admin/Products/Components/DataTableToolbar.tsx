@@ -6,18 +6,16 @@ import { DataTableFacetedFilter } from "@/Components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from "@/Components/ui/data-table-view-options"
 import { Input } from "@/Components/ui/input"
 
+interface OptionType {
+    label: string
+    value: string
+    icon?: React.ComponentType<{ className?: string }>
+}
+
 interface DataTableToolbarProps<TData> {
     table: Table<TData>
-    categoryOptions: {
-        label: string
-        value: string
-        icon?: React.ComponentType<{ className?: string }>
-    }[]
-    statusOptions: {
-        label: string
-        value: string
-        icon?: React.ComponentType<{ className?: string }>
-    }[]
+    categoryOptions: OptionType[]
+    statusOptions: OptionType[]
 }
 
 export function DataTableToolbar<TData>({

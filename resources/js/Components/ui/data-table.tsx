@@ -12,27 +12,31 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
+import { Table } from "@tanstack/react-table"
 import * as React from "react"
 
-import { DataTableToolbar } from "./DataTableToolbar"
 import { DataTablePagination } from "@/Components/ui/data-table-pagination"
 import {
-    Table,
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
+    Table as UITable,
 } from "@/Components/ui/table"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    DataTableToolbar: React.ComponentType<{
+        table: Table<TData>
+    }>
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    DataTableToolbar,
 }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnVisibility, setColumnVisibility] =
@@ -68,7 +72,7 @@ export function DataTable<TData, TValue>({
             <DataTableToolbar table={table} />
 
             <div className="rounded-md border">
-                <Table>
+                <UITable>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -122,7 +126,7 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         )}
                     </TableBody>
-                </Table>
+                </UITable>
             </div>
 
             <DataTablePagination table={table} />

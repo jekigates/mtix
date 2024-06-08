@@ -4,7 +4,7 @@ import { PlusCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 import { columns } from "./Components/Columns"
-import { DataTable } from "./Components/DataTable"
+import { DataTableToolbar } from "./Components/DataTableToolbar"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -21,6 +21,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card"
+import { DataTable } from "@/Components/ui/data-table"
 import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
@@ -85,7 +86,11 @@ export default function Index({ auth, infos }: PageProps) {
                         </CardHeader>
 
                         <CardContent>
-                            <DataTable columns={columns} data={infos} />
+                            <DataTable
+                                columns={columns}
+                                data={infos}
+                                DataTableToolbar={DataTableToolbar}
+                            />
                         </CardContent>
                     </Card>
                 </div>

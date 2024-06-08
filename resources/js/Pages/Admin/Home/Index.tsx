@@ -48,6 +48,7 @@ export default function Index({ auth }: PageProps) {
 
                     <div className="flex items-center space-x-2">
                         <CalendarDateRangePicker />
+
                         <Button>Download</Button>
                     </div>
                 </div>
@@ -55,12 +56,15 @@ export default function Index({ auth }: PageProps) {
                 <Tabs defaultValue="overview" className="space-y-4">
                     <TabsList>
                         <TabsTrigger value="overview">Overview</TabsTrigger>
+
                         <TabsTrigger value="analytics" disabled>
                             Analytics
                         </TabsTrigger>
+
                         <TabsTrigger value="reports" disabled>
                             Reports
                         </TabsTrigger>
+
                         <TabsTrigger value="notifications" disabled>
                             Notifications
                         </TabsTrigger>

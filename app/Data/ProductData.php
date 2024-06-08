@@ -32,7 +32,7 @@ class ProductData extends Data
         public string $created_at,
         public string $updated_at,
     ) {
-        $this->theater_products_count = $theater_products->count();
+        $this->theater_products_count = $this->theater_products->count();
     }
 
     public static function fromModel(Product $product): self

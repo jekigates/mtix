@@ -59,7 +59,7 @@ const navItems = [
     },
     {
         title: "Banners",
-        href: "/admin/banners",
+        href: route("admin.banners.index"),
         icon: GalleryHorizontal,
     },
     {

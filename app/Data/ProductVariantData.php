@@ -23,7 +23,7 @@ class ProductVariantData extends Data
         public int $price,
         public Lazy|Collection $theater_products,
     ) {
-        $this->theater_products_count = $theater_products->count();
+        $this->theater_products_count = $this->theater_products->count();
     }
 
     public static function fromModel(ProductVariant $productVariant): self

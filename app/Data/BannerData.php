@@ -9,6 +9,9 @@ class BannerData extends Data
 {
     public function __construct(
         public string $id,
+        public string $bannerable_id,
+        public string $bannerable_type,
+        public string $created_at,
         public string $image,
     ) {}
 
@@ -16,6 +19,9 @@ class BannerData extends Data
     {
         return new self(
             $banner->id,
+            $banner->bannerable_id,
+            $banner->bannerable_type,
+            $banner->created_at,
             asset($banner->image->url),
         );
     }
