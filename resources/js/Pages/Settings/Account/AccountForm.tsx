@@ -176,7 +176,7 @@ export default function AccountForm({
 
             <div className="grid gap-2">
                 <Label
-                    htmlFor="province"
+                    htmlFor="province_id"
                     className={errors.province_id ? "text-destructive" : ""}
                 >
                     Province
@@ -189,7 +189,7 @@ export default function AccountForm({
                             role="combobox"
                             aria-expanded={openProvince}
                             className="justify-between"
-                            id="province"
+                            id="province_id"
                         >
                             {data.province_id
                                 ? provinces.find(
@@ -246,7 +246,7 @@ export default function AccountForm({
 
             <div className="grid gap-2">
                 <Label
-                    htmlFor="city"
+                    htmlFor="city_id"
                     className={errors.city_id ? "text-destructive" : ""}
                 >
                     City
@@ -259,7 +259,7 @@ export default function AccountForm({
                             role="combobox"
                             aria-expanded={openCity}
                             className="justify-between"
-                            id="city"
+                            id="city_id"
                         >
                             {provinces
                                 .find(
@@ -333,13 +333,13 @@ export default function AccountForm({
                     name="gender"
                 >
                     <SelectTrigger id="gender">
-                        <SelectValue placeholder="Gender" />
+                        <SelectValue placeholder="Select" />
                     </SelectTrigger>
 
                     <SelectContent>
-                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="male">Male</SelectItem>
 
-                        <SelectItem value="Female">Female</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
                     </SelectContent>
                 </Select>
 

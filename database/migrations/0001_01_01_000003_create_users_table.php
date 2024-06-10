@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('address');
             $table->char('city_id', length: 36);
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->enum('gender', ['Male', 'Female']);
+            $table->enum('gender', ['male', 'female']);
             $table->date('dob');
             $table->rememberToken();
             $table->timestamps();

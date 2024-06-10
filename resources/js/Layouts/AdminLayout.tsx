@@ -58,11 +58,6 @@ const navItems = [
         icon: Users,
     },
     {
-        title: "Banners",
-        href: route("admin.banners.index"),
-        icon: GalleryHorizontal,
-    },
-    {
         title: "Promos",
         href: route("admin.promos.index"),
         icon: Tag,

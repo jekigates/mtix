@@ -46,7 +46,7 @@ class PermissionSeeder extends Seeder
             'phone_number' => '081234567890',
             'address' => 'Jl. Kebon Jeruk No. 1',
             'city_id' =>  City::all()->random()->id,
-            'gender' => 'Male',
+            'gender' => 'male',
             'dob' => '2004-07-17',
         ]);
         $user->assignRole($role1);

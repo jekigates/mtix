@@ -47,7 +47,7 @@ export default function Register({ auth, provinces }: PageProps) {
         address: "",
         province_id: "",
         city_id: "",
-        gender: "Male",
+        gender: "male",
         dob: "",
     })
 
@@ -246,7 +246,7 @@ export default function Register({ auth, provinces }: PageProps) {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="province">Province</Label>
+                            <Label htmlFor="province_id">Province</Label>
 
                             <Popover
                                 open={openProvince}
@@ -258,7 +258,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                         role="combobox"
                                         aria-expanded={openProvince}
                                         className="justify-between"
-                                        id="province"
+                                        id="province_id"
                                     >
                                         {data.province_id
                                             ? provinces.find(
@@ -316,7 +316,7 @@ export default function Register({ auth, provinces }: PageProps) {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="city">City</Label>
+                            <Label htmlFor="city_id">City</Label>
 
                             <Popover open={openCity} onOpenChange={setOpenCity}>
                                 <PopoverTrigger asChild>
@@ -325,7 +325,7 @@ export default function Register({ auth, provinces }: PageProps) {
                                         role="combobox"
                                         aria-expanded={openCity}
                                         className="justify-between"
-                                        id="city"
+                                        id="city_id"
                                     >
                                         {provinces
                                             .find(
@@ -406,9 +406,9 @@ export default function Register({ auth, provinces }: PageProps) {
                                 </SelectTrigger>
 
                                 <SelectContent>
-                                    <SelectItem value="Male">Male</SelectItem>
+                                    <SelectItem value="male">Male</SelectItem>
 
-                                    <SelectItem value="Female">
+                                    <SelectItem value="female">
                                         Female
                                     </SelectItem>
                                 </SelectContent>
