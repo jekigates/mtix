@@ -30,17 +30,15 @@ class MovieFactory extends Factory
             'minimum_age' => fake()->randomElement([0, 13, 17, 21]),
             'type' => fake()->randomElement(['2D', '3D', '4D']),
             'producer' => implode(', ', array_map(function() {
-                return $this->faker->name($this->faker->randomElement(['male', 'female']));
-            }, range(1, $this->faker->numberBetween(1, 3)))),
-            'director' => implode(', ', array_map(function() {
-                return $this->faker->name($this->faker->randomElement(['male', 'female']));
-            }, range(1, $this->faker->numberBetween(1, 3)))),
+                return fake()->name(fake()->randomElement(['male', 'female']));
+            }, range(1, fake()->numberBetween(1, 3)))),
+            'director' => fake()->name(fake()->randomElement(['male', 'female'])),
             'writer' => implode(', ', array_map(function() {
-                return $this->faker->name($this->faker->randomElement(['male', 'female']));
-            }, range(1, $this->faker->numberBetween(1, 3)))),
+                return fake()->name(fake()->randomElement(['male', 'female']));
+            }, range(1, fake()->numberBetween(1, 3)))),
             'cast' => implode(', ', array_map(function() {
-                return $this->faker->name($this->faker->randomElement(['male', 'female']));
-            }, range(1, $this->faker->numberBetween(1, 3)))),
+                return fake()->name(fake()->randomElement(['male', 'female']));
+            }, range(1, fake()->numberBetween(1, 3)))),
             'distributor' => fake()->optional()->company(),
             'website' => fake()->optional()->url(),
             'runtime' => fake()->numberBetween(60, 180),

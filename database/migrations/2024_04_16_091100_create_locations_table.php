@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->string('name', length: 50);
-            $table->string('contact', length: 16)->unique();
+            $table->string('contact', length: 20)->unique();
             $table->string('address', length: 100);
             $table->char('city_id', length: 36);
             $table->foreign('city_id')->references('id')->on('cities');

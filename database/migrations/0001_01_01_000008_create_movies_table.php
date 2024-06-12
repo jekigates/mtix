@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('description');
             $table->integer('minimum_age');
             $table->string('type', length: 50);
-            $table->string('producer', length: 50)->nullable();
+            $table->string('producer')->nullable();
             $table->string('director', length: 50)->nullable();
-            $table->string('writer', length: 50)->nullable();
-            $table->string('cast', length: 50)->nullable();
-            $table->string('distributor', length: 50)->nullable();
-            $table->string('website', length: 50)->nullable();
+            $table->string('writer', length: 100)->nullable();
+            $table->string('cast')->nullable();
+            $table->string('distributor', length: 100)->nullable();
+            $table->string('website', length: 100)->nullable();
             $table->integer('runtime');
             $table->string('trailer', length: 50);
             $table->date('screening_start_date')->nullable();

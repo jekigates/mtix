@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name', length: 50);
             $table->string('email', length: 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', length: 8);
-            $table->string('phone_number', length: 16)->unique();
+            $table->string('password', length: 100);
+            $table->string('phone_number', length: 20)->unique();
             $table->text('address');
             $table->char('city_id', length: 36);
             $table->foreign('city_id')->references('id')->on('cities');
