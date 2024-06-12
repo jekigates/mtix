@@ -61,7 +61,7 @@ export default function Create({ auth, promo }: PageProps) {
         >
             <Head title="Show Promo" />
 
-            <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+            <div className="grid flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
                     <Link
                         href={route("admin.promos.index")}
@@ -96,6 +96,16 @@ export default function Create({ auth, promo }: PageProps) {
 
                             <CardContent>
                                 <div className="grid gap-6">
+                                    <div className="grid gap-3">
+                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                            Promo ID
+                                        </p>
+
+                                        <p className="text-sm text-muted-foreground">
+                                            {promo.id}
+                                        </p>
+                                    </div>
+
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                             Promo Name

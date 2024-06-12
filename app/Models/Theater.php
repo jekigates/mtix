@@ -14,6 +14,13 @@ class Theater extends Model
 {
     use HasFactory, HasUuids;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['brand_id'];
+
     public function studios(): HasMany
     {
         return $this->hasMany(Studio::class);

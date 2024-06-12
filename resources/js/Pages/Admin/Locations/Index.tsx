@@ -28,17 +28,12 @@ import { createOptions } from "@/utils"
 
 export default function Index({
     auth,
-    statuses,
-    categories,
-    products,
-}: PageProps<{
-    statuses: string[]
-}>) {
-    const categoryOptions = createOptions(categories, "name")
-    const statusOptions = createOptions(
-        statuses.map((status) => ({ status })),
-        "status"
-    )
+    provinces,
+    cities,
+    locations,
+}: PageProps) {
+    const provinceOptions = createOptions(provinces, "name")
+    const cityOptions = createOptions(cities, "name")
 
     return (
         <AdminLayout
@@ -58,21 +53,21 @@ export default function Index({
                             <BreadcrumbSeparator />
 
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Products</BreadcrumbPage>
+                                <BreadcrumbPage>Locations</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
             }
         >
-            <Head title="Products" />
+            <Head title="Locations" />
 
-            {products.length > 0 ? (
+            {locations.length > 0 ? (
                 <div className="space-y-4">
                     <div className="flex items-center">
                         <div className="ml-auto flex items-center gap-2">
                             <Link
-                                href={route("admin.products.create")}
+                                href={route("admin.locations.create")}
                                 className={cn(
                                     buttonVariants({
                                         size: "sm",
@@ -83,7 +78,7 @@ export default function Index({
                                 <PlusCircle className="h-3.5 w-3.5" />
 
                                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                    Add Product
+                                    Add Location
                                 </span>
                             </Link>
                         </div>
@@ -91,23 +86,22 @@ export default function Index({
 
                     <Card x-chunk="dashboard-06-chunk-0">
                         <CardHeader>
-                            <CardTitle>Products</CardTitle>
+                            <CardTitle>Locations</CardTitle>
 
                             <CardDescription>
-                                Manage your products and view their sales
-                                performance.
+                                Manage your locations.
                             </CardDescription>
                         </CardHeader>
 
                         <CardContent>
                             <DataTable
                                 columns={columns}
-                                data={products}
+                                data={locations}
                                 DataTableToolbar={(props) => (
                                     <DataTableToolbar
                                         table={props.table}
-                                        categoryOptions={categoryOptions}
-                                        statusOptions={statusOptions}
+                                        provinceOptions={provinceOptions}
+                                        cityOptions={cityOptions}
                                     />
                                 )}
                             />
@@ -118,7 +112,7 @@ export default function Index({
                 <div className="h-full flex flex-col gap-4">
                     <div className="flex items-center">
                         <h1 className="text-lg font-semibold md:text-2xl">
-                            Products
+                            Locations
                         </h1>
                     </div>
 
@@ -128,19 +122,19 @@ export default function Index({
                     >
                         <div className="flex flex-col items-center gap-1 text-center">
                             <h3 className="text-2xl font-bold tracking-tight">
-                                You have no products
+                                You have no locations
                             </h3>
 
                             <p className="text-sm text-muted-foreground">
                                 You can start selling as soon as you add a
-                                product.
+                                location.
                             </p>
 
                             <Link
-                                href={route("admin.products.create")}
+                                href={route("admin.locations.create")}
                                 className={cn(buttonVariants(), "mt-4")}
                             >
-                                Add Product
+                                Add Location
                             </Link>
                         </div>
                     </div>

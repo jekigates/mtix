@@ -33,12 +33,17 @@ declare namespace App.Data {
         updated_at: string
     }
     export type LocationData = {
+        theaters_count: number
         id: string
         name: string
         contact: string
         address: string
         city_id: string
         user_id: string
+        created_at: string
+        city?: App.Data.CityData
+        user?: App.Data.UserData
+        theaters?: Array<App.Data.TheaterData>
     }
     export type MovieData = {
         id: string
@@ -146,6 +151,15 @@ declare namespace App.Data {
         stock: number
         product?: App.Data.ProductData
         product_variant?: App.Data.ProductVariantData
+    }
+    export type UserData = {
+        id: string
+        name: string
+        phone_number: string
+        address: string
+        city_id: string
+        gender: string
+        dob: string
     }
 }
 declare namespace App.Enums {

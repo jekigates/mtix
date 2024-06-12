@@ -45,10 +45,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone_number' => 'required|string|max:16|unique:' . User::class,
             'address' => 'required|string|max:100',
-            'province_id' => 'required|string|max:50',
-            'city_id' => 'required|string|max:50',
+            'province_id' => 'required|string|max:36',
+            'city_id' => 'required|string|max:36',
             'gender' => ['required', Rule::in(['Male', 'Female'])],
-            'dob' => 'required|date|before:tomorrow',
+            'dob' => 'required|date|before:-17 years',
           ]);
 
         $user = User::create([

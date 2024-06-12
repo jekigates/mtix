@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('products', Admin\ProductController::class);
         Route::resource('infos', Admin\InfoController::class);
         Route::resource('promos', Admin\PromoController::class);
+        Route::resource('locations', Admin\LocationController::class);
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');

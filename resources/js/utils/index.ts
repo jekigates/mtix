@@ -36,3 +36,16 @@ export const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
 
     return URL.createObjectURL(files[0])
 }
+
+export const createOptions = <T extends object>(
+    items: Array<T>,
+    key: keyof T
+): Array<{ value: string; label: string }> => {
+    return items.map((item) => {
+        const keyValue = item[key]
+        return {
+            value: keyValue ? String(keyValue) : "",
+            label: keyValue ? String(keyValue) : "",
+        }
+    })
+}

@@ -33,4 +33,7 @@ export type PageProps<
     product: App.Data.ProductData
     products: App.Data.ProductData[]
     banners: App.Data.BannerData[]
+    locations: App.Data.LocationData[]
+    theaters: App.Data.TheaterData[]
+    users: App.Data.UserData[]
 }

@@ -26,9 +26,11 @@ class ProductController extends Controller
     public function index(): Response
     {
         $categories = CategoryData::collect(Category::all());
+        $statuses = ProductStatusesEnum::toArray();
         $products = ProductData::collect(Product::withoutGlobalScopes()->get(), DataCollection::class)->include('category');
 
         return Inertia::render('Admin/Products/Index', [
+            'statuses' => $statuses,
             'categories' => $categories,
             'products' => $products,
         ]);
@@ -119,11 +121,14 @@ class ProductController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         $product = Product::withoutGlobalScopes()->findOrFail($id);
-        deleteStorageImage($product->image->url);
 
-        $product->image->delete();
-        $product->variants->each->delete();
-        $product->delete();
+        if ($product->status === ProductStatusesEnum::ARCHIVED) {
+            deleteStorageImage($product->image->url);
+
+            $product->image->delete();
+            $product->variants->each->delete();
+            $product->delete();
+        }
 
         return Redirect::route('admin.products.index');
     }

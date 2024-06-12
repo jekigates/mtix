@@ -109,6 +109,16 @@ export default function Show({
                                 <div className="grid gap-6">
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                            Product ID
+                                        </p>
+
+                                        <p className="text-sm text-muted-foreground">
+                                            {product.id}
+                                        </p>
+                                    </div>
+
+                                    <div className="grid gap-3">
+                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                             Product Name
                                         </p>
 

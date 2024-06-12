@@ -89,14 +89,24 @@ export default function Register({ auth, provinces }: PageProps) {
         )
     )
     const [years, setYears] = useState(
-        Array.from({ length: 2007 - 1924 + 1 }, (_, i) => 2007 - i)
+        Array.from(
+            {
+                length:
+                    new Date().getFullYear() -
+                    17 -
+                    (new Date().getFullYear() - 100) +
+                    1,
+            },
+            (_, i) => new Date().getFullYear() - 17 - i
+        )
     )
 
     useEffect(() => {
+        // These code to get total months of a year which makes min 17 years old age minimal
         const today = new Date()
         today.setFullYear(today.getFullYear() - 17)
         let monthsInYear =
-            today.getFullYear().toString() == year ? today.getMonth() + 1 : 12
+            today.getFullYear().toString() === year ? today.getMonth() + 1 : 12
 
         setMonths(
             Array.from({ length: monthsInYear }, (_, i) =>
@@ -109,11 +119,20 @@ export default function Register({ auth, provinces }: PageProps) {
         }
 
         if (month !== "") {
-            const daysInMonth = new Date(
-                year === "" ? 0 : parseInt(year),
-                parseInt(month) + 1,
-                0
-            ).getDate()
+            // filter days based on month and year
+            let daysInMonth = 0
+            if (
+                today.getFullYear().toString() === year &&
+                parseInt(month) === today.getMonth()
+            ) {
+                daysInMonth = today.getDate()
+            } else {
+                daysInMonth = new Date(
+                    year === "" ? 0 : parseInt(year),
+                    parseInt(month) + 1,
+                    0
+                ).getDate()
+            }
 
             if (parseInt(day) > daysInMonth) {
                 setDay("")

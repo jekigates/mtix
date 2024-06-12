@@ -97,6 +97,16 @@ export default function Show({ auth, info }: PageProps) {
                                 <div className="grid gap-6">
                                     <div className="grid gap-3">
                                         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                            Info ID
+                                        </p>
+
+                                        <p className="text-sm text-muted-foreground">
+                                            {info.id}
+                                        </p>
+                                    </div>
+
+                                    <div className="grid gap-3">
+                                        <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                             Info Title
                                         </p>
 

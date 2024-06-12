@@ -123,10 +123,7 @@ export default function Create({ auth }: PageProps) {
         >
             <Head title="Create Promo" />
 
-            <form
-                onSubmit={submit}
-                className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4"
-            >
+            <form onSubmit={submit} className="grid flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
                     <Link
                         href={route("admin.promos.index")}

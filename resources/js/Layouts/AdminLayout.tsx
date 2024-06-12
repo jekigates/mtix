@@ -4,13 +4,12 @@ import {
     Cog,
     CupSoda,
     Film,
-    GalleryHorizontal,
     Home,
     LogIn,
+    Map,
     Menu,
     Newspaper,
     Tag,
-    Theater,
     Users,
 } from "lucide-react"
 import { PropsWithChildren, ReactNode, useEffect, useState } from "react"
@@ -48,9 +47,9 @@ const navItems = [
         icon: CupSoda,
     },
     {
-        title: "Theaters",
-        href: "/admin/theaters",
-        icon: Theater,
+        title: "Locations",
+        href: route("admin.locations.index"),
+        icon: Map,
     },
     {
         title: "Customers",

@@ -24,6 +24,25 @@ export const columns: ColumnDef<App.Data.InfoData>[] = [
         },
     },
     {
+        accessorKey: "description",
+        header: ({ column }) => (
+            <DataTableColumnHeader
+                column={column}
+                title="Description"
+                className="font-medium"
+            />
+        ),
+        cell: ({ row }) => {
+            return (
+                <div className="flex">
+                    <span className="max-w-[320px] truncate font-medium">
+                        {row.getValue("description")}
+                    </span>
+                </div>
+            )
+        },
+    },
+    {
         accessorKey: "created_at",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Created At" />

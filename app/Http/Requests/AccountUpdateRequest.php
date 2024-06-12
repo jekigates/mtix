@@ -18,8 +18,8 @@ class AccountUpdateRequest extends FormRequest
             'address' => ['required', 'string', 'max:100'],
             'province_id' => ['required', 'string', 'max:36'],
             'city_id' => ['required', 'string', 'max:36'],
-            'gender' => ['required', Rule::in(['Male', 'Female'])],
-            'dob' => ['required', 'date', 'before:tomorrow'],
+            'gender' => ['required', Rule::in(['male', 'female'])],
+            'dob' => ['required', 'date', 'before:-17 years'],
         ];
     }
 }
