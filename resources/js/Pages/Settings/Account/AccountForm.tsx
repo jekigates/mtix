@@ -171,6 +171,14 @@ export default function AccountForm({
     return (
         <form onSubmit={submit} className="space-y-8">
             <div className="grid gap-2">
+                <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Account ID
+                </p>
+
+                <p className="text-sm text-muted-foreground">{user.id}</p>
+            </div>
+
+            <div className="grid gap-2">
                 <Label
                     htmlFor="address"
                     className={errors.address ? "text-destructive" : ""}

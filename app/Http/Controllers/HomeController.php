@@ -4,19 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Data\BannerData;
 use App\Data\CityData;
-use App\Data\InfoData;
 use App\Data\MovieData;
-use App\Data\PromoData;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\City;
-use App\Models\Info;
-use App\Models\Promo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -63,7 +58,7 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
 
-        $roles = $user->hasRole('admin') ? Role::all()->pluck('name') : $user->getRoleNames();
+        $roles = $user->getRoleNames();
         $roles[] = 'customer';
 
         return Inertia::render('SelectRole', [

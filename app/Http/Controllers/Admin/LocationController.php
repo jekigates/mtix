@@ -60,6 +60,9 @@ class LocationController extends Controller
             ]);
         }
 
+        $user = User::findOrFail($request->user_id);
+        $user->assignRole('owner');
+
         return Redirect::route('admin.locations.index');
     }
 

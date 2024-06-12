@@ -119,6 +119,7 @@ export default function SelectRole({
                                     router.visit(route("admin.home"))
                                     break
                                 case "owner":
+                                    router.visit(route("owner.home"))
                                     break
                                 case "customer":
                                     router.visit(route("home"))

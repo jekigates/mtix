@@ -11,6 +11,7 @@ use App\Http\Controllers\TheaterProductController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Owner;
 use App\Http\Controllers\BannerController;
 
 Route::controller(HomeController::class)->group(function () {
@@ -63,6 +64,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('infos', Admin\InfoController::class);
         Route::resource('promos', Admin\PromoController::class);
         Route::resource('locations', Admin\LocationController::class);
+    });
+
+    Route::middleware('role:owner')->prefix('owner')->name('owner.')->group(function () {
+        Route::get('', [Owner\HomeController::class, 'index'])->name('home');
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');
