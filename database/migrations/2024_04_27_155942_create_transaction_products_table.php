@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transaction_products', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->char('transaction_id', length: 36);
-            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('transaction_id')->references('id')->on('transaction_headers');
             $table->char('theater_product_id', length: 36);
             $table->foreign('theater_product_id')->references('id')->on('theater_products');
             $table->integer('quantity');

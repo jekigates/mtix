@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transaction_seats', function (Blueprint $table) {
             $table->char('id', length: 36)->primary();
             $table->char('transaction_id', length: 36);
-            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('transaction_id')->references('id')->on('transaction_headers');
             $table->char('seat_id', length: 36);
             $table->foreign('seat_id')->references('id')->on('seats');
             $table->unique(['transaction_id', 'seat_id']);
