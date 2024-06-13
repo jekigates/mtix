@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if(env('APP_ENV') !== 'local')
         {
-            $url->forceSchema('https');
+            $url->forceScheme('https');
         }
 
         // Implicitly grant "admin" role all permission checks using can()
