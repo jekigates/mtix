@@ -23,11 +23,11 @@ export default function Home({ auth, banners, movies }: PageProps) {
             <MainContent>
                 <Carousel
                     className="w-full"
-                    plugins={[
-                        Autoplay({
-                            delay: 3000,
-                        }),
-                    ]}
+                    // plugins={[
+                    //     Autoplay({
+                    //         delay: 3000,
+                    //     }),
+                    // ]}
                     opts={{ loop: true }}
                 >
                     <CarouselContent>
@@ -49,39 +49,6 @@ export default function Home({ auth, banners, movies }: PageProps) {
                                 </div>
                             </CarouselItem>
                         ))}
-                        {/* {infos.map((info) => (
-                            <CarouselItem
-                                key={info.id}
-                                onClick={() => {
-                                    router.visit(route("infos.show", info.id))
-                                }}
-                            >
-                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 h-40 md:h-56">
-                                    <img
-                                        src={info.image}
-                                        alt={info.title}
-                                        className="h-full w-full object-cover object-center"
-                                    />
-                                </div>
-                            </CarouselItem>
-                        ))}
-
-                        {promos.map((promo) => (
-                            <CarouselItem
-                                key={promo.id}
-                                onClick={() => {
-                                    router.visit(route("promos.show", promo.id))
-                                }}
-                            >
-                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 h-40 md:h-56">
-                                    <img
-                                        src={promo.banner_image}
-                                        alt={promo.name}
-                                        className="h-full w-full object-cover object-center"
-                                    />
-                                </div>
-                            </CarouselItem>
-                        ))} */}
                     </CarouselContent>
 
                     <CarouselPrevious />
