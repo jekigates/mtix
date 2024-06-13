@@ -31,9 +31,9 @@ class City extends Model
     public function getActiveMovies()
     {
         $theaters = $this->theaters;
-        $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->groupBy('movie_id')->get();
+        $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->get();
         $active_movies = $theater_movies->filter(function ($theater_movie) {
-            $showtimes = $theater_movie->showtimes()->where(date('Y-m-d', $theater_movie->start_at), '>=', date('Y-m-d'))->get();;
+            $showtimes = $theater_movie->showtimes()->whereDate('start_at', '>=', date('Y-m-d'))->get();
 
             return $showtimes->isNotEmpty();
         });
@@ -45,7 +45,7 @@ class City extends Model
     public function getUpcomingMovies()
     {
         $theaters = $this->theaters;
-        $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->groupBy('movie_id')->get();
+        $theater_movies = TheaterMovie::whereIn('theater_id', $theaters->pluck('id'))->get();
         $movies = Movie::whereIn('id', $theater_movies->pluck('movie_id'))->where('screening_start_date', '=', null)->get();
 
         return $movies;

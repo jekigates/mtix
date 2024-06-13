@@ -53,25 +53,13 @@ export default function Create({ auth }: PageProps) {
 
         if (date) {
             if (date.from) {
-                let utcDateFrom = new Date(
-                    Date.UTC(
-                        date.from.getFullYear(),
-                        date.from.getMonth(),
-                        date.from.getDate()
-                    )
-                )
-                updateData.valid_start_date = utcDateFrom
+                const formattedDateFrom = `${date.from.getFullYear()}-${String(date.from.getMonth() + 1).padStart(2, "0")}-${String(date.from.getDate()).padStart(2, "0")}`
+                updateData.valid_start_date = formattedDateFrom
             }
 
             if (date.to) {
-                let utcDateTo = new Date(
-                    Date.UTC(
-                        date.to.getFullYear(),
-                        date.to.getMonth(),
-                        date.to.getDate()
-                    )
-                )
-                updateData.valid_end_date = utcDateTo
+                const formattedDateTo = `${date.to.getFullYear()}-${String(date.to.getMonth() + 1).padStart(2, "0")}-${String(date.to.getDate()).padStart(2, "0")}`
+                updateData.valid_end_date = formattedDateTo
             }
         }
 

@@ -29,11 +29,10 @@ import AdminLayout from "@/Layouts/AdminLayout"
 import { PageProps } from "@/types"
 
 export default function Create({ auth }: PageProps) {
-    const { data, setData, post, processing, errors, reset, clearErrors } =
-        useForm({
-            title: "",
-            description: "",
-        })
+    const { data, setData, post, processing, errors } = useForm({
+        title: "",
+        description: "",
+    })
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault()

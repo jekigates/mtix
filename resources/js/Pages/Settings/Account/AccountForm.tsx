@@ -59,11 +59,15 @@ export default function AccountForm({
         }
 
         if (year !== "" && month !== "" && day !== "") {
-            updateData.dob = new Date(
+            const dob = new Date(
                 parseInt(year),
-                parseInt(month),
+                parseInt(month) - 1,
                 parseInt(day)
             )
+
+            const formattedDob = dob.toISOString().split("T")[0]
+
+            updateData.dob = formattedDob
         }
 
         router.patch(

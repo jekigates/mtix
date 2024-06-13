@@ -116,6 +116,7 @@ export default function Show({ auth, movie }: PageProps) {
 
                             <a
                                 href={movie.trailer}
+                                target="_blank"
                                 className={cn(
                                     buttonVariants(),
                                     "font-semibold"

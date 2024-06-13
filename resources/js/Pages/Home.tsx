@@ -23,11 +23,11 @@ export default function Home({ auth, banners, movies }: PageProps) {
             <MainContent>
                 <Carousel
                     className="w-full"
-                    // plugins={[
-                    //     Autoplay({
-                    //         delay: 3000,
-                    //     }),
-                    // ]}
+                    plugins={[
+                        Autoplay({
+                            delay: 3000,
+                        }),
+                    ]}
                     opts={{ loop: true }}
                 >
                     <CarouselContent>

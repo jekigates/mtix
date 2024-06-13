@@ -16,7 +16,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\DataCollection;
-use Spatie\Permission\Contracts\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -47,7 +46,7 @@ class RegisteredUserController extends Controller
             'address' => 'required|string|max:100',
             'province_id' => 'required|string|max:36',
             'city_id' => 'required|string|max:36',
-            'gender' => ['required', Rule::in(['Male', 'Female'])],
+            'gender' => ['required', Rule::in(['male', 'female'])],
             'dob' => 'required|date|before:-17 years',
           ]);
 
