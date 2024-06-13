@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Owner;
 use App\Http\Controllers\BannerController;
+use Illuminate\Support\Facades\Artisan;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -71,6 +72,13 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');
+});
+
+// link to create storage link since start command not working in railway
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+
+    echo "Success created storage link";
 });
 
 require __DIR__.'/auth.php';
