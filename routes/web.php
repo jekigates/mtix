@@ -74,11 +74,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/movies/{movie}/showtimes/{showtime}', [TransactionController::class, 'create'])->name('transactions.create');
 });
 
-// link to create storage link since start command not working in railway
-Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
-
-    echo "Success created storage link";
-});
-
 require __DIR__.'/auth.php';

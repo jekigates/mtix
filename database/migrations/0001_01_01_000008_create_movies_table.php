@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('writer', length: 100)->nullable();
             $table->string('cast')->nullable();
             $table->string('distributor', length: 100)->nullable();
-            $table->string('website', length: 100)->nullable();
+            $table->string('website')->nullable();
             $table->integer('runtime');
             $table->string('trailer', length: 50);
             $table->date('screening_start_date')->nullable();
